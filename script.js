@@ -58,3 +58,9 @@ document.addEventListener('mousemove', (e) => {
         }, delay);
     });
 });
+
+// Handle Popup
+document.getElementById('popup-button').addEventListener('click', function() {
+    document.getElementById('popup-overlay').style.display = 'none';
+});
+
