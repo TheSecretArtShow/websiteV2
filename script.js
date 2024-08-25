@@ -62,43 +62,55 @@ document.addEventListener('mousemove', (e) => {
 const popups = [
     {
         message: "For the few, not the many. Are you among the few?",
-        buttonText: "I'm one of one"
+        buttonTextYes: "I'm one of one",
+        buttonTextNo: "No"
     },
     {
         message: "Access is restricted for the ordinary. Are you extraordinary?",
-        buttonText: "I am more"
+        buttonTextYes: "I am more",
+        buttonTextNo: "No"
     },
     {
         message: "This store is off limits to the general public. Are you different?",
-        buttonText: "I am one of one"
+        buttonTextYes: "I am one of one",
+        buttonTextNo: "No"
     },
     {
         message: "This content is for insiders only. Are you really on the inside?",
-        buttonText: "I'm in"
+        buttonTextYes: "I'm in",
+        buttonTextNo: "No"
     },
     {
         message: "The doors to this content are closed to most. Should they open for you?",
-        buttonText: "I'm one of one"
+        buttonTextYes: "I'm one of one",
+        buttonTextNo: "No"
     },
     {
         message: "This content is for those who know. Do you belong?",
-        buttonText: "I belong"
+        buttonTextYes: "I belong",
+        buttonTextNo: "No"
     },
     {
         message: "This content is reserved for those who stand out. Do you?",
-        buttonText: "I am one of one"
+        buttonTextYes: "I am one of one",
+        buttonTextNo: "No"
     }
 ];
 
 function showRandomPopup() {
     const randomPopup = popups[Math.floor(Math.random() * popups.length)];
     document.querySelector('.popup-content h2').textContent = randomPopup.message;
-    document.querySelector('.popup-content button').textContent = randomPopup.buttonText;
+    document.getElementById('popup-button-yes').textContent = randomPopup.buttonTextYes;
+    document.getElementById('popup-button-no').textContent = randomPopup.buttonTextNo;
 }
 
 // Display a random pop-up when the page loads
 showRandomPopup();
 
-document.getElementById('popup-button').addEventListener('click', function() {
+document.getElementById('popup-button-yes').addEventListener('click', function() {
     document.getElementById('popup-overlay').style.display = 'none';
+});
+
+document.getElementById('popup-button-no').addEventListener('click', function() {
+    window.location.href = 'https://www.gap.com';
 });
