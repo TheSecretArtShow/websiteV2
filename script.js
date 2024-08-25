@@ -20,7 +20,6 @@ productCarousel.addEventListener('animationiteration', resetScroll);
 // Initial setup
 resetScroll();
 
-
 document.addEventListener('mousemove', (e) => {
     const gridSize = 20;
     let targetX = Math.floor(e.clientX / gridSize) * gridSize;
@@ -59,8 +58,47 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Handle Popup
+// Handle Random Pop-up
+const popups = [
+    {
+        message: "For the few, not the many. Are you among the few?",
+        buttonText: "I'm one of one"
+    },
+    {
+        message: "Access is restricted for the ordinary. Are you extraordinary?",
+        buttonText: "I am more"
+    },
+    {
+        message: "This store is off limits to the general public. Are you different?",
+        buttonText: "I am one of one"
+    },
+    {
+        message: "This content is for insiders only. Are you really on the inside?",
+        buttonText: "I'm in"
+    },
+    {
+        message: "The doors to this content are closed to most. Should they open for you?",
+        buttonText: "I'm one of one"
+    },
+    {
+        message: "This content is for those who know. Do you belong?",
+        buttonText: "I belong"
+    },
+    {
+        message: "This content is reserved for those who stand out. Do you?",
+        buttonText: "I am one of one"
+    }
+];
+
+function showRandomPopup() {
+    const randomPopup = popups[Math.floor(Math.random() * popups.length)];
+    document.querySelector('.popup-content h2').textContent = randomPopup.message;
+    document.querySelector('.popup-content button').textContent = randomPopup.buttonText;
+}
+
+// Display a random pop-up when the page loads
+showRandomPopup();
+
 document.getElementById('popup-button').addEventListener('click', function() {
     document.getElementById('popup-overlay').style.display = 'none';
 });
-
