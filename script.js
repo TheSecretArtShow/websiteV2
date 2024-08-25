@@ -4,6 +4,23 @@ const products = document.querySelectorAll('.product');
 let lastX = 0, lastY = 0;
 let moveX = true;
 
+const productCarousel = document.querySelector('.product-carousel');
+
+function resetScroll() {
+    productCarousel.style.transition = 'none';
+    productCarousel.style.transform = 'translateX(0)';
+    productCarousel.append(...productCarousel.children);
+    productCarousel.offsetHeight; // Trigger reflow to reset animation
+    productCarousel.style.transition = 'transform 30s linear';
+    productCarousel.style.transform = `translateX(-${productCarousel.scrollWidth}px)`;
+}
+
+productCarousel.addEventListener('animationiteration', resetScroll);
+
+// Initial setup
+resetScroll();
+
+
 document.addEventListener('mousemove', (e) => {
     const gridSize = 20;
     let targetX = Math.floor(e.clientX / gridSize) * gridSize;
