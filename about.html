@@ -87,20 +87,27 @@
 <body>
 
     <header>
-        <div class="container">
-            <h1 style="text-align: center;">
-                <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-            </h1>
-            <nav>
-                <ul style="display: flex; justify-content: center; list-style: none; padding: 0;">
-                    <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                    <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                    <li style="margin: 0 15px;"><a href="shop.html">Shop</a></li>
-                    <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="container">
+        <h1 style="text-align: center;">
+            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
+        </h1>
+        <nav>
+            <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
+                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
+                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
+                <li style="margin: 0 15px; position: relative;">
+                    <a href="shop.html">Shop</a>
+                    <ul class="dropdown">
+                        <li><a href="shop.html">All pieces</a></li>
+                        <li><a href="collections.html">Collections</a></li>
+                    </ul>
+                </li>
+                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
 
     <section class="hero">
         <div class="container">
