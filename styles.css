@@ -134,4 +134,105 @@ nav ul li .dropdown li a:hover {
     color: #ff6b6b;
 }
 
+/* Collection Item Container */
+.collection-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Horizontal space between items */
+    margin-bottom: 50px; /* Adds vertical spacing between rows */
+}
+
+/* Collection Item Styling */
+.collection-item {
+    position: relative;
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    background-color: #333; /* Placeholder background color */
+    color: #f5f5f5;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 30px; /* Vertical space between items */
+}
+
+.collection-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.collection-item h3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    font-size: 1.5rem;
+    color: #f5f5f5;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1;
+    opacity: 1;
+}
+
+.collection-item .coming-soon-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(255, 255, 255, 0.3));
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: scale(1.2);
+}
+
+.collection-item .view-details {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff6b6b;
+    color: #f5f5f5;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(20px);
+}
+
+.collection-item:hover {
+    transform: translateY(-10px); /* Lifts the entire box */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Adds shadow for depth */
+}
+
+.collection-item:hover .coming-soon-overlay {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.collection-item:hover img {
+    transform: scale(1.1);
+}
+
+.collection-item:hover .view-details {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+
 
