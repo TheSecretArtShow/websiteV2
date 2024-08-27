@@ -114,3 +114,51 @@ document.getElementById('popup-button-yes').addEventListener('click', function()
 document.getElementById('popup-button-no').addEventListener('click', function() {
     window.location.href = 'https://www.gap.com';
 });
+
+    // Handle Email Popup
+    const emailPopup = document.getElementById('email-popup');
+    const waitlistButton = document.getElementById('waitlist-button');
+    const insiderButton = document.getElementById('insider-button');
+    const resumeButton = document.getElementById('resume-browsing-button');
+
+    if (waitlistButton) {
+        waitlistButton.addEventListener('click', function() {
+            const emailInput = document.getElementById('waitlist-email');
+            if (emailInput) {
+                emailInput.style.display = emailInput.style.display === 'none' ? 'block' : 'none';
+            }
+        });
+    }
+
+    if (insiderButton) {
+        insiderButton.addEventListener('click', function() {
+            const emailInput = document.getElementById('insider-email');
+            if (emailInput) {
+                emailInput.style.display = emailInput.style.display === 'none' ? 'block' : 'none';
+            }
+        });
+    }
+
+    if (resumeButton) {
+        resumeButton.addEventListener('click', function() {
+            if (emailPopup) {
+                emailPopup.style.display = 'none';
+            }
+        });
+    }
+
+    // Function to show the popup when a "View Details" button is clicked
+    function showEmailPopup() {
+        if (emailPopup) {
+            emailPopup.style.display = 'flex';
+        }
+    }
+
+    // Attach the popup function to each "View Details" button
+    const viewDetailsButtons = document.querySelectorAll('.view-details');
+    if (viewDetailsButtons.length > 0) {
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', showEmailPopup);
+        });
+    }
+});
