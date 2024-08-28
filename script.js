@@ -111,21 +111,61 @@ document.addEventListener('DOMContentLoaded', function () {
     const waitlistButton = document.getElementById('waitlist-button');
     const insiderButton = document.getElementById('insider-button');
     const resumeButton = document.getElementById('resume-browsing-button');
+    const waitlistEmailInput = document.getElementById('waitlist-email');
+    const insiderEmailInput = document.getElementById('insider-email');
+    const submitWaitlistButton = document.getElementById('submit-waitlist');
+    const submitInsiderButton = document.getElementById('submit-insider');
+
+    function sendEmailToServer(email, listType) {
+        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email, listType: listType })
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || 'Email added successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+    }
 
     if (waitlistButton) {
         waitlistButton.addEventListener('click', function () {
-            const emailInput = document.getElementById('waitlist-email');
-            if (emailInput) {
-                emailInput.style.display = emailInput.style.display === 'none' ? 'block' : 'none';
+            if (waitlistEmailInput) {
+                waitlistEmailInput.style.display = waitlistEmailInput.style.display === 'none' ? 'block' : 'none';
+                submitWaitlistButton.style.display = 'block';
+            }
+        });
+    }
+
+    if (submitWaitlistButton) {
+        submitWaitlistButton.addEventListener('click', function () {
+            const email = waitlistEmailInput.value;
+            if (email) {
+                sendEmailToServer(email, 'Waitlist');
             }
         });
     }
 
     if (insiderButton) {
         insiderButton.addEventListener('click', function () {
-            const emailInput = document.getElementById('insider-email');
-            if (emailInput) {
-                emailInput.style.display = emailInput.style.display === 'none' ? 'block' : 'none';
+            if (insiderEmailInput) {
+                insiderEmailInput.style.display = insiderEmailInput.style.display === 'none' ? 'block' : 'none';
+                submitInsiderButton.style.display = 'block';
+            }
+        });
+    }
+
+    if (submitInsiderButton) {
+        submitInsiderButton.addEventListener('click', function () {
+            const email = insiderEmailInput.value;
+            if (email) {
+                sendEmailToServer(email, 'Insider Alerts');
             }
         });
     }
@@ -152,55 +192,4 @@ document.addEventListener('DOMContentLoaded', function () {
             button.addEventListener('click', showEmailPopup);
         });
     }
-
-    // Send Email to Server function and handle response to show confirmation animation
-    function sendEmailToServer(email, listType, buttonElement) {
-        fetch('https://your-cloud-run-url/submit-email', {  // Replace with your actual URL
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, listType })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error(data.error);
-            } else {
-                showLuxuriousConfirmation(buttonElement);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    function showLuxuriousConfirmation(buttonElement) {
-        buttonElement.style.opacity = 0; // Fade out the button
-        setTimeout(() => {
-            buttonElement.style.display = 'none'; // Hide the button after fade out
-            const confirmationMessage = document.createElement('div');
-            confirmationMessage.className = 'luxurious-confirmation';
-            confirmationMessage.innerHTML = '<span>Thank you! You are on the list.</span>';
-            buttonElement.parentNode.appendChild(confirmationMessage); // Add confirmation message
-
-            // Trigger the animation
-            setTimeout(() => {
-                confirmationMessage.classList.add('animate');
-            }, 100); 
-        }, 300);
-    }
-
-    // Bind email submission to buttons
-    document.getElementById('submit-waitlist').addEventListener('click', function () {
-        const emailInput = document.getElementById('waitlist-email');
-        if (emailInput.value) {
-            sendEmailToServer(emailInput.value, 'Waitlist', waitlistButton);
-        }
-    });
-
-    document.getElementById('submit-insider').addEventListener('click', function () {
-        const emailInput = document.getElementById('insider-email');
-        if (emailInput.value) {
-            sendEmailToServer(emailInput.value, 'Insider alerts', insiderButton);
-        }
-    });
 });
