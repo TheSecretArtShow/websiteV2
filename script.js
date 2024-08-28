@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitInsiderButton = document.getElementById('submit-insider');
 
     function sendEmailToServer(email, listType) {
-    fetch('https://<your-cloud-run-url>/submit-email', {
+    fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
