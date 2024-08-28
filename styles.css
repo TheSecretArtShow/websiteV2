@@ -37,6 +37,7 @@
     border-radius: 8px;
     transition: transform 0.3s ease;
     text-align: center;
+    position: relative; /* Added for the popup */
 }
 
 .product img {
@@ -239,9 +240,86 @@ nav ul li .dropdown li a:hover {
     opacity: 0; /* Fade out the title on hover */
 }
 
+/* Email Popup Styling */
+.email-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
 
+.email-popup-content {
+    background: #222;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 80%;
+}
 
+.email-popup-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #ff6b6b;
+}
 
+.email-popup-content p {
+    font-size: 1rem;
+    color: #f5f5f5;
+    margin-bottom: 20px;
+}
 
+.signup-option {
+    margin-bottom: 20px;
+}
 
+.email-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
 
+/* Styling for the more appealing buttons */
+.signup-option button {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #ff6b6b, #ff3b3b);
+    border: none;
+    color: #f5f5f5;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 10px; /* Adjust spacing between the buttons */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.signup-option button:hover {
+    background: linear-gradient(45deg, #ff3b3b, #ff1a1a);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling for the less appealing "Resume browsing" button */
+.resume-button {
+    padding: 10px 20px;
+    background-color: #444;
+    border: none;
+    color: #f5f5f5;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Adjust spacing above the button */
+    border-radius: 5px;
+}
+
+.resume-button:hover {
+    background-color: #666;
+}
