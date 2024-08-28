@@ -113,9 +113,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const resumeButton = document.getElementById('resume-browsing-button');
     const waitlistEmailInput = document.getElementById('waitlist-email');
     const insiderEmailInput = document.getElementById('insider-email');
+    const submitWaitlistButton = document.getElementById('submit-waitlist');
+    const submitInsiderButton = document.getElementById('submit-insider');
 
     function sendEmailToServer(email, listType) {
-        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app', { // Replace with your Cloud Run URL
+        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -136,13 +138,16 @@ document.addEventListener('DOMContentLoaded', function () {
         waitlistButton.addEventListener('click', function () {
             if (waitlistEmailInput) {
                 waitlistEmailInput.style.display = waitlistEmailInput.style.display === 'none' ? 'block' : 'none';
+                submitWaitlistButton.style.display = 'block';
+            }
+        });
+    }
 
-                waitlistEmailInput.addEventListener('change', function () {
-                    const email = waitlistEmailInput.value;
-                    if (email) {
-                        sendEmailToServer(email, 'Waitlist');
-                    }
-                });
+    if (submitWaitlistButton) {
+        submitWaitlistButton.addEventListener('click', function () {
+            const email = waitlistEmailInput.value;
+            if (email) {
+                sendEmailToServer(email, 'Waitlist');
             }
         });
     }
@@ -151,13 +156,16 @@ document.addEventListener('DOMContentLoaded', function () {
         insiderButton.addEventListener('click', function () {
             if (insiderEmailInput) {
                 insiderEmailInput.style.display = insiderEmailInput.style.display === 'none' ? 'block' : 'none';
+                submitInsiderButton.style.display = 'block';
+            }
+        });
+    }
 
-                insiderEmailInput.addEventListener('change', function () {
-                    const email = insiderEmailInput.value;
-                    if (email) {
-                        sendEmailToServer(email, 'Insider Alerts');
-                    }
-                });
+    if (submitInsiderButton) {
+        submitInsiderButton.addEventListener('click', function () {
+            const email = insiderEmailInput.value;
+            if (email) {
+                sendEmailToServer(email, 'Insider Alerts');
             }
         });
     }
