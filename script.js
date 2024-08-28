@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const squares = document.querySelectorAll('.square');
     const shopNowButton = document.getElementById('shop-now');
     const products = document.querySelectorAll('.product');
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const popupNoButton = document.getElementById('popup-button-no');
 
     if (popupYesButton) {
-        popupYesButton.addEventListener('click', function() {
+        popupYesButton.addEventListener('click', function () {
             const popupOverlay = document.getElementById('popup-overlay');
             if (popupOverlay) {
                 popupOverlay.style.display = 'none';
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (popupNoButton) {
-        popupNoButton.addEventListener('click', function() {
+        popupNoButton.addEventListener('click', function () {
             window.location.href = 'https://www.gap.com';
         });
     }
@@ -111,27 +111,59 @@ document.addEventListener('DOMContentLoaded', function() {
     const waitlistButton = document.getElementById('waitlist-button');
     const insiderButton = document.getElementById('insider-button');
     const resumeButton = document.getElementById('resume-browsing-button');
+    const waitlistEmailInput = document.getElementById('waitlist-email');
+    const insiderEmailInput = document.getElementById('insider-email');
+
+    function sendEmailToServer(email, listType) {
+        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app', { // Replace with your Cloud Run URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email, listType: listType })
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || 'Email added successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+    }
 
     if (waitlistButton) {
-        waitlistButton.addEventListener('click', function() {
-            const emailInput = document.getElementById('waitlist-email');
-            if (emailInput) {
-                emailInput.style.display = emailInput.style.display === 'none' ? 'block' : 'none';
+        waitlistButton.addEventListener('click', function () {
+            if (waitlistEmailInput) {
+                waitlistEmailInput.style.display = waitlistEmailInput.style.display === 'none' ? 'block' : 'none';
+
+                waitlistEmailInput.addEventListener('change', function () {
+                    const email = waitlistEmailInput.value;
+                    if (email) {
+                        sendEmailToServer(email, 'Waitlist');
+                    }
+                });
             }
         });
     }
 
     if (insiderButton) {
-        insiderButton.addEventListener('click', function() {
-            const emailInput = document.getElementById('insider-email');
-            if (emailInput) {
-                emailInput.style.display = emailInput.style.display === 'none' ? 'block' : 'none';
+        insiderButton.addEventListener('click', function () {
+            if (insiderEmailInput) {
+                insiderEmailInput.style.display = insiderEmailInput.style.display === 'none' ? 'block' : 'none';
+
+                insiderEmailInput.addEventListener('change', function () {
+                    const email = insiderEmailInput.value;
+                    if (email) {
+                        sendEmailToServer(email, 'Insider Alerts');
+                    }
+                });
             }
         });
     }
 
     if (resumeButton) {
-        resumeButton.addEventListener('click', function() {
+        resumeButton.addEventListener('click', function () {
             if (emailPopup) {
                 emailPopup.style.display = 'none';
             }
