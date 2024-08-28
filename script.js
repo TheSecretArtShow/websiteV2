@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitWaitlistButton = document.getElementById('submit-waitlist');
     const submitInsiderButton = document.getElementById('submit-insider');
 
-    function sendEmailToServer(email, listType, buttonElement) {
+    function sendEmailToServer(email, listType, buttonElement, emailInputElement) {
         fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
             method: 'POST',
             headers: {
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
-            showLuxuriousConfirmation(buttonElement);
+            showLuxuriousConfirmation(buttonElement, emailInputElement);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -134,20 +134,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function showLuxuriousConfirmation(buttonElement) {
-        buttonElement.style.opacity = 0; // Fade out the button
-        setTimeout(() => {
-            buttonElement.style.display = 'none'; // Hide the button after fade out
-            const confirmationMessage = document.createElement('div');
-            confirmationMessage.className = 'luxurious-confirmation';
-            confirmationMessage.innerHTML = '<span>Thank you! You are on the list.</span>';
-            buttonElement.parentNode.appendChild(confirmationMessage); // Add confirmation message
+    function showLuxuriousConfirmation(buttonElement, emailInputElement) {
+        // Hide the button and input
+        buttonElement.style.display = 'none';
+        emailInputElement.style.display = 'none';
 
-            // Trigger the animation
-            setTimeout(() => {
-                confirmationMessage.classList.add('animate');
-            }, 100); 
-        }, 300);
+        // Create the confirmation message element
+        const confirmationMessage = document.createElement('div');
+        confirmationMessage.className = 'luxurious-confirmation';
+        confirmationMessage.textContent = 'Thank you! You are on the list.';
+
+        // Insert the confirmation message after the email input
+        emailInputElement.parentNode.appendChild(confirmationMessage);
+
+        // Trigger the animation
+        setTimeout(() => {
+            confirmationMessage.classList.add('animate');
+        }, 100);
     }
 
     if (waitlistButton) {
@@ -163,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
             if (email) {
-                sendEmailToServer(email, 'Waitlist', waitlistButton);
+                sendEmailToServer(email, 'Waitlist', submitWaitlistButton, waitlistEmailInput);
             }
         });
     }
@@ -181,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitInsiderButton.addEventListener('click', function () {
             const email = insiderEmailInput.value;
             if (email) {
-                sendEmailToServer(email, 'Insider Alerts', insiderButton);
+                sendEmailToServer(email, 'Insider Alerts', submitInsiderButton, insiderEmailInput);
             }
         });
     }
