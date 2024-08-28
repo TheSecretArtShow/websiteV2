@@ -117,22 +117,38 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitInsiderButton = document.getElementById('submit-insider');
 
     function sendEmailToServer(email, listType) {
-        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: email, listType: listType })
-        })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message || 'Email added successfully!');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
-    }
+    fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, listType })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            // Optionally handle error case
+            console.error(data.error);
+        } else {
+            // Create a more seamless notification, such as a toast message
+            showNotification(`Email ${email} added to ${listType} list.`);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Function to show a notification
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 3000); // Remove notification after 3 seconds
+}
+
 
     if (waitlistButton) {
         waitlistButton.addEventListener('click', function () {
