@@ -147,9 +147,12 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.fontWeight = 'bold';
         confirmationMessage.style.borderRadius = '12px';
         confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
-        confirmationMessage.style.animation = 'fadeIn 1.5s cubic-bezier(0.25, 1.25, 0.5, 1) forwards, glowPulse 2s infinite alternate';
+        confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
         confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = 'Thank you! You are on the list.';
+
+        // Append to parent
+        parentElement.appendChild(confirmationMessage);
 
         // Optional: Add a glowing border effect
         confirmationMessage.style.border = '1px solid transparent';
@@ -157,18 +160,30 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.borderImage = 'linear-gradient(45deg, gold, #f5e1b9) 1';
         confirmationMessage.style.borderImageSlice = 1;
 
-        // Optional: Pulse effect to mimic light reflection seen in luxury branding
+        // Optional: Luxurious animation styles
         const style = document.createElement('style');
         style.innerHTML = `
-            @keyframes glowPulse {
-                from { box-shadow: 0 0 15px rgba(255, 223, 0, 0.5); }
-                to { box-shadow: 0 0 30px rgba(255, 215, 0, 0.7); }
+            @keyframes fadeInScale {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes shimmerEffect {
+                from {
+                    background-position: 0 0;
+                }
+                to {
+                    background-position: 100% 0;
+                }
             }
         `;
         document.head.appendChild(style);
-
-        // Append to parent
-        parentElement.appendChild(confirmationMessage);
     }
 
     if (waitlistButton) {
