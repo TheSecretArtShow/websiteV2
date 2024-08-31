@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitWaitlistButton = document.getElementById('submit-waitlist');
     const submitInsiderButton = document.getElementById('submit-insider');
 
-    function sendEmailToServer(email, listType, buttonElement, emailInputElement) {
+    function sendEmailToServer(email, listType, confirmationElement) {
         fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
             method: 'POST',
             headers: {
@@ -124,33 +124,41 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({ email: email, listType: listType })
         })
-        .then(response => response.json())
-        .then(data => {
-            showLuxuriousConfirmation(buttonElement, emailInputElement);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        });
+            .then(response => response.json())
+            .then(data => {
+                showLuxuriousConfirmation(confirmationElement);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
     }
 
-    function showLuxuriousConfirmation(buttonElement, emailInputElement) {
-        // Hide the button and input
-        buttonElement.style.display = 'none';
-        emailInputElement.style.display = 'none';
+    function showLuxuriousConfirmation(parentElement) {
+        // Clear existing content
+        parentElement.innerHTML = '';
 
-        // Create the confirmation message element
+        // Create the luxurious confirmation message
         const confirmationMessage = document.createElement('div');
-        confirmationMessage.className = 'luxurious-confirmation';
+        confirmationMessage.style.padding = '20px';
+        confirmationMessage.style.background = 'linear-gradient(45deg, gold, #ffdd57)';
+        confirmationMessage.style.color = '#000';
+        confirmationMessage.style.fontWeight = 'bold';
+        confirmationMessage.style.borderRadius = '10px';
+        confirmationMessage.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+        confirmationMessage.style.animation = 'fadeIn 1s ease-out';
+        confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = 'Thank you! You are on the list.';
 
-        // Insert the confirmation message after the email input
-        emailInputElement.parentNode.appendChild(confirmationMessage);
-
-        // Trigger the animation
+        // Optional: Add animation
+        confirmationMessage.style.transition = 'transform 0.5s ease';
+        confirmationMessage.style.transform = 'scale(1.05)';
         setTimeout(() => {
-            confirmationMessage.classList.add('animate');
-        }, 100);
+            confirmationMessage.style.transform = 'scale(1)';
+        }, 500);
+
+        // Append to parent
+        parentElement.appendChild(confirmationMessage);
     }
 
     if (waitlistButton) {
@@ -166,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
             if (email) {
-                sendEmailToServer(email, 'Waitlist', submitWaitlistButton, waitlistEmailInput);
+                sendEmailToServer(email, 'Waitlist', waitlistButton.parentElement);
             }
         });
     }
@@ -184,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitInsiderButton.addEventListener('click', function () {
             const email = insiderEmailInput.value;
             if (email) {
-                sendEmailToServer(email, 'Insider Alerts', submitInsiderButton, insiderEmailInput);
+                sendEmailToServer(email, 'Insider Alerts', insiderButton.parentElement);
             }
         });
     }
