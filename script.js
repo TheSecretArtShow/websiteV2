@@ -141,13 +141,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // Create the luxurious confirmation message
         const confirmationMessage = document.createElement('div');
         confirmationMessage.style.padding = '20px';
-        confirmationMessage.style.background = 'linear-gradient(135deg, #f9f1d9, #e2c98f, #dbcba1)';
+        confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
         confirmationMessage.style.color = '#2a2a2a';
-        confirmationMessage.style.fontFamily = "'Bodoni Moda', serif"; // Luxury font style reminiscent of high-end brands
-        confirmationMessage.style.fontWeight = '600';
-        confirmationMessage.style.borderRadius = '15px';
-        confirmationMessage.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.5)';
-        confirmationMessage.style.animation = 'luxFadeIn 1.2s ease-out forwards, luxGlow 6s infinite alternate';
+        confirmationMessage.style.fontFamily = "'Garamond', serif"; // Classic luxury font style
+        confirmationMessage.style.fontWeight = 'bold';
+        confirmationMessage.style.borderRadius = '12px';
+        confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
+        confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
         confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = 'Thank you! You are on the list.';
 
@@ -163,24 +163,22 @@ document.addEventListener('DOMContentLoaded', function () {
         // Optional: Luxurious animation styles
         const style = document.createElement('style');
         style.innerHTML = `
-            @keyframes luxFadeIn {
+            @keyframes fadeInScale {
                 0% {
                     opacity: 0;
-                    transform: translateY(30px) scale(0.9);
+                    transform: scale(0.8);
                 }
                 100% {
                     opacity: 1;
-                    transform: translateY(0) scale(1);
+                    transform: scale(1);
                 }
             }
 
-            @keyframes luxGlow {
-                0% {
-                    box-shadow: 0 0 15px rgba(255, 223, 186, 0.4), 0 0 25px rgba(255, 223, 186, 0.6);
+            @keyframes shimmerEffect {
+                from {
                     background-position: 0 0;
                 }
-                100% {
-                    box-shadow: 0 0 25px rgba(255, 215, 160, 0.7), 0 0 45px rgba(255, 223, 186, 0.9);
+                to {
                     background-position: 100% 0;
                 }
             }
