@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitWaitlistButton = document.getElementById('submit-waitlist');
     const submitInsiderButton = document.getElementById('submit-insider');
 
-    function sendEmailToServer(email, listType) {
+    function sendEmailToServer(email, listType, confirmationElement) {
         fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
             method: 'POST',
             headers: {
@@ -126,12 +126,64 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
-                alert(data.message || 'Email added successfully!');
+                showLuxuriousConfirmation(confirmationElement);
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again.');
             });
+    }
+
+    function showLuxuriousConfirmation(parentElement) {
+        // Clear existing content
+        parentElement.innerHTML = '';
+
+        // Create the luxurious confirmation message
+        const confirmationMessage = document.createElement('div');
+        confirmationMessage.style.padding = '20px';
+        confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
+        confirmationMessage.style.color = '#2a2a2a';
+        confirmationMessage.style.fontFamily = "'Garamond', serif"; // Classic luxury font style
+        confirmationMessage.style.fontWeight = 'bold';
+        confirmationMessage.style.borderRadius = '12px';
+        confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
+        confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
+        confirmationMessage.style.textAlign = 'center';
+        confirmationMessage.textContent = 'You have been added to our list.';
+
+        // Append to parent
+        parentElement.appendChild(confirmationMessage);
+
+        // Optional: Add a glowing border effect
+        confirmationMessage.style.border = '1px solid transparent';
+        confirmationMessage.style.transition = 'border 0.5s ease';
+        confirmationMessage.style.borderImage = 'linear-gradient(45deg, gold, #f5e1b9) 1';
+        confirmationMessage.style.borderImageSlice = 1;
+
+        // Optional: Luxurious animation styles
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeInScale {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes shimmerEffect {
+                from {
+                    background-position: 0 0;
+                }
+                to {
+                    background-position: 100% 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     }
 
     if (waitlistButton) {
@@ -147,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
             if (email) {
-                sendEmailToServer(email, 'Waitlist');
+                sendEmailToServer(email, 'Waitlist', waitlistButton.parentElement);
             }
         });
     }
@@ -165,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitInsiderButton.addEventListener('click', function () {
             const email = insiderEmailInput.value;
             if (email) {
-                sendEmailToServer(email, 'Insider Alerts');
+                sendEmailToServer(email, 'Insider Alerts', insiderButton.parentElement);
             }
         });
     }
