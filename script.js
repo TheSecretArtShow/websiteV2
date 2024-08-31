@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
         confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
         confirmationMessage.style.textAlign = 'center';
-        confirmationMessage.textContent = 'Thank you! You are on the list.';
+        confirmationMessage.textContent = 'You have been added to our list.';
 
         // Append to parent
         parentElement.appendChild(confirmationMessage);
