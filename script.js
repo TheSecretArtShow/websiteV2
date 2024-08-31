@@ -116,17 +116,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitWaitlistButton = document.getElementById('submit-waitlist');
     const submitInsiderButton = document.getElementById('submit-insider');
 
-    function sendEmailToServer(email, listType, confirmationElement) {
+    function sendEmailToServer(email, listType, name, confirmationElement) {
         fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: email, listType: listType })
+            body: JSON.stringify({ email: email, listType: listType, name: name })
         })
             .then(response => response.json())
             .then(data => {
-                showLuxuriousConfirmation(confirmationElement);
+                showLuxuriousConfirmation(confirmationElement, name);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    function showLuxuriousConfirmation(parentElement) {
+    function showLuxuriousConfirmation(parentElement, name) {
         // Clear existing content
         parentElement.innerHTML = '';
 
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
         confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
         confirmationMessage.style.textAlign = 'center';
-        confirmationMessage.textContent = 'You have been added to our list.';
+        confirmationMessage.textContent = `Thank you! You've been added to the waitlist for ${name}.`;
 
         // Append to parent
         parentElement.appendChild(confirmationMessage);
@@ -198,8 +198,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitWaitlistButton) {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
+            const productName = "Example Product"; // Update this dynamically based on the selected product
             if (email) {
-                sendEmailToServer(email, 'Waitlist', waitlistButton.parentElement);
+                sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
             }
         });
     }
@@ -217,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitInsiderButton.addEventListener('click', function () {
             const email = insiderEmailInput.value;
             if (email) {
-                sendEmailToServer(email, 'Insider Alerts', insiderButton.parentElement);
+                sendEmailToServer(email, 'Insider Alerts', '', insiderButton.parentElement);
             }
         });
     }
