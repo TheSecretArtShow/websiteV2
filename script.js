@@ -141,21 +141,31 @@ document.addEventListener('DOMContentLoaded', function () {
         // Create the luxurious confirmation message
         const confirmationMessage = document.createElement('div');
         confirmationMessage.style.padding = '20px';
-        confirmationMessage.style.background = 'linear-gradient(45deg, gold, #ffdd57)';
-        confirmationMessage.style.color = '#000';
+        confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
+        confirmationMessage.style.color = '#2a2a2a';
+        confirmationMessage.style.fontFamily = "'Garamond', serif"; // Classic luxury font style
         confirmationMessage.style.fontWeight = 'bold';
-        confirmationMessage.style.borderRadius = '10px';
-        confirmationMessage.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
-        confirmationMessage.style.animation = 'fadeIn 1s ease-out';
+        confirmationMessage.style.borderRadius = '12px';
+        confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
+        confirmationMessage.style.animation = 'fadeIn 1.5s cubic-bezier(0.25, 1.25, 0.5, 1) forwards, glowPulse 2s infinite alternate';
         confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = 'Thank you! You are on the list.';
 
-        // Optional: Add animation
-        confirmationMessage.style.transition = 'transform 0.5s ease';
-        confirmationMessage.style.transform = 'scale(1.05)';
-        setTimeout(() => {
-            confirmationMessage.style.transform = 'scale(1)';
-        }, 500);
+        // Optional: Add a glowing border effect
+        confirmationMessage.style.border = '1px solid transparent';
+        confirmationMessage.style.transition = 'border 0.5s ease';
+        confirmationMessage.style.borderImage = 'linear-gradient(45deg, gold, #f5e1b9) 1';
+        confirmationMessage.style.borderImageSlice = 1;
+
+        // Optional: Pulse effect to mimic light reflection seen in luxury branding
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes glowPulse {
+                from { box-shadow: 0 0 15px rgba(255, 223, 0, 0.5); }
+                to { box-shadow: 0 0 30px rgba(255, 215, 0, 0.7); }
+            }
+        `;
+        document.head.appendChild(style);
 
         // Append to parent
         parentElement.appendChild(confirmationMessage);
