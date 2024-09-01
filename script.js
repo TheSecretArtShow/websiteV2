@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showLuxuriousConfirmationInPopup(confirmationElement, name, true);
             } else if (listType === 'Insider Alerts') {
                 setInsiderAlertSignedUp();
-                showInsiderAlertConfirmation(confirmationElement);
+                showInsiderAlertConfirmationOnce(confirmationElement);
             }
         })
         .catch(error => {
@@ -198,8 +198,8 @@ document.addEventListener('DOMContentLoaded', function () {
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
 
-    // Display insider alert confirmation
-    function showInsiderAlertConfirmation(confirmationElement) {
+    // Display insider alert confirmation once
+    function showInsiderAlertConfirmationOnce(confirmationElement) {
         confirmationElement.innerHTML = ''; // Clear existing content
 
         // Create the insider alert confirmation message
@@ -225,7 +225,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Append the insider alert message and button to the email popup content
         confirmationElement.appendChild(insiderConfirmationMessage);
         confirmationElement.appendChild(resumeButton);
-        emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
 
     // Function to display the email popup specific to each product
@@ -237,7 +236,10 @@ document.addEventListener('DOMContentLoaded', function () {
         emailPopup.style.display = 'flex';
 
         // Check if the product is already waitlisted
-        if (getWaitlistStatus(productName)) {
+        const isWaitlisted = getWaitlistStatus(productName);
+
+        // Show the waitlist confirmation if already waitlisted
+        if (isWaitlisted) {
             showLuxuriousConfirmationInPopup(
                 popupContent,
                 productName,
@@ -246,11 +248,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             resetForm();
             setupPopupListeners(productName);
-        }
-
-        // Show the correct insider alert status
-        if (getInsiderAlertStatus()) {
-            showInsiderAlertConfirmation(popupContent);
         }
     }
 
