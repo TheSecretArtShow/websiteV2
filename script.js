@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
-            showLuxuriousConfirmation(confirmationElement, name);
+            showLuxuriousConfirmationInPopup(confirmationElement, name);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -141,8 +141,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Display luxurious confirmation inside the email popup
-    function showLuxuriousConfirmationInPopup(productName) {
-        popupContent.innerHTML = ''; // Clear existing content
+    function showLuxuriousConfirmationInPopup(confirmationElement, productName) {
+        confirmationElement.innerHTML = ''; // Clear existing content
 
         // Create the luxurious confirmation message
         const confirmationMessage = document.createElement('div');
@@ -157,8 +157,18 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = `Thank you! You've been added to the waitlist for ${productName}.`;
 
-        // Append the confirmation message to the email popup content
-        popupContent.appendChild(confirmationMessage);
+        // Add the "Resume Browsing" button to the confirmation message
+        const resumeButton = document.createElement('button');
+        resumeButton.textContent = 'Resume browsing';
+        resumeButton.className = 'resume-button';
+        resumeButton.style.marginTop = '20px';
+        resumeButton.addEventListener('click', function () {
+            emailPopup.style.display = 'none';
+        });
+
+        // Append the confirmation message and button to the email popup content
+        confirmationElement.appendChild(confirmationMessage);
+        confirmationElement.appendChild(resumeButton);
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
 
@@ -173,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Check if the product is already waitlisted
         if (getWaitlistStatus(productName)) {
             // Show confirmation in the email popup
-            showLuxuriousConfirmationInPopup(productName);
+            showLuxuriousConfirmationInPopup(popupContent, productName);
         } else {
             // Show the email input popup normally if not waitlisted
             resetForm();
@@ -223,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (email) {
                     sendEmailToServer(email, 'Waitlist', productName, popupContent);
                     setWaitlistStatus(productName);
-                    showLuxuriousConfirmationInPopup(productName);
+                    showLuxuriousConfirmationInPopup(popupContent, productName);
                 }
             });
         }
