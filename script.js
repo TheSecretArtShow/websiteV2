@@ -159,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Append the confirmation message to the email popup content
         popupContent.appendChild(confirmationMessage);
+        emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
 
     // Function to display the email popup specific to each product
@@ -166,23 +167,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const productElement = button.closest('.product');
         const productName = productElement.querySelector('h3').textContent;
 
+        // Always bring up the email popup first
+        emailPopup.style.display = 'flex';
+        
         // Check if the product is already waitlisted
         if (getWaitlistStatus(productName)) {
             // Show confirmation in the email popup
             showLuxuriousConfirmationInPopup(productName);
         } else {
             // Show the email input popup normally if not waitlisted
-            popupContent.innerHTML = `
-                <h2>Join Our Community</h2>
-                <p>Enter your email to sign up for exclusive access to our collections.</p>
-                <div class="signup-option" id="waitlist-option">
-                    <button id="waitlist-button">Waitlist</button>
-                    <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
-                    <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
-                </div>
-                <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
-            `;
-            emailPopup.style.display = 'flex';
             resetForm();
             setupPopupListeners(productName);
         }
@@ -190,15 +183,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to reset the email input form
     function resetForm() {
-        const waitlistEmailInput = document.getElementById('waitlist-email');
-        const submitWaitlistButton = document.getElementById('submit-waitlist');
-        if (waitlistEmailInput) {
-            waitlistEmailInput.value = '';
-            waitlistEmailInput.style.display = 'none';
-        }
-        if (submitWaitlistButton) {
-            submitWaitlistButton.style.display = 'none';
-        }
+        popupContent.innerHTML = `
+            <h2>Join Our Community</h2>
+            <p>Enter your email to sign up for exclusive access to our collections.</p>
+            <div class="signup-option" id="waitlist-option">
+                <button id="waitlist-button">Waitlist</button>
+                <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
+                <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
+            </div>
+            <div class="signup-option" id="insider-option">
+                <button id="insider-button">Insider alerts</button>
+                <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
+                <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
+            </div>
+            <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
+        `;
     }
 
     // Set up listeners for dynamically created popup elements
@@ -207,6 +206,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const submitWaitlistButton = document.getElementById('submit-waitlist');
         const resumeButton = document.getElementById('resume-browsing-button');
         const waitlistEmailInput = document.getElementById('waitlist-email');
+        const insiderButton = document.getElementById('insider-button');
+        const insiderEmailInput = document.getElementById('insider-email');
+        const submitInsiderButton = document.getElementById('submit-insider');
 
         if (waitlistButton) {
             waitlistButton.addEventListener('click', function () {
@@ -222,6 +224,23 @@ document.addEventListener('DOMContentLoaded', function () {
                     sendEmailToServer(email, 'Waitlist', productName, popupContent);
                     setWaitlistStatus(productName);
                     showLuxuriousConfirmationInPopup(productName);
+                }
+            });
+        }
+
+        if (insiderButton) {
+            insiderButton.addEventListener('click', function () {
+                insiderEmailInput.style.display = 'block';
+                submitInsiderButton.style.display = 'block';
+            });
+        }
+
+        if (submitInsiderButton) {
+            submitInsiderButton.addEventListener('click', function () {
+                const email = insiderEmailInput.value;
+                if (email) {
+                    sendEmailToServer(email, 'Insider Alerts', productName, popupContent);
+                    resetForm();
                 }
             });
         }
