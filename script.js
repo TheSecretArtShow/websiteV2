@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showLuxuriousConfirmationInPopup(confirmationElement, name, true);
             } else if (listType === 'Insider Alerts') {
                 setInsiderAlertSignedUp();
-                showInsiderAlertConfirmation(); // Only show confirmation after signup, not on every popup
+                showInsiderAlertConfirmation(confirmationElement); // Show confirmation styled like a box
             }
         })
         .catch(error => {
@@ -183,7 +183,15 @@ document.addEventListener('DOMContentLoaded', function () {
             ? `Thank you! You've been added to the waitlist for ${productName}.`
             : `You're waitlisted for ${productName}.`;
 
-        // Add the "Resume Browsing" button to the confirmation message
+        // Append the confirmation message to the email popup content
+        confirmationElement.appendChild(confirmationMessage);
+
+        // Add insider alert status if signed up
+        if (getInsiderAlertStatus()) {
+            showInsiderAlertConfirmation(confirmationElement);
+        }
+
+        // Add the "Resume Browsing" button below confirmations
         const resumeButton = document.createElement('button');
         resumeButton.textContent = 'Resume browsing';
         resumeButton.className = 'resume-button';
@@ -192,26 +200,12 @@ document.addEventListener('DOMContentLoaded', function () {
             emailPopup.style.display = 'none';
         });
 
-        // Append the confirmation message and button to the email popup content
-        confirmationElement.appendChild(confirmationMessage);
         confirmationElement.appendChild(resumeButton);
-
-        // Add insider alert status if signed up
-        if (getInsiderAlertStatus()) {
-            const insiderConfirmation = document.createElement('div');
-            insiderConfirmation.style.marginTop = '20px';
-            insiderConfirmation.textContent = "You're signed up for insider alerts.";
-            confirmationElement.appendChild(insiderConfirmation);
-        }
-
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
 
-    // Display insider alert confirmation message only when signing up
-    function showInsiderAlertConfirmation() {
-        popupContent.innerHTML = ''; // Clear existing content
-
-        // Create the insider alert confirmation message
+    // Display insider alert confirmation in box format
+    function showInsiderAlertConfirmation(confirmationElement) {
         const insiderConfirmationMessage = document.createElement('div');
         insiderConfirmationMessage.style.padding = '20px';
         insiderConfirmationMessage.style.background = 'linear-gradient(135deg, #d3d3d3, #e5e5e5)';
@@ -219,23 +213,12 @@ document.addEventListener('DOMContentLoaded', function () {
         insiderConfirmationMessage.style.fontFamily = "'Garamond', serif";
         insiderConfirmationMessage.style.fontWeight = 'bold';
         insiderConfirmationMessage.style.borderRadius = '12px';
+        insiderConfirmationMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
         insiderConfirmationMessage.style.textAlign = 'center';
+        insiderConfirmationMessage.style.marginBottom = '20px';
         insiderConfirmationMessage.textContent = `You're signed up for insider alerts.`;
 
-        // Add the "Resume Browsing" button to the confirmation message
-        const resumeButton = document.createElement('button');
-        resumeButton.textContent = 'Resume browsing';
-        resumeButton.className = 'resume-button';
-        resumeButton.style.marginTop = '20px';
-        resumeButton.addEventListener('click', function () {
-            emailPopup.style.display = 'none';
-        });
-
-        // Append the insider alert message and button to the email popup content
-        popupContent.appendChild(insiderConfirmationMessage);
-        popupContent.appendChild(resumeButton);
-
-        emailPopup.style.display = 'flex'; // Show this only once upon signup
+        confirmationElement.prepend(insiderConfirmationMessage);
     }
 
     // Function to display the email popup specific to each product
@@ -277,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="signup-option" id="insider-option">
                 ${insiderAlertStatus ? 
-                    `<div>You're signed up for insider alerts.</div>` :
+                    `<div style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center;">You're signed up for insider alerts.</div>` :
                     `<button id="insider-button">Insider alerts</button>
                     <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
                     <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>`
