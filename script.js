@@ -186,11 +186,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Append the confirmation message to the email popup content
         confirmationElement.appendChild(confirmationMessage);
 
-        // Add insider alert status if signed up
-        if (getInsiderAlertStatus()) {
-            showInsiderAlertConfirmation(confirmationElement);
-        }
-
         // Add the "Resume Browsing" button below confirmations
         const resumeButton = document.createElement('button');
         resumeButton.textContent = 'Resume browsing';
@@ -200,12 +195,17 @@ document.addEventListener('DOMContentLoaded', function () {
             emailPopup.style.display = 'none';
         });
 
+        // Add insider alert status if signed up and place it below the waitlist confirmation
+        if (getInsiderAlertStatus()) {
+            showInsiderAlertConfirmation(confirmationElement, true); // Passing true to place below
+        }
+
         confirmationElement.appendChild(resumeButton);
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
 
-    // Display insider alert confirmation in box format
-    function showInsiderAlertConfirmation(confirmationElement) {
+    // Display insider alert confirmation in box format and place it accordingly
+    function showInsiderAlertConfirmation(confirmationElement, placeBelow = false) {
         const insiderConfirmationMessage = document.createElement('div');
         insiderConfirmationMessage.style.padding = '20px';
         insiderConfirmationMessage.style.background = 'linear-gradient(135deg, #d3d3d3, #e5e5e5)';
@@ -218,7 +218,12 @@ document.addEventListener('DOMContentLoaded', function () {
         insiderConfirmationMessage.style.marginBottom = '20px';
         insiderConfirmationMessage.textContent = `You're signed up for insider alerts.`;
 
-        confirmationElement.prepend(insiderConfirmationMessage);
+        // Append accordingly based on the flag
+        if (placeBelow) {
+            confirmationElement.appendChild(insiderConfirmationMessage);
+        } else {
+            confirmationElement.prepend(insiderConfirmationMessage);
+        }
     }
 
     // Function to display the email popup specific to each product
