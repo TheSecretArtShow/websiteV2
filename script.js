@@ -197,8 +197,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function checkIfWaitlisted(productName) {
-        const cookieValue = document.cookie.split('; ').find(row => row.startsWith(`waitlisted_${productName}=`));
-        return cookieValue && cookieValue.split('=')[1] === 'true';
+        return localStorage.getItem(`waitlisted_${productName}`) === 'true';
+    }
+
+    function setWaitlisted(productName) {
+        localStorage.setItem(`waitlisted_${productName}`, 'true');
     }
 
     if (waitlistButton) {
@@ -216,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const productName = submitWaitlistButton.dataset.productName; // Get the product name from the button
             if (email) {
                 sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
-                document.cookie = `waitlisted_${productName}=true; path=/`; // Set a cookie to remember the waitlist
+                setWaitlisted(productName); // Store that the user is waitlisted for this product
             }
         });
     }
