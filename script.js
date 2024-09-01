@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
+    function sendEmailToServer(email, listType, name, confirmationElement) {
+    fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email, listType: listType, name: name })
+    })
+    .then(response => response.json())
+    .then(data => {
+        showLuxuriousConfirmation(confirmationElement, name);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    });
+}
+
     // General setup
     const squares = document.querySelectorAll('.square');
     const shopNowButton = document.getElementById('shop-now');
