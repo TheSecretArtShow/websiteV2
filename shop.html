@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop - The Art Show</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Ensure the styles.css is linked -->
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* General Styling */
         body {
@@ -142,7 +142,7 @@
 </head>
 <body>
 
-    <header>
+<header>
     <div class="container">
         <h1 style="text-align: center;">
             <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
@@ -164,123 +164,55 @@
     </div>
 </header>
 
-
-    <main>
-        <section class="catalogue">
-            <div class="product">
-                <img src="images/rage.png" alt="Shirt 1">
-                <div class="product-overlay">Sold Out</div>
-                <h3>R@GE</h3>
-                <p>$125.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/end.png" alt="Shirt 2">
-                <div class="product-overlay">Sold Out</div>
-                <h3>END</h3>
-                <p>$125.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/void.png" alt="Shirt 3">
-                <div class="product-overlay">Sold Out</div>
-                <h3>V0ID</h3>
-                <p>$150.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/ribs.png" alt="Shirt 4">
-                <div class="product-overlay">Sold Out</div>
-                <h3>Ribs</h3>
-                <p>$113.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/crow.png" alt="Shirt 5">
-                <div class="product-overlay">Sold Out</div>
-                <h3>Crow</h3>
-                <p>$175.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/butterfly.png" alt="Shirt 6">
-                <div class="product-overlay">Sold Out</div>
-                <h3>Butterfly</h3>
-                <p>$200.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/centipede-front.png" alt="Shirt 7">
-                <div class="product-overlay">Sold Out</div>
-                <h3>Centipede</h3>
-                <p>$185.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/girl.png" alt="Shirt 8">
-                <div class="product-overlay">Sold Out</div>
-                <h3>Girl</h3>
-                <p>$185.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/pick your poison.png" alt="Shirt 9">
-                <div class="product-overlay">Sold Out</div>
-                <h3>Pick Your Poison</h3>
-                <p>$175.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/Bleach.png" alt="Shirt 10">
-                <div class="product-overlay">Sold Out</div>
-                <h3>Bleach</h3>
-                <p>$250.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/3rdeye.png" alt="Shirt 11">
-                <div class="product-overlay">Sold Out</div>
-                <h3>3rd Eye</h3>
-                <p>$175.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-            <div class="product">
-                <img src="images/flower.png" alt="Shirt 12">
-                <div class="product-overlay">Sold Out</div>
-                <h3>Flower</h3>
-                <p>$150.00</p>
-                <button class="view-details">View Details</button>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 The Art Show. All rights reserved.</p>
+<main>
+    <section class="catalogue">
+        <div class="product">
+            <img src="images/rage.png" alt="Shirt 1">
+            <div class="product-overlay">Sold Out</div>
+            <h3>R@GE</h3>
+            <p>$125.00</p>
+            <button class="view-details">View Details</button>
         </div>
-    </footer>
+        <div class="product">
+            <img src="images/end.png" alt="Shirt 2">
+            <div class="product-overlay">Sold Out</div>
+            <h3>END</h3>
+            <p>$125.00</p>
+            <button class="view-details">View Details</button>
+        </div>
+        <!-- Repeat for other products -->
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 The Art Show. All rights reserved.</p>
+    </div>
+</footer>
+
 <!-- Email Signup Popup Modal -->
-        <div class="email-popup-overlay" id="email-popup">
-            <div class="email-popup-content">
-                <h2>Join Our Community</h2>
-                <p>Enter your email to sign up for exclusive access to our collections.</p>
-                
-                <div class="signup-option" id="waitlist-option">
-                    <button id="waitlist-button">Waitlist</button>
-                    <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
-                    <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button> <!-- Added Submit Button -->
-                </div>
-        
-                <div class="signup-option" id="insider-option">
-                    <button id="insider-button">Insider alerts</button>
-                    <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
-                    <button id="submit-insider" class="submit-button" style="display:none;">Submit</button> <!-- Added Submit Button -->
-                </div>
-        
-                <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
-                <input type="hidden" id="selected-product" name="selected-product">
-            </div>
+<div class="email-popup-overlay" id="email-popup">
+    <div class="email-popup-content">
+        <h2>Join Our Community</h2>
+        <p>Enter your email to sign up for exclusive access to our collections.</p>
+
+        <div class="signup-option" id="waitlist-option">
+            <button id="waitlist-button">Waitlist</button>
+            <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
+            <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
         </div>
+
+        <div class="signup-option" id="insider-option">
+            <button id="insider-button">Insider alerts</button>
+            <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
+            <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
+        </div>
+
+        <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
+        <input type="hidden" id="selected-product" name="selected-product">
+    </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
