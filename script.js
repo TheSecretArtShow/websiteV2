@@ -212,16 +212,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.head.appendChild(style);
     }
 
-    // Handle Email Popup
-    const emailPopup = document.getElementById('email-popup');
-    const waitlistButton = document.getElementById('waitlist-button');
-    const insiderButton = document.getElementById('insider-button');
-    const resumeButton = document.getElementById('resume-browsing-button');
-    const waitlistEmailInput = document.getElementById('waitlist-email');
-    const insiderEmailInput = document.getElementById('insider-email');
-    const submitWaitlistButton = document.getElementById('submit-waitlist');
-    const submitInsiderButton = document.getElementById('submit-insider');
-
     if (waitlistButton) {
         waitlistButton.addEventListener('click', function () {
             if (waitlistEmailInput) {
@@ -234,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitWaitlistButton) {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
-            const productName = waitlistButton.getAttribute('data-product-name'); // Updated to use dynamic product name
+            const productName = waitlistButton.getAttribute('data-product-name');
             if (email) {
                 sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
             }
@@ -243,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (insiderButton) {
         insiderButton.addEventListener('click', function () {
-            resetForm();
+            resetForm(insiderEmailInput, submitInsiderButton);
             if (insiderEmailInput) {
                 insiderEmailInput.style.display = 'block';
                 submitInsiderButton.style.display = 'block';
@@ -264,7 +254,8 @@ document.addEventListener('DOMContentLoaded', function () {
         resumeButton.addEventListener('click', function () {
             if (emailPopup) {
                 emailPopup.style.display = 'none';
-                resetForm();
+                resetForm(waitlistEmailInput, submitWaitlistButton);
+                resetForm(insiderEmailInput, submitInsiderButton);
             }
         });
     }
@@ -273,12 +264,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function showEmailPopup(productName) {
         if (emailPopup) {
             emailPopup.style.display = 'flex';
-            waitlistButton.setAttribute('data-product-name', productName); // Set the product name for waitlist submission
+            waitlistButton.setAttribute('data-product-name', productName);
 
             if (checkIfWaitlisted(productName)) {
                 showLuxuriousConfirmation(waitlistButton.parentElement, productName);
             } else {
-                resetForm(); // Reset form to ensure it's ready for new input
+                resetForm(waitlistEmailInput, submitWaitlistButton);
             }
         }
     }
