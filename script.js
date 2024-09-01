@@ -115,10 +115,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const insiderEmailInput = document.getElementById('insider-email');
     const submitWaitlistButton = document.getElementById('submit-waitlist');
     const submitInsiderButton = document.getElementById('submit-insider');
-    const selectedProductInput = document.getElementById('selected-product'); // Ensure this input exists in your HTML
+    const selectedProductInput = document.getElementById('selected-product');
 
     function sendEmailToServer(email, listType, name, confirmationElement) {
-        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
+        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -127,7 +127,11 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
-                showLuxuriousConfirmation(confirmationElement, name);
+                if (listType === 'Insider Alerts') {
+                    showStaticConfirmation(confirmationElement);
+                } else {
+                    showLuxuriousConfirmation(confirmationElement, name);
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -136,15 +140,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showLuxuriousConfirmation(parentElement, name) {
-        // Clear existing content
         parentElement.innerHTML = '';
 
-        // Create the luxurious confirmation message
         const confirmationMessage = document.createElement('div');
         confirmationMessage.style.padding = '20px';
         confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
         confirmationMessage.style.color = '#2a2a2a';
-        confirmationMessage.style.fontFamily = "'Garamond', serif"; // Classic luxury font style
+        confirmationMessage.style.fontFamily = "'Garamond', serif";
         confirmationMessage.style.fontWeight = 'bold';
         confirmationMessage.style.borderRadius = '12px';
         confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
@@ -152,16 +154,58 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = `Thank you! You've been added to the waitlist for ${name}.`;
 
-        // Append to parent
         parentElement.appendChild(confirmationMessage);
-
-        // Optional: Add a glowing border effect
         confirmationMessage.style.border = '1px solid transparent';
         confirmationMessage.style.transition = 'border 0.5s ease';
         confirmationMessage.style.borderImage = 'linear-gradient(45deg, gold, #f5e1b9) 1';
         confirmationMessage.style.borderImageSlice = 1;
 
-        // Optional: Luxurious animation styles
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeInScale {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes shimmerEffect {
+                from {
+                    background-position: 0 0;
+                }
+                to {
+                    background-position: 100% 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    function showStaticConfirmation(parentElement) {
+        parentElement.innerHTML = '';
+
+        const confirmationMessage = document.createElement('div');
+        confirmationMessage.style.padding = '20px';
+        confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
+        confirmationMessage.style.color = '#2a2a2a';
+        confirmationMessage.style.fontFamily = "'Garamond', serif";
+        confirmationMessage.style.fontWeight = 'bold';
+        confirmationMessage.style.borderRadius = '12px';
+        confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
+        confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
+        confirmationMessage.style.textAlign = 'center';
+        confirmationMessage.textContent = "Thank you! You've been added to our list for insider alerts.";
+
+        parentElement.appendChild(confirmationMessage);
+        confirmationMessage.style.border = '1px solid transparent';
+        confirmationMessage.style.transition = 'border 0.5s ease';
+        confirmationMessage.style.borderImage = 'linear-gradient(45deg, gold, #f5e1b9) 1';
+        confirmationMessage.style.borderImageSlice = 1;
+
         const style = document.createElement('style');
         style.innerHTML = `
             @keyframes fadeInScale {
@@ -199,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitWaitlistButton) {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
-            const productName = selectedProductInput ? selectedProductInput.value : "Unknown Product"; // Make sure selectedProductInput is found
+            const productName = selectedProductInput ? selectedProductInput.value : "Unknown Product";
             if (email) {
                 sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
             }
@@ -233,24 +277,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Function to show the popup when a "View Details" button is clicked
-    function showEmailPopup() {
+    function showEmailPopup(productName) {
         if (emailPopup) {
             emailPopup.style.display = 'flex';
+            if (selectedProductInput) {
+                selectedProductInput.value = productName;
+            }
         }
     }
 
     // Attach the popup function to each "View Details" button
     const viewDetailsButtons = document.querySelectorAll('.view-details');
-    if (viewDetailsButtons.length > 0) {
-        viewDetailsButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const productElement = this.closest('.product');
-                const productName = productElement.querySelector('h3').textContent.trim();
-                if (selectedProductInput) {
-                    selectedProductInput.value = productName; // Set the product name in the hidden input
-                }
-                showEmailPopup();
-            });
+    viewDetailsButtons.forEach(button => {
+        const productName = button.closest('.product').querySelector('h3').textContent.trim();
+        button.addEventListener('click', function () {
+            showEmailPopup(productName);
         });
-    }
+    });
 });
