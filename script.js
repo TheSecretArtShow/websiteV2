@@ -115,10 +115,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const insiderEmailInput = document.getElementById('insider-email');
     const submitWaitlistButton = document.getElementById('submit-waitlist');
     const submitInsiderButton = document.getElementById('submit-insider');
-    const selectedProductInput = document.getElementById('selected-product');
+
+    function resetForm() {
+        waitlistEmailInput.value = '';
+        waitlistEmailInput.style.display = 'none';
+        submitWaitlistButton.style.display = 'none';
+        insiderEmailInput.value = '';
+        insiderEmailInput.style.display = 'none';
+        submitInsiderButton.style.display = 'none';
+    }
 
     function sendEmailToServer(email, listType, name, confirmationElement) {
-        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
+        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -127,11 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
-                if (listType === 'Insider Alerts') {
-                    showStaticConfirmation(confirmationElement);
-                } else {
-                    showLuxuriousConfirmation(confirmationElement, name);
-                }
+                showLuxuriousConfirmation(confirmationElement, name);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -140,13 +144,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showLuxuriousConfirmation(parentElement, name) {
+        // Clear existing content
         parentElement.innerHTML = '';
 
+        // Create the luxurious confirmation message
         const confirmationMessage = document.createElement('div');
         confirmationMessage.style.padding = '20px';
         confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
         confirmationMessage.style.color = '#2a2a2a';
-        confirmationMessage.style.fontFamily = "'Garamond', serif";
+        confirmationMessage.style.fontFamily = "'Garamond', serif"; // Classic luxury font style
         confirmationMessage.style.fontWeight = 'bold';
         confirmationMessage.style.borderRadius = '12px';
         confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
@@ -154,58 +160,16 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = `Thank you! You've been added to the waitlist for ${name}.`;
 
+        // Append to parent
         parentElement.appendChild(confirmationMessage);
+
+        // Optional: Add a glowing border effect
         confirmationMessage.style.border = '1px solid transparent';
         confirmationMessage.style.transition = 'border 0.5s ease';
         confirmationMessage.style.borderImage = 'linear-gradient(45deg, gold, #f5e1b9) 1';
         confirmationMessage.style.borderImageSlice = 1;
 
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes fadeInScale {
-                0% {
-                    opacity: 0;
-                    transform: scale(0.8);
-                }
-                100% {
-                    opacity: 1;
-                    transform: scale(1);
-                }
-            }
-
-            @keyframes shimmerEffect {
-                from {
-                    background-position: 0 0;
-                }
-                to {
-                    background-position: 100% 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    function showStaticConfirmation(parentElement) {
-        parentElement.innerHTML = '';
-
-        const confirmationMessage = document.createElement('div');
-        confirmationMessage.style.padding = '20px';
-        confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
-        confirmationMessage.style.color = '#2a2a2a';
-        confirmationMessage.style.fontFamily = "'Garamond', serif";
-        confirmationMessage.style.fontWeight = 'bold';
-        confirmationMessage.style.borderRadius = '12px';
-        confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
-        confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
-        confirmationMessage.style.textAlign = 'center';
-        confirmationMessage.textContent = "Thank you! You've been added to our list for insider alerts.";
-
-        parentElement.appendChild(confirmationMessage);
-        confirmationMessage.style.border = '1px solid transparent';
-        confirmationMessage.style.transition = 'border 0.5s ease';
-        confirmationMessage.style.borderImage = 'linear-gradient(45deg, gold, #f5e1b9) 1';
-        confirmationMessage.style.borderImageSlice = 1;
-
+        // Optional: Luxurious animation styles
         const style = document.createElement('style');
         style.innerHTML = `
             @keyframes fadeInScale {
@@ -233,8 +197,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (waitlistButton) {
         waitlistButton.addEventListener('click', function () {
+            resetForm();
             if (waitlistEmailInput) {
-                waitlistEmailInput.style.display = waitlistEmailInput.style.display === 'none' ? 'block' : 'none';
+                waitlistEmailInput.style.display = 'block';
                 submitWaitlistButton.style.display = 'block';
             }
         });
@@ -243,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitWaitlistButton) {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
-            const productName = selectedProductInput ? selectedProductInput.value : "Unknown Product";
+            const productName = waitlistButton.getAttribute('data-product-name'); // Updated to use dynamic product name
             if (email) {
                 sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
             }
@@ -252,8 +217,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (insiderButton) {
         insiderButton.addEventListener('click', function () {
+            resetForm();
             if (insiderEmailInput) {
-                insiderEmailInput.style.display = insiderEmailInput.style.display === 'none' ? 'block' : 'none';
+                insiderEmailInput.style.display = 'block';
                 submitInsiderButton.style.display = 'block';
             }
         });
@@ -263,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitInsiderButton.addEventListener('click', function () {
             const email = insiderEmailInput.value;
             if (email) {
-                sendEmailToServer(email, 'Insider Alerts', '', insiderButton.parentElement);
+                sendEmailToServer(email, 'Insider Alerts', 'Insider Alerts', insiderButton.parentElement);
             }
         });
     }
@@ -272,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
         resumeButton.addEventListener('click', function () {
             if (emailPopup) {
                 emailPopup.style.display = 'none';
+                resetForm();
             }
         });
     }
@@ -280,18 +247,19 @@ document.addEventListener('DOMContentLoaded', function () {
     function showEmailPopup(productName) {
         if (emailPopup) {
             emailPopup.style.display = 'flex';
-            if (selectedProductInput) {
-                selectedProductInput.value = productName;
-            }
+            waitlistButton.setAttribute('data-product-name', productName); // Set the product name for waitlist submission
+            resetForm(); // Reset form to ensure it's ready for new input
         }
     }
 
     // Attach the popup function to each "View Details" button
     const viewDetailsButtons = document.querySelectorAll('.view-details');
-    viewDetailsButtons.forEach(button => {
-        const productName = button.closest('.product').querySelector('h3').textContent.trim();
-        button.addEventListener('click', function () {
-            showEmailPopup(productName);
+    if (viewDetailsButtons.length > 0) {
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const productName = button.closest('.product').querySelector('h3').textContent; // Extract product name
+                showEmailPopup(productName);
+            });
         });
-    });
+    }
 });
