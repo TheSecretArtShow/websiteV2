@@ -1,21 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Define the sendEmailToServer function near the start
     function sendEmailToServer(email, listType, name, confirmationElement) {
-    fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: email, listType: listType, name: name })
-    })
-    .then(response => response.json())
-    .then(data => {
-        showLuxuriousConfirmation(confirmationElement, name);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-    });
-}
+        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email, listType: listType, name: name })
+        })
+        .then(response => response.json())
+        .then(data => {
+            showLuxuriousConfirmation(confirmationElement, name);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
+    }
 
     // General setup
     const squares = document.querySelectorAll('.square');
@@ -135,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const insiderEmailInput = document.getElementById('insider-email');
     const submitWaitlistButton = document.getElementById('submit-waitlist');
     const submitInsiderButton = document.getElementById('submit-insider');
+    const popupContent = document.querySelector('.email-popup-content');
 
     // Track waitlist status per product
     function getWaitlistStatus(productName) {
@@ -145,10 +147,11 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem(`waitlisted_${productName}`, 'true');
     }
 
-    // Display luxurious confirmation specific to each product
-    function showLuxuriousConfirmation(parentElement, productName) {
-        parentElement.innerHTML = '';
+    // Display luxurious confirmation inside the email popup
+    function showLuxuriousConfirmationInPopup(productName) {
+        popupContent.innerHTML = ''; // Clear existing content
 
+        // Create the luxurious confirmation message
         const confirmationMessage = document.createElement('div');
         confirmationMessage.style.padding = '20px';
         confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
@@ -161,35 +164,8 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = `Thank you! You've been added to the waitlist for ${productName}.`;
 
-        parentElement.appendChild(confirmationMessage);
-        confirmationMessage.style.border = '1px solid transparent';
-        confirmationMessage.style.transition = 'border 0.5s ease';
-        confirmationMessage.style.borderImage = 'linear-gradient(45deg, gold, #f5e1b9) 1';
-        confirmationMessage.style.borderImageSlice = 1;
-
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes fadeInScale {
-                0% {
-                    opacity: 0;
-                    transform: scale(0.8);
-                }
-                100% {
-                    opacity: 1;
-                    transform: scale(1);
-                }
-            }
-
-            @keyframes shimmerEffect {
-                from {
-                    background-position: 0 0;
-                }
-                to {
-                    background-position: 100% 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
+        // Append the confirmation message to the email popup content
+        popupContent.appendChild(confirmationMessage);
     }
 
     // Function to display the email popup specific to each product
@@ -200,13 +176,24 @@ document.addEventListener('DOMContentLoaded', function () {
         // Set the product name on the submit button
         submitWaitlistButton.dataset.productName = productName;
 
+        // Check if the product is already waitlisted
         if (getWaitlistStatus(productName)) {
-            showLuxuriousConfirmation(productElement, productName);
+            // Show confirmation in the email popup
+            showLuxuriousConfirmationInPopup(productName);
         } else {
-            if (emailPopup) {
-                emailPopup.style.display = 'flex';
-                resetForm(waitlistEmailInput, submitWaitlistButton);
-            }
+            // Show the email input popup normally if not waitlisted
+            popupContent.innerHTML = `
+                <h2>Join Our Community</h2>
+                <p>Enter your email to sign up for exclusive access to our collections.</p>
+                <div class="signup-option" id="waitlist-option">
+                    <button id="waitlist-button">Waitlist</button>
+                    <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
+                    <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
+                </div>
+                <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
+            `;
+            emailPopup.style.display = 'flex';
+            resetForm(waitlistEmailInput, submitWaitlistButton);
         }
     }
 
@@ -221,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Event listeners for email form interactions
     if (waitlistButton) {
         waitlistButton.addEventListener('click', function () {
             if (waitlistEmailInput) {
@@ -238,25 +226,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (email) {
                 sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
                 setWaitlistStatus(productName);
-            }
-        });
-    }
-
-    if (insiderButton) {
-        insiderButton.addEventListener('click', function () {
-            if (insiderEmailInput) {
-                insiderEmailInput.style.display = insiderEmailInput.style.display === 'none' ? 'block' : 'none';
-                submitInsiderButton.style.display = 'block';
-            }
-        });
-    }
-
-    if (submitInsiderButton) {
-        submitInsiderButton.addEventListener('click', function () {
-            const email = insiderEmailInput.value;
-            if (email) {
-                sendEmailToServer(email, 'Insider Alerts', '', insiderButton.parentElement);
-                resetForm(insiderEmailInput, submitInsiderButton);
             }
         });
     }
