@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitInsiderButton = document.getElementById('submit-insider');
 
     function sendEmailToServer(email, listType, name, confirmationElement) {
-        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
+        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -135,15 +135,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showLuxuriousConfirmation(parentElement, name) {
-        // Clear existing content
+        if (!parentElement) {
+            console.error('Parent element not found for confirmation display.');
+            return;
+        }
         parentElement.innerHTML = '';
 
-        // Create the luxurious confirmation message
         const confirmationMessage = document.createElement('div');
         confirmationMessage.style.padding = '20px';
         confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
         confirmationMessage.style.color = '#2a2a2a';
-        confirmationMessage.style.fontFamily = "'Garamond', serif"; // Classic luxury font style
+        confirmationMessage.style.fontFamily = "'Garamond', serif";
         confirmationMessage.style.fontWeight = 'bold';
         confirmationMessage.style.borderRadius = '12px';
         confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
@@ -151,16 +153,8 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = `Thank you! You've been added to the waitlist for ${name}.`;
 
-        // Append to parent
         parentElement.appendChild(confirmationMessage);
 
-        // Optional: Add a glowing border effect
-        confirmationMessage.style.border = '1px solid transparent';
-        confirmationMessage.style.transition = 'border 0.5s ease';
-        confirmationMessage.style.borderImage = 'linear-gradient(45deg, gold, #f5e1b9) 1';
-        confirmationMessage.style.borderImageSlice = 1;
-
-        // Optional: Luxurious animation styles
         const style = document.createElement('style');
         style.innerHTML = `
             @keyframes fadeInScale {
@@ -213,10 +207,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitWaitlistButton) {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
-            const productName = submitWaitlistButton.dataset.productName; // Get the product name from the button
+            const productName = submitWaitlistButton.dataset.productName;
             if (email) {
                 sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
-                document.cookie = `waitlisted_${productName}=true; path=/`; // Set a cookie to remember the waitlist
+                document.cookie = `waitlisted_${productName}=true; path=/`;
             }
         });
     }
@@ -248,16 +242,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Function to show the popup when a "View Details" button is clicked
     function showEmailPopup(button) {
-        const productName = button.closest('.product').querySelector('h3').textContent; // Get the product name
-        submitWaitlistButton.dataset.productName = productName; // Set the product name on the submit button
+        const productName = button.dataset.productName;
+        submitWaitlistButton.dataset.productName = productName;
 
         if (checkIfWaitlisted(productName)) {
-            // Show the confirmation if the user is already waitlisted
             showLuxuriousConfirmation(waitlistButton.parentElement, productName);
         } else {
-            // Otherwise, show the email popup
             if (emailPopup) {
                 emailPopup.style.display = 'flex';
                 resetForm(waitlistEmailInput, submitWaitlistButton);
@@ -265,13 +256,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Attach the popup function to each "View Details" button
     const viewDetailsButtons = document.querySelectorAll('.view-details');
-    if (viewDetailsButtons.length > 0) {
-        viewDetailsButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                showEmailPopup(button);
-            });
+    viewDetailsButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            showEmailPopup(button);
         });
-    }
+    });
 });
