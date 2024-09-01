@@ -106,16 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Handle Email Popup
-    const emailPopup = document.getElementById('email-popup');
-    const waitlistButton = document.getElementById('waitlist-button');
-    const insiderButton = document.getElementById('insider-button');
-    const resumeButton = document.getElementById('resume-browsing-button');
-    const waitlistEmailInput = document.getElementById('waitlist-email');
-    const insiderEmailInput = document.getElementById('insider-email');
-    const submitWaitlistButton = document.getElementById('submit-waitlist');
-    const submitInsiderButton = document.getElementById('submit-insider');
-
     // Utility functions to manage cookies
     function setCookie(name, value, days) {
         const date = new Date();
@@ -143,13 +133,10 @@ document.addEventListener('DOMContentLoaded', function () {
         setCookie(`waitlisted_${productName}`, "true", 30); // Set the cookie to expire in 30 days
     }
 
-    function resetForm() {
-        waitlistEmailInput.value = '';
-        waitlistEmailInput.style.display = 'none';
-        submitWaitlistButton.style.display = 'none';
-        insiderEmailInput.value = '';
-        insiderEmailInput.style.display = 'none';
-        submitInsiderButton.style.display = 'none';
+    function resetForm(emailInput, submitButton) {
+        if (emailInput) emailInput.value = '';
+        if (emailInput) emailInput.style.display = 'none';
+        if (submitButton) submitButton.style.display = 'none';
     }
 
     function sendEmailToServer(email, listType, name, confirmationElement) {
@@ -224,6 +211,16 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         document.head.appendChild(style);
     }
+
+    // Handle Email Popup
+    const emailPopup = document.getElementById('email-popup');
+    const waitlistButton = document.getElementById('waitlist-button');
+    const insiderButton = document.getElementById('insider-button');
+    const resumeButton = document.getElementById('resume-browsing-button');
+    const waitlistEmailInput = document.getElementById('waitlist-email');
+    const insiderEmailInput = document.getElementById('insider-email');
+    const submitWaitlistButton = document.getElementById('submit-waitlist');
+    const submitInsiderButton = document.getElementById('submit-insider');
 
     if (waitlistButton) {
         waitlistButton.addEventListener('click', function () {
