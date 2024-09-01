@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
         confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
         confirmationMessage.style.textAlign = 'center';
+        confirmationMessage.style.marginBottom = '20px'; // Increase spacing between confirmations
         confirmationMessage.textContent = isFirstTime
             ? `Thank you! You've been added to the waitlist for ${productName}.`
             : `You're waitlisted for ${productName}.`;
@@ -215,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
         insiderConfirmationMessage.style.borderRadius = '12px';
         insiderConfirmationMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
         insiderConfirmationMessage.style.textAlign = 'center';
-        insiderConfirmationMessage.style.marginBottom = '20px';
+        insiderConfirmationMessage.style.marginBottom = '20px'; // Add margin to separate confirmations
         insiderConfirmationMessage.textContent = `You're signed up for insider alerts.`;
 
         // Append accordingly based on the flag
@@ -265,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="signup-option" id="insider-option">
                 ${insiderAlertStatus ? 
-                    `<div style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center;">You're signed up for insider alerts.</div>` :
+                    `<div style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; margin-bottom: 20px;">You're signed up for insider alerts.</div>` :
                     `<button id="insider-button">Insider alerts</button>
                     <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
                     <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>`
