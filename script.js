@@ -129,13 +129,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Email Popup Functionality
     const emailPopup = document.getElementById('email-popup');
-    const waitlistButton = document.getElementById('waitlist-button');
-    const insiderButton = document.getElementById('insider-button');
-    const resumeButton = document.getElementById('resume-browsing-button');
-    const waitlistEmailInput = document.getElementById('waitlist-email');
-    const insiderEmailInput = document.getElementById('insider-email');
-    const submitWaitlistButton = document.getElementById('submit-waitlist');
-    const submitInsiderButton = document.getElementById('submit-insider');
     const popupContent = document.querySelector('.email-popup-content');
 
     // Track waitlist status per product
@@ -173,9 +166,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const productElement = button.closest('.product');
         const productName = productElement.querySelector('h3').textContent;
 
-        // Set the product name on the submit button
-        submitWaitlistButton.dataset.productName = productName;
-
         // Check if the product is already waitlisted
         if (getWaitlistStatus(productName)) {
             // Show confirmation in the email popup
@@ -193,49 +183,54 @@ document.addEventListener('DOMContentLoaded', function () {
                 <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
             `;
             emailPopup.style.display = 'flex';
-            resetForm(waitlistEmailInput, submitWaitlistButton);
+            resetForm();
+            setupPopupListeners(productName);
         }
     }
 
     // Function to reset the email input form
-    function resetForm(emailInput, submitButton) {
-        if (emailInput) {
-            emailInput.value = '';
-            emailInput.style.display = 'none';
+    function resetForm() {
+        const waitlistEmailInput = document.getElementById('waitlist-email');
+        const submitWaitlistButton = document.getElementById('submit-waitlist');
+        if (waitlistEmailInput) {
+            waitlistEmailInput.value = '';
+            waitlistEmailInput.style.display = 'none';
         }
-        if (submitButton) {
-            submitButton.style.display = 'none';
+        if (submitWaitlistButton) {
+            submitWaitlistButton.style.display = 'none';
         }
     }
 
-    // Event listeners for email form interactions
-    if (waitlistButton) {
-        waitlistButton.addEventListener('click', function () {
-            if (waitlistEmailInput) {
-                waitlistEmailInput.style.display = waitlistEmailInput.style.display === 'none' ? 'block' : 'none';
+    // Set up listeners for dynamically created popup elements
+    function setupPopupListeners(productName) {
+        const waitlistButton = document.getElementById('waitlist-button');
+        const submitWaitlistButton = document.getElementById('submit-waitlist');
+        const resumeButton = document.getElementById('resume-browsing-button');
+        const waitlistEmailInput = document.getElementById('waitlist-email');
+
+        if (waitlistButton) {
+            waitlistButton.addEventListener('click', function () {
+                waitlistEmailInput.style.display = 'block';
                 submitWaitlistButton.style.display = 'block';
-            }
-        });
-    }
+            });
+        }
 
-    if (submitWaitlistButton) {
-        submitWaitlistButton.addEventListener('click', function () {
-            const email = waitlistEmailInput.value;
-            const productName = submitWaitlistButton.dataset.productName;
+        if (submitWaitlistButton) {
+            submitWaitlistButton.addEventListener('click', function () {
+                const email = waitlistEmailInput.value;
+                if (email) {
+                    sendEmailToServer(email, 'Waitlist', productName, popupContent);
+                    setWaitlistStatus(productName);
+                    showLuxuriousConfirmationInPopup(productName);
+                }
+            });
+        }
 
-            if (email) {
-                sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
-                setWaitlistStatus(productName);
-            }
-        });
-    }
-
-    if (resumeButton) {
-        resumeButton.addEventListener('click', function () {
-            if (emailPopup) {
+        if (resumeButton) {
+            resumeButton.addEventListener('click', function () {
                 emailPopup.style.display = 'none';
-            }
-        });
+            });
+        }
     }
 
     // Attach the popup function to each "View Details" button
