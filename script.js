@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitWaitlistButton) {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
-            const productName = "Example Product"; // Update this dynamically based on the selected product
+            const productName = document.getElementById('selected-product').value; // Capture the product name
             if (email) {
                 sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
             }
@@ -231,18 +231,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Function to show the popup when a "View Details" button is clicked
-    function showEmailPopup() {
-        if (emailPopup) {
-            emailPopup.style.display = 'flex';
-        }
-    }
-
-    // Attach the popup function to each "View Details" button
+    // Attach the popup function to each "View Details" button and capture the product name
     const viewDetailsButtons = document.querySelectorAll('.view-details');
-    if (viewDetailsButtons.length > 0) {
-        viewDetailsButtons.forEach(button => {
-            button.addEventListener('click', showEmailPopup);
+    viewDetailsButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Get the product name from the button's parent element
+            const productName = this.closest('.product').querySelector('h3').textContent.trim();
+            
+            // Store the product name in a hidden input for the waitlist form
+            document.getElementById('selected-product').value = productName;
+
+            // Show the email popup
+            showEmailPopup();
         });
-    }
+    });
 });
