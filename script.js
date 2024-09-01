@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // General setup
     const squares = document.querySelectorAll('.square');
     const shopNowButton = document.getElementById('shop-now');
-    const products = document.querySelectorAll('.product');
+    const products = document.querySelectorAll('.product, .collection-item'); // Include collections
     let lastX = 0, lastY = 0;
     let moveX = true;
 
@@ -87,51 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
-
-    // Handle Random Pop-up
-    const popups = [
-        { message: "For the few, not the many. Are you among the few?", buttonTextYes: "I'm one of one", buttonTextNo: "No" },
-        { message: "Access is restricted for the ordinary. Are you extraordinary?", buttonTextYes: "I am more", buttonTextNo: "No" },
-        { message: "This store is off limits to the general public. Are you different?", buttonTextYes: "I am one of one", buttonTextNo: "No" },
-        { message: "This content is for insiders only. Are you really on the inside?", buttonTextYes: "I'm in", buttonTextNo: "No" },
-        { message: "The doors to this content are closed to most. Should they open for you?", buttonTextYes: "I'm one of one", buttonTextNo: "No" },
-        { message: "This content is for those who know. Do you belong?", buttonTextYes: "I belong", buttonTextNo: "No" },
-        { message: "This content is reserved for those who stand out. Do you?", buttonTextYes: "I am one of one", buttonTextNo: "No" }
-    ];
-
-    function showRandomPopup() {
-        const randomPopup = popups[Math.floor(Math.random() * popups.length)];
-        const popupTitle = document.querySelector('.popup-content h2');
-        const popupButtonYes = document.getElementById('popup-button-yes');
-        const popupButtonNo = document.getElementById('popup-button-no');
-
-        if (popupTitle && popupButtonYes && popupButtonNo) {
-            popupTitle.textContent = randomPopup.message;
-            popupButtonYes.textContent = randomPopup.buttonTextYes;
-            popupButtonNo.textContent = randomPopup.buttonTextNo;
-        }
-    }
-
-    // Display a random pop-up when the page loads
-    showRandomPopup();
-
-    const popupYesButton = document.getElementById('popup-button-yes');
-    const popupNoButton = document.getElementById('popup-button-no');
-
-    if (popupYesButton) {
-        popupYesButton.addEventListener('click', function () {
-            const popupOverlay = document.getElementById('popup-overlay');
-            if (popupOverlay) {
-                popupOverlay.style.display = 'none';
-            }
-        });
-    }
-
-    if (popupNoButton) {
-        popupNoButton.addEventListener('click', function () {
-            window.location.href = 'https://www.gap.com';
-        });
-    }
 
     // Email Popup Functionality
     const emailPopup = document.getElementById('email-popup');
@@ -227,10 +182,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to display the email popup specific to each product
+    // Function to display the email popup specific to each product or collection
     function showEmailPopup(button) {
-        const productElement = button.closest('.product');
-        const productName = productElement.querySelector('h3').textContent;
+        const productElement = button.closest('.product, .collection-item');
+        if (!productElement) {
+            console.error("Product element not found.");
+            return;
+        }
+        
+        const productNameElement = productElement.querySelector('h3');
+        if (!productNameElement) {
+            console.error("Product name element not found.");
+            return;
+        }
+
+        const productName = productNameElement.textContent;
 
         // Always bring up the email popup first
         emailPopup.style.display = 'flex';
