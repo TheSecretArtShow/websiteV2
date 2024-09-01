@@ -88,6 +88,51 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Handle Random Pop-up
+    const popups = [
+        { message: "For the few, not the many. Are you among the few?", buttonTextYes: "I'm one of one", buttonTextNo: "No" },
+        { message: "Access is restricted for the ordinary. Are you extraordinary?", buttonTextYes: "I am more", buttonTextNo: "No" },
+        { message: "This store is off limits to the general public. Are you different?", buttonTextYes: "I am one of one", buttonTextNo: "No" },
+        { message: "This content is for insiders only. Are you really on the inside?", buttonTextYes: "I'm in", buttonTextNo: "No" },
+        { message: "The doors to this content are closed to most. Should they open for you?", buttonTextYes: "I'm one of one", buttonTextNo: "No" },
+        { message: "This content is for those who know. Do you belong?", buttonTextYes: "I belong", buttonTextNo: "No" },
+        { message: "This content is reserved for those who stand out. Do you?", buttonTextYes: "I am one of one", buttonTextNo: "No" }
+    ];
+
+    function showRandomPopup() {
+        const randomPopup = popups[Math.floor(Math.random() * popups.length)];
+        const popupTitle = document.querySelector('.popup-content h2');
+        const popupButtonYes = document.getElementById('popup-button-yes');
+        const popupButtonNo = document.getElementById('popup-button-no');
+
+        if (popupTitle && popupButtonYes && popupButtonNo) {
+            popupTitle.textContent = randomPopup.message;
+            popupButtonYes.textContent = randomPopup.buttonTextYes;
+            popupButtonNo.textContent = randomPopup.buttonTextNo;
+        }
+    }
+
+    // Display a random pop-up when the page loads
+    showRandomPopup();
+
+    const popupYesButton = document.getElementById('popup-button-yes');
+    const popupNoButton = document.getElementById('popup-button-no');
+
+    if (popupYesButton) {
+        popupYesButton.addEventListener('click', function () {
+            const popupOverlay = document.getElementById('popup-overlay');
+            if (popupOverlay) {
+                popupOverlay.style.display = 'none';
+            }
+        });
+    }
+
+    if (popupNoButton) {
+        popupNoButton.addEventListener('click', function () {
+            window.location.href = 'https://www.gap.com';
+        });
+    }
+
     // Email Popup Functionality
     const emailPopup = document.getElementById('email-popup');
     const popupContent = document.querySelector('.email-popup-content');
