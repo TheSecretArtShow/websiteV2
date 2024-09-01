@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const insiderEmailInput = document.getElementById('insider-email');
     const submitWaitlistButton = document.getElementById('submit-waitlist');
     const submitInsiderButton = document.getElementById('submit-insider');
+    const selectedProductInput = document.getElementById('selected-product'); // Ensure this input exists in your HTML
 
     function sendEmailToServer(email, listType, name, confirmationElement) {
         fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
@@ -198,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitWaitlistButton) {
         submitWaitlistButton.addEventListener('click', function () {
             const email = waitlistEmailInput.value;
-            const productName = document.getElementById('selected-product').value; // Capture the product name
+            const productName = selectedProductInput ? selectedProductInput.value : "Unknown Product"; // Make sure selectedProductInput is found
             if (email) {
                 sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
             }
@@ -231,18 +232,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Attach the popup function to each "View Details" button and capture the product name
-    const viewDetailsButtons = document.querySelectorAll('.view-details');
-    viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            // Get the product name from the button's parent element
-            const productName = this.closest('.product').querySelector('h3').textContent.trim();
-            
-            // Store the product name in a hidden input for the waitlist form
-            document.getElementById('selected-product').value = productName;
+    // Function to show the popup when a "View Details" button is clicked
+    function showEmailPopup() {
+        if (emailPopup) {
+            emailPopup.style.display = 'flex';
+        }
+    }
 
-            // Show the email popup
-            showEmailPopup();
+    // Attach the popup function to each "View Details" button
+    const viewDetailsButtons = document.querySelectorAll('.view-details');
+    if (viewDetailsButtons.length > 0) {
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const productElement = this.closest('.product');
+                const productName = productElement.querySelector('h3').textContent.trim();
+                if (selectedProductInput) {
+                    selectedProductInput.value = productName; // Set the product name in the hidden input
+                }
+                showEmailPopup();
+            });
         });
-    });
+    }
 });
