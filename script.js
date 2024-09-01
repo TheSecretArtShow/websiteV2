@@ -140,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         parentElement.innerHTML = '';
-
         const confirmationMessage = document.createElement('div');
         confirmationMessage.style.padding = '20px';
         confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
@@ -152,32 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
         confirmationMessage.style.textAlign = 'center';
         confirmationMessage.textContent = `Thank you! You've been added to the waitlist for ${name}.`;
-
         parentElement.appendChild(confirmationMessage);
-
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes fadeInScale {
-                0% {
-                    opacity: 0;
-                    transform: scale(0.8);
-                }
-                100% {
-                    opacity: 1;
-                    transform: scale(1);
-                }
-            }
-
-            @keyframes shimmerEffect {
-                from {
-                    background-position: 0 0;
-                }
-                to {
-                    background-position: 100% 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
     }
 
     function resetForm(emailInput, submitButton) {
@@ -209,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = waitlistEmailInput.value;
             const productName = submitWaitlistButton.dataset.productName;
             if (email) {
-                sendEmailToServer(email, 'Waitlist', productName, waitlistButton.parentElement);
+                sendEmailToServer(email, 'Waitlist', productName, document.getElementById('email-popup-content'));
                 document.cookie = `waitlisted_${productName}=true; path=/`;
             }
         });
@@ -228,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitInsiderButton.addEventListener('click', function () {
             const email = insiderEmailInput.value;
             if (email) {
-                sendEmailToServer(email, 'Insider Alerts', '', insiderButton.parentElement);
+                sendEmailToServer(email, 'Insider Alerts', '', document.getElementById('email-popup-content'));
                 resetForm(insiderEmailInput, submitInsiderButton);
             }
         });
@@ -243,11 +217,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showEmailPopup(button) {
-        const productName = button.dataset.productName;
+        const productName = button.closest('.product').querySelector('h3').textContent;
         submitWaitlistButton.dataset.productName = productName;
 
         if (checkIfWaitlisted(productName)) {
-            showLuxuriousConfirmation(waitlistButton.parentElement, productName);
+            showLuxuriousConfirmation(document.querySelector('.email-popup-content'), productName);
         } else {
             if (emailPopup) {
                 emailPopup.style.display = 'flex';
