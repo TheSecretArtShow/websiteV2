@@ -116,6 +116,33 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitWaitlistButton = document.getElementById('submit-waitlist');
     const submitInsiderButton = document.getElementById('submit-insider');
 
+    // Utility functions to manage cookies
+    function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+        const cookieArr = document.cookie.split(";");
+        for (let i = 0; i < cookieArr.length; i++) {
+            const cookiePair = cookieArr[i].split("=");
+            if (name === cookiePair[0].trim()) {
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        return null;
+    }
+
+    function checkIfWaitlisted(productName) {
+        return getCookie(`waitlisted_${productName}`) === "true";
+    }
+
+    function markAsWaitlisted(productName) {
+        setCookie(`waitlisted_${productName}`, "true", 30); // Set the cookie to expire in 30 days
+    }
+
     function resetForm() {
         waitlistEmailInput.value = '';
         waitlistEmailInput.style.display = 'none';
@@ -135,6 +162,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
+                if (listType === 'Waitlist') {
+                    markAsWaitlisted(name);
+                }
                 showLuxuriousConfirmation(confirmationElement, name);
             })
             .catch(error => {
@@ -197,9 +227,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (waitlistButton) {
         waitlistButton.addEventListener('click', function () {
-            resetForm();
             if (waitlistEmailInput) {
-                waitlistEmailInput.style.display = 'block';
+                waitlistEmailInput.style.display = waitlistEmailInput.style.display === 'none' ? 'block' : 'none';
                 submitWaitlistButton.style.display = 'block';
             }
         });
@@ -248,7 +277,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (emailPopup) {
             emailPopup.style.display = 'flex';
             waitlistButton.setAttribute('data-product-name', productName); // Set the product name for waitlist submission
-            resetForm(); // Reset form to ensure it's ready for new input
+
+            if (checkIfWaitlisted(productName)) {
+                showLuxuriousConfirmation(waitlistButton.parentElement, productName);
+            } else {
+                resetForm(); // Reset form to ensure it's ready for new input
+            }
         }
     }
 
