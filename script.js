@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showLuxuriousConfirmationInPopup(confirmationElement, name, true);
             } else if (listType === 'Insider Alerts') {
                 setInsiderAlertSignedUp();
-                showInsiderAlertConfirmation(confirmationElement); // Show confirmation styled like a box
+                replaceInsiderAlertWithConfirmation(confirmationElement); // Replace the insider alerts button with confirmation
             }
         })
         .catch(error => {
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem(`first_confirmation_displayed_${productName}`, 'true');
     }
 
-    // Display luxurious confirmation inside the email popup and ensure insider alerts option remains
+    // Display luxurious confirmation inside the email popup
     function showLuxuriousConfirmationInPopup(confirmationElement, productName, isFirstTime = false) {
         confirmationElement.innerHTML = ''; // Clear existing content
 
@@ -187,23 +187,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Append the confirmation message to the email popup content
         confirmationElement.appendChild(confirmationMessage);
 
-        // Add insider alert status or signup option below the waitlist confirmation
-        if (getInsiderAlertStatus()) {
-            showInsiderAlertConfirmation(confirmationElement, true); // Show confirmation if already signed up
+        // Add insider alerts if not already signed up
+        if (!getInsiderAlertStatus()) {
+            addInsiderAlertSection(confirmationElement);
         } else {
-            // Add insider alert signup button and inputs below the waitlist confirmation
-            const insiderSection = document.createElement('div');
-            insiderSection.innerHTML = `
-                <div class="signup-option" id="insider-option">
-                    <button id="insider-button">Insider alerts</button>
-                    <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
-                    <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
-                </div>
-            `;
-            confirmationElement.appendChild(insiderSection);
-
-            // Attach event listeners for the insider alerts buttons
-            setupInsiderListeners(insiderSection);
+            replaceInsiderAlertWithConfirmation(confirmationElement); // Replace with confirmation if already signed up
         }
 
         // Add the "Resume Browsing" button below confirmations
@@ -219,8 +207,23 @@ document.addEventListener('DOMContentLoaded', function () {
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
 
-    // Display insider alert confirmation in box format and place it accordingly
-    function showInsiderAlertConfirmation(confirmationElement, placeBelow = false) {
+    // Function to add insider alert section
+    function addInsiderAlertSection(confirmationElement) {
+        const insiderOption = document.createElement('div');
+        insiderOption.className = 'signup-option';
+        insiderOption.id = 'insider-option';
+        insiderOption.innerHTML = `
+            <button id="insider-button">Insider alerts</button>
+            <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
+            <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
+        `;
+        confirmationElement.appendChild(insiderOption);
+
+        setupPopupListeners(); // Reattach listeners for dynamically created elements
+    }
+
+    // Replace insider alerts section with confirmation
+    function replaceInsiderAlertWithConfirmation(confirmationElement) {
         const insiderConfirmationMessage = document.createElement('div');
         insiderConfirmationMessage.style.padding = '20px';
         insiderConfirmationMessage.style.background = 'linear-gradient(135deg, #d3d3d3, #e5e5e5)';
@@ -233,34 +236,10 @@ document.addEventListener('DOMContentLoaded', function () {
         insiderConfirmationMessage.style.marginBottom = '20px'; // Add margin to separate confirmations
         insiderConfirmationMessage.textContent = `You're signed up for insider alerts.`;
 
-        // Append accordingly based on the flag
-        if (placeBelow) {
-            confirmationElement.appendChild(insiderConfirmationMessage);
-        } else {
-            confirmationElement.prepend(insiderConfirmationMessage);
-        }
-    }
-
-    // Function to set up listeners specifically for insider alerts buttons
-    function setupInsiderListeners(insiderSection) {
-        const insiderButton = insiderSection.querySelector('#insider-button');
-        const insiderEmailInput = insiderSection.querySelector('#insider-email');
-        const submitInsiderButton = insiderSection.querySelector('#submit-insider');
-
-        if (insiderButton) {
-            insiderButton.addEventListener('click', function () {
-                insiderEmailInput.style.display = 'block';
-                submitInsiderButton.style.display = 'block';
-            });
-        }
-
-        if (submitInsiderButton) {
-            submitInsiderButton.addEventListener('click', function () {
-                const email = insiderEmailInput.value;
-                if (email) {
-                    sendEmailToServer(email, 'Insider Alerts', '', popupContent);
-                }
-            });
+        // Find the insider alerts section and replace it
+        const insiderSection = confirmationElement.querySelector('#insider-option');
+        if (insiderSection) {
+            confirmationElement.replaceChild(insiderConfirmationMessage, insiderSection);
         }
     }
 
@@ -271,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Product element not found.");
             return;
         }
-        
+
         const productNameElement = productElement.querySelector('h3');
         if (!productNameElement) {
             console.error("Product name element not found.");
@@ -301,9 +280,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to reset the email input form
     function resetForm() {
-        // Ensure insider alerts are shown based on status
-        const insiderAlertStatus = getInsiderAlertStatus();
-
         popupContent.innerHTML = `
             <h2>Join Our Community</h2>
             <p>Enter your email to sign up for exclusive access to our collections.</p>
@@ -312,14 +288,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
                 <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
             </div>
-            <div class="signup-option" id="insider-option">
-                ${insiderAlertStatus ? 
-                    `<div style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; margin-bottom: 20px;">You're signed up for insider alerts.</div>` :
-                    `<button id="insider-button">Insider alerts</button>
+            ${getInsiderAlertStatus() ? 
+                `<div style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; margin-bottom: 20px;">You're signed up for insider alerts.</div>` :
+                `<div class="signup-option" id="insider-option">
+                    <button id="insider-button">Insider alerts</button>
                     <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
-                    <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>`
-                }
-            </div>
+                    <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
+                </div>`
+            }
             <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
         `;
     }
