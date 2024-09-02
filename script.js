@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Define the sendEmailToServer function near the start
     function sendEmailToServer(email, listType, name, confirmationElement) {
-        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', { // Replace with your Cloud Run URL
+        fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -11,11 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(data => {
             if (listType === 'Waitlist') {
-                setWaitlistConfirmationDisplayed(name); // Mark that the first confirmation was shown
+                setWaitlistConfirmationDisplayed(name);
                 showLuxuriousConfirmationInPopup(confirmationElement, name, true);
             } else if (listType === 'Insider Alerts') {
                 setInsiderAlertSignedUp();
-                replaceInsiderAlertWithConfirmation(confirmationElement); // Show confirmation styled like a box
+                replaceInsiderAlertWithConfirmation(confirmationElement, true); // Passing true for the initial confirmation
             }
         })
         .catch(error => {
@@ -24,10 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // General setup
     const squares = document.querySelectorAll('.square');
     const shopNowButton = document.getElementById('shop-now');
-    const products = document.querySelectorAll('.product, .collection-item'); // Include collections
+    const products = document.querySelectorAll('.product, .collection-item');
     let lastX = 0, lastY = 0;
     let moveX = true;
 
@@ -38,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             productCarousel.style.transition = 'none';
             productCarousel.style.transform = 'translateX(0)';
             productCarousel.append(...productCarousel.children);
-            productCarousel.offsetHeight; // Trigger reflow to reset animation
+            productCarousel.offsetHeight;
             productCarousel.style.transition = 'transform 30s linear';
             productCarousel.style.transform = `translateX(-${productCarousel.scrollWidth}px)`;
         }
@@ -47,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
         resetScroll();
     }
 
-    // Mouse movement effect
     document.addEventListener('mousemove', (e) => {
         const gridSize = 20;
         let targetX = Math.floor(e.clientX / gridSize) * gridSize;
@@ -88,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Handle Random Pop-up
     const popups = [
         { message: "For the few, not the many. Are you among the few?", buttonTextYes: "I'm one of one", buttonTextNo: "No" },
         { message: "Access is restricted for the ordinary. Are you extraordinary?", buttonTextYes: "I am more", buttonTextNo: "No" },
@@ -112,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Display a random pop-up when the page loads
     showRandomPopup();
 
     const popupYesButton = document.getElementById('popup-button-yes');
@@ -133,11 +128,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Email Popup Functionality
     const emailPopup = document.getElementById('email-popup');
     const popupContent = document.querySelector('.email-popup-content');
 
-    // Track waitlist status per product
     function getWaitlistStatus(productName) {
         return localStorage.getItem(`waitlisted_${productName}`) === 'true';
     }
@@ -146,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem(`waitlisted_${productName}`, 'true');
     }
 
-    // Track if insider alerts have been signed up for
     function getInsiderAlertStatus() {
         return localStorage.getItem('insider_signed_up') === 'true';
     }
@@ -155,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('insider_signed_up', 'true');
     }
 
-    // Track if the initial waitlist confirmation has been shown
     function isFirstWaitlistConfirmationDisplayed(productName) {
         return localStorage.getItem(`first_confirmation_displayed_${productName}`) === 'true';
     }
@@ -164,11 +155,9 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem(`first_confirmation_displayed_${productName}`, 'true');
     }
 
-    // Display luxurious confirmation inside the email popup
     function showLuxuriousConfirmationInPopup(confirmationElement, productName, isFirstTime = false) {
-        confirmationElement.innerHTML = ''; // Clear existing content
+        confirmationElement.innerHTML = '';
 
-        // Create the confirmation message based on first-time signup
         const confirmationMessage = document.createElement('div');
         confirmationMessage.style.padding = '20px';
         confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
@@ -179,22 +168,19 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
         confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
         confirmationMessage.style.textAlign = 'center';
-        confirmationMessage.style.marginBottom = '20px'; // Increase spacing between confirmations
+        confirmationMessage.style.marginBottom = '20px';
         confirmationMessage.textContent = isFirstTime
             ? `Thank you! You've been added to the waitlist for ${productName}.`
             : `You're waitlisted for ${productName}.`;
 
-        // Append the confirmation message to the email popup content
         confirmationElement.appendChild(confirmationMessage);
 
-        // Always add the insider alerts section or confirmation
-        if (getInsiderAlertStatus()) {
-            replaceInsiderAlertWithConfirmation(confirmationElement);
-        } else {
+        if (!getInsiderAlertStatus()) {
             addInsiderAlertSection(confirmationElement);
+        } else {
+            replaceInsiderAlertWithConfirmation(confirmationElement, false);
         }
 
-        // Add the "Resume Browsing" button below confirmations
         const resumeButton = document.createElement('button');
         resumeButton.textContent = 'Resume browsing';
         resumeButton.className = 'resume-button';
@@ -204,11 +190,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         confirmationElement.appendChild(resumeButton);
-        emailPopup.style.display = 'flex'; // Ensure the popup shows up
+        emailPopup.style.display = 'flex';
     }
 
-    // Display insider alert confirmation in box format and place it accordingly
-    function replaceInsiderAlertWithConfirmation(confirmationElement) {
+    function replaceInsiderAlertWithConfirmation(confirmationElement, isFirstTime = false) {
+        const existingInsiderAlertSection = confirmationElement.querySelector('.signup-option');
+        if (existingInsiderAlertSection) {
+            existingInsiderAlertSection.remove();
+        }
+
         const insiderConfirmationMessage = document.createElement('div');
         insiderConfirmationMessage.style.padding = '20px';
         insiderConfirmationMessage.style.background = 'linear-gradient(135deg, #d3d3d3, #e5e5e5)';
@@ -218,26 +208,27 @@ document.addEventListener('DOMContentLoaded', function () {
         insiderConfirmationMessage.style.borderRadius = '12px';
         insiderConfirmationMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
         insiderConfirmationMessage.style.textAlign = 'center';
-        insiderConfirmationMessage.style.marginBottom = '20px'; // Add margin to separate confirmations
-        insiderConfirmationMessage.textContent = `You're signed up for insider alerts.`;
+        insiderConfirmationMessage.style.marginBottom = '20px';
+        insiderConfirmationMessage.textContent = isFirstTime
+            ? `Thank you! You've signed up for insider alerts.`
+            : `You're signed up for insider alerts.`;
 
         confirmationElement.appendChild(insiderConfirmationMessage);
     }
 
-    // Add the insider alerts section
     function addInsiderAlertSection(confirmationElement) {
-        const insiderSection = document.createElement('div');
-        insiderSection.className = 'signup-option';
-        insiderSection.innerHTML = `
+        const insiderAlertSection = document.createElement('div');
+        insiderAlertSection.className = 'signup-option';
+        insiderAlertSection.innerHTML = `
             <button id="insider-button">Insider alerts</button>
             <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
             <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
         `;
-        confirmationElement.appendChild(insiderSection);
+        confirmationElement.appendChild(insiderAlertSection);
 
-        const insiderButton = insiderSection.querySelector('#insider-button');
-        const insiderEmailInput = insiderSection.querySelector('#insider-email');
-        const submitInsiderButton = insiderSection.querySelector('#submit-insider');
+        const insiderButton = insiderAlertSection.querySelector('#insider-button');
+        const insiderEmailInput = insiderAlertSection.querySelector('#insider-email');
+        const submitInsiderButton = insiderAlertSection.querySelector('#submit-insider');
 
         if (insiderButton) {
             insiderButton.addEventListener('click', function () {
@@ -256,7 +247,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to display the email popup specific to each product or collection
     function showEmailPopup(button) {
         const productElement = button.closest('.product, .collection-item');
         if (!productElement) {
@@ -271,28 +261,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const productName = productNameElement.textContent;
-
-        // Always bring up the email popup first
         emailPopup.style.display = 'flex';
 
-        // Check if the product is already waitlisted
         const isWaitlisted = getWaitlistStatus(productName);
         const isFirstConfirmationDisplayed = !isFirstWaitlistConfirmationDisplayed(productName);
-
-        // Reset form each time to ensure proper setup
         resetForm();
 
-        // Show the waitlist confirmation if already waitlisted
         if (isWaitlisted) {
             showLuxuriousConfirmationInPopup(popupContent, productName, isFirstConfirmationDisplayed);
         }
 
-        // Set up buttons and listeners for waitlist and insider alerts
         setupPopupListeners(productName);
     }
 
-    // Function to reset the email input form
     function resetForm() {
+        const insiderAlertStatus = getInsiderAlertStatus();
+
         popupContent.innerHTML = `
             <h2>Join Our Community</h2>
             <p>Enter your email to sign up for exclusive access to our collections.</p>
@@ -301,19 +285,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
                 <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
             </div>
-            <div class="signup-option" id="insider-option">
-                ${getInsiderAlertStatus() ? 
-                    `<div style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; margin-bottom: 20px;">You're signed up for insider alerts.</div>` :
-                    `<button id="insider-button">Insider alerts</button>
+            ${insiderAlertStatus ? 
+                `<div class="insider-confirmation" style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; margin-bottom: 20px;">You're signed up for insider alerts.</div>` :
+                `<div class="signup-option" id="insider-option">
+                    <button id="insider-button">Insider alerts</button>
                     <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
-                    <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>`
-                }
-            </div>
+                    <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
+                </div>`
+            }
             <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
         `;
     }
 
-    // Set up listeners for dynamically created popup elements
     function setupPopupListeners(productName) {
         const waitlistButton = document.getElementById('waitlist-button');
         const submitWaitlistButton = document.getElementById('submit-waitlist');
@@ -363,7 +346,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Attach the popup function to each "View Details" button
     const viewDetailsButtons = document.querySelectorAll('.view-details');
     viewDetailsButtons.forEach(button => {
         button.addEventListener('click', function () {
