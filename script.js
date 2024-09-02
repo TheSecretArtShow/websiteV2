@@ -394,8 +394,8 @@ document.addEventListener('DOMContentLoaded', () => {
     starContainer.style.left = 0;
     starContainer.style.width = '100%';
     starContainer.style.height = '100%';
-    starContainer.style.pointerEvents = 'none';
-    starContainer.style.zIndex = '-1'; // Ensures it stays behind all content
+    starContainer.style.pointerEvents = 'none'; // Ensures it does not block interactions
+    starContainer.style.zIndex = '-1'; // Keeps it behind all other content
     document.body.appendChild(starContainer);
 
     const createStar = () => {
