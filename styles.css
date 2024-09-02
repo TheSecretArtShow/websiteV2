@@ -377,3 +377,17 @@ body::after {
     background: transparent; /* Removes the dark gray background */
     padding: 50px 0;
 }
+/* Shooting Star Cursor Style */
+.shooting-star-cursor {
+    position: absolute;
+    width: 6px; /* Adjust size to match your background stars */
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
+    transition: transform 0.1s ease;
+    pointer-events: none; /* Ensures it doesn't interfere with clicks */
+    will-change: transform;
+    z-index: 9999; /* Make sure it’s above all content */
+}
+
