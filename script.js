@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Display luxurious confirmation inside the email popup
     function showLuxuriousConfirmationInPopup(confirmationElement, productName, isFirstTime = false) {
-        // Preserve existing insider alert elements
         const insiderAlertContent = confirmationElement.querySelector('#insider-option');
 
         confirmationElement.innerHTML = ''; // Clear existing content except insider alerts
@@ -211,6 +210,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
         confirmationElement.appendChild(resumeButton);
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
+    }
+
+    // Display insider alert confirmation in box format and place it accordingly
+    function showInsiderAlertConfirmation(confirmationElement) {
+        const insiderConfirmationMessage = document.createElement('div');
+        insiderConfirmationMessage.style.padding = '20px';
+        insiderConfirmationMessage.style.background = 'linear-gradient(135deg, #d3d3d3, #e5e5e5)';
+        insiderConfirmationMessage.style.color = '#2a2a2a';
+        insiderConfirmationMessage.style.fontFamily = "'Garamond', serif";
+        insiderConfirmationMessage.style.fontWeight = 'bold';
+        insiderConfirmationMessage.style.borderRadius = '12px';
+        insiderConfirmationMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+        insiderConfirmationMessage.style.textAlign = 'center';
+        insiderConfirmationMessage.style.marginBottom = '20px'; // Add margin to separate confirmations
+        insiderConfirmationMessage.textContent = `Thank you! You've signed up for insider alerts.`;
+
+        confirmationElement.insertBefore(insiderConfirmationMessage, confirmationElement.querySelector('.resume-button'));
     }
 
     // Replace Insider Alerts button and field with confirmation when signed up
