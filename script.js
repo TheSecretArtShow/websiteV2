@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showLuxuriousConfirmationInPopup(confirmationElement, name, true);
             } else if (listType === 'Insider Alerts') {
                 setInsiderAlertSignedUp();
-                showInsiderAlertConfirmation(confirmationElement, true); // Show confirmation above the resume button
+                showInsiderAlertConfirmation(confirmationElement, true); // Show confirmation styled like a box
             }
         })
         .catch(error => {
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Add insider alert status if signed up and place it below the waitlist confirmation
         if (getInsiderAlertStatus()) {
-            showInsiderAlertConfirmation(confirmationElement, true); // Passing true to place above the resume button
+            showInsiderAlertConfirmation(confirmationElement, false); // Passing false to place below the waitlist confirmation
         }
 
         // Add the "Resume Browsing" button below confirmations
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Display insider alert confirmation in box format and place it accordingly
-    function showInsiderAlertConfirmation(confirmationElement, placeBelow = false) {
+    function showInsiderAlertConfirmation(confirmationElement, isFirstTime = false) {
         const insiderConfirmationMessage = document.createElement('div');
         insiderConfirmationMessage.style.padding = '20px';
         insiderConfirmationMessage.style.background = 'linear-gradient(135deg, #d3d3d3, #e5e5e5)';
@@ -217,13 +217,16 @@ document.addEventListener('DOMContentLoaded', function () {
         insiderConfirmationMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
         insiderConfirmationMessage.style.textAlign = 'center';
         insiderConfirmationMessage.style.marginBottom = '20px'; // Add margin to separate confirmations
-        insiderConfirmationMessage.textContent = `Thank you! You've signed up for insider alerts.`;
+        insiderConfirmationMessage.textContent = isFirstTime
+            ? `Thank you! You've signed up for insider alerts.`
+            : `You're signed up for insider alerts.`;
 
-        // Append accordingly based on the flag
-        if (placeBelow) {
-            confirmationElement.insertBefore(insiderConfirmationMessage, confirmationElement.lastChild);
+        // Insert the confirmation above the "Resume browsing" button
+        const resumeButton = confirmationElement.querySelector('.resume-button');
+        if (resumeButton) {
+            confirmationElement.insertBefore(insiderConfirmationMessage, resumeButton);
         } else {
-            confirmationElement.prepend(insiderConfirmationMessage);
+            confirmationElement.appendChild(insiderConfirmationMessage);
         }
     }
 
