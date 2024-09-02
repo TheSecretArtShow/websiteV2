@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem(`first_confirmation_displayed_${productName}`, 'true');
     }
 
-    // Display luxurious confirmation inside the email popup
+    // Display luxurious confirmation inside the email popup and ensure insider alerts option remains
     function showLuxuriousConfirmationInPopup(confirmationElement, productName, isFirstTime = false) {
         confirmationElement.innerHTML = ''; // Clear existing content
 
@@ -187,6 +187,25 @@ document.addEventListener('DOMContentLoaded', function () {
         // Append the confirmation message to the email popup content
         confirmationElement.appendChild(confirmationMessage);
 
+        // Add insider alert status or signup option below the waitlist confirmation
+        if (getInsiderAlertStatus()) {
+            showInsiderAlertConfirmation(confirmationElement, true); // Show confirmation if already signed up
+        } else {
+            // Add insider alert signup button and inputs below the waitlist confirmation
+            const insiderSection = document.createElement('div');
+            insiderSection.innerHTML = `
+                <div class="signup-option" id="insider-option">
+                    <button id="insider-button">Insider alerts</button>
+                    <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
+                    <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
+                </div>
+            `;
+            confirmationElement.appendChild(insiderSection);
+
+            // Attach event listeners for the insider alerts buttons
+            setupInsiderListeners(insiderSection);
+        }
+
         // Add the "Resume Browsing" button below confirmations
         const resumeButton = document.createElement('button');
         resumeButton.textContent = 'Resume browsing';
@@ -195,11 +214,6 @@ document.addEventListener('DOMContentLoaded', function () {
         resumeButton.addEventListener('click', function () {
             emailPopup.style.display = 'none';
         });
-
-        // Add insider alert status if signed up and place it below the waitlist confirmation
-        if (getInsiderAlertStatus()) {
-            showInsiderAlertConfirmation(confirmationElement, true); // Passing true to place below
-        }
 
         confirmationElement.appendChild(resumeButton);
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
@@ -224,6 +238,29 @@ document.addEventListener('DOMContentLoaded', function () {
             confirmationElement.appendChild(insiderConfirmationMessage);
         } else {
             confirmationElement.prepend(insiderConfirmationMessage);
+        }
+    }
+
+    // Function to set up listeners specifically for insider alerts buttons
+    function setupInsiderListeners(insiderSection) {
+        const insiderButton = insiderSection.querySelector('#insider-button');
+        const insiderEmailInput = insiderSection.querySelector('#insider-email');
+        const submitInsiderButton = insiderSection.querySelector('#submit-insider');
+
+        if (insiderButton) {
+            insiderButton.addEventListener('click', function () {
+                insiderEmailInput.style.display = 'block';
+                submitInsiderButton.style.display = 'block';
+            });
+        }
+
+        if (submitInsiderButton) {
+            submitInsiderButton.addEventListener('click', function () {
+                const email = insiderEmailInput.value;
+                if (email) {
+                    sendEmailToServer(email, 'Insider Alerts', '', popupContent);
+                }
+            });
         }
     }
 
