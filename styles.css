@@ -18,10 +18,11 @@
     will-change: transform, background-color;
 }
 
-.products {
-    padding: 50px 0;
-    width: 100%;
-    overflow: hidden; /* Hide the scrollbar */
+.product {
+    background: rgba(30, 30, 30, 0.8); /* Slightly transparent dark color to make text readable */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-carousel {
@@ -145,17 +146,10 @@ nav ul li .dropdown li a:hover {
 
 /* Collection Item Styling */
 .collection-item {
-    position: relative;
-    display: inline-block;
-    width: 300px;
-    height: 200px;
-    background-color: #333; /* Placeholder background color */
-    color: #f5f5f5;
+    background: rgba(30, 30, 30, 0.8); /* Same as above for consistency */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
-    overflow: hidden;
-    text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 30px; /* Vertical space between items */
 }
 
 .collection-item img {
@@ -379,3 +373,7 @@ body::after {
     z-index: -1;
 }
 
+.catalogue {
+    background: transparent; /* Removes the dark gray background */
+    padding: 50px 0;
+}
