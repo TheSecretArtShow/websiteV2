@@ -423,3 +423,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to continuously create stars
     setInterval(createStar, 100); // Adjust interval for star density
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const starCursor = document.createElement('div');
+    starCursor.className = 'shooting-star-cursor';
+    document.body.appendChild(starCursor);
+
+    let lastX = 0, lastY = 0;
+    let moveX = true;
+
+    // Function to update star position with a lagging effect
+    document.addEventListener('mousemove', (e) => {
+        const gridSize = 20;
+        let targetX = Math.floor(e.clientX / gridSize) * gridSize;
+        let targetY = Math.floor(e.clientY / gridSize) * gridSize;
+
+        if (moveX) {
+            lastX = targetX;
+        } else {
+            lastY = targetY;
+        }
+        moveX = !moveX;
+
+        // Update star position with lag effect
+        starCursor.style.transform = `translate(${lastX}px, ${lastY}px)`;
+    });
+});
