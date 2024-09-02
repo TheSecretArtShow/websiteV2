@@ -423,3 +423,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to continuously create stars
     setInterval(createStar, 100); // Adjust interval for star density
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Remove or comment out the current square setup if it's in the code
+    // Setup the shooting star cursor effect
+    const shootingStar = document.createElement('div');
+    shootingStar.className = 'shooting-star';
+    document.body.appendChild(shootingStar);
+
+    const starTrail = []; // Array to hold positions for lag effect
+    let starCount = 5; // Number of positions (like how many squares you had)
+
+    // Initialize trail positions
+    for (let i = 0; i < starCount; i++) {
+        starTrail.push({ x: 0, y: 0 });
+    }
+
+    // Function to update star positions and apply the lag effect
+    document.addEventListener('mousemove', (e) => {
+        // Insert the new position at the start of the array
+        starTrail.unshift({ x: e.clientX, y: e.clientY });
+        // Remove the last position from the array to maintain length
+        starTrail.pop();
+
+        // Update the shooting star position to the last in the trail for smooth lag
+        shootingStar.style.transform = `translate(${starTrail[starTrail.length - 1].x}px, ${starTrail[starTrail.length - 1].y}px)`;
+    });
+});
