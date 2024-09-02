@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showLuxuriousConfirmationInPopup(confirmationElement, name, true);
             } else if (listType === 'Insider Alerts') {
                 setInsiderAlertSignedUp();
-                showInsiderAlertConfirmation(confirmationElement); // Show confirmation styled like a box
+                replaceInsiderAlertButtonWithConfirmation(confirmationElement); // Replace the insider alert button with confirmation
             }
         })
         .catch(error => {
@@ -166,7 +166,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Display luxurious confirmation inside the email popup
     function showLuxuriousConfirmationInPopup(confirmationElement, productName, isFirstTime = false) {
-        confirmationElement.innerHTML = ''; // Clear existing content
+        // Preserve existing insider alert elements
+        const insiderAlertContent = confirmationElement.querySelector('#insider-option');
+
+        confirmationElement.innerHTML = ''; // Clear existing content except insider alerts
+
+        // Re-append the insider alert content if present
+        if (insiderAlertContent) {
+            confirmationElement.appendChild(insiderAlertContent);
+        }
 
         // Create the confirmation message based on first-time signup
         const confirmationMessage = document.createElement('div');
@@ -184,11 +192,6 @@ document.addEventListener('DOMContentLoaded', function () {
             ? `Thank you! You've been added to the waitlist for ${productName}.`
             : `You're waitlisted for ${productName}.`;
 
-        // Add insider alert status if signed up and place it above the waitlist confirmation
-        if (getInsiderAlertStatus()) {
-            showInsiderAlertConfirmation(confirmationElement);
-        }
-
         // Append the confirmation message to the email popup content
         confirmationElement.appendChild(confirmationMessage);
 
@@ -201,34 +204,22 @@ document.addEventListener('DOMContentLoaded', function () {
             emailPopup.style.display = 'none';
         });
 
+        // Add insider alert status if signed up and place it below the waitlist confirmation
+        if (getInsiderAlertStatus()) {
+            showInsiderAlertConfirmation(confirmationElement);
+        }
+
         confirmationElement.appendChild(resumeButton);
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
 
-    // Display insider alert confirmation in box format and place it accordingly
-    function showInsiderAlertConfirmation(confirmationElement) {
-        const existingConfirmation = confirmationElement.querySelector('.insider-confirmation');
-        if (existingConfirmation) return; // Prevent multiple confirmations
-        
-        const insiderConfirmationMessage = document.createElement('div');
-        insiderConfirmationMessage.className = 'insider-confirmation';
-        insiderConfirmationMessage.style.padding = '20px';
-        insiderConfirmationMessage.style.background = 'linear-gradient(135deg, #d3d3d3, #e5e5e5)';
-        insiderConfirmationMessage.style.color = '#2a2a2a';
-        insiderConfirmationMessage.style.fontFamily = "'Garamond', serif";
-        insiderConfirmationMessage.style.fontWeight = 'bold';
-        insiderConfirmationMessage.style.borderRadius = '12px';
-        insiderConfirmationMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
-        insiderConfirmationMessage.style.textAlign = 'center';
-        insiderConfirmationMessage.style.marginBottom = '20px'; // Add margin to separate confirmations
-        insiderConfirmationMessage.textContent = `Thank you! You've signed up for insider alerts.`;
-
-        // Place above the waitlist confirmation, if present
-        const waitlistConfirmation = confirmationElement.querySelector('.waitlist-confirmation');
-        if (waitlistConfirmation) {
-            confirmationElement.insertBefore(insiderConfirmationMessage, waitlistConfirmation);
-        } else {
-            confirmationElement.prepend(insiderConfirmationMessage);
+    // Replace Insider Alerts button and field with confirmation when signed up
+    function replaceInsiderAlertButtonWithConfirmation(confirmationElement) {
+        const insiderAlertOption = confirmationElement.querySelector('#insider-option');
+        if (insiderAlertOption) {
+            insiderAlertOption.innerHTML = `
+                <div class="insider-confirmation" style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; margin-bottom: 20px;">Thank you! You've signed up for insider alerts.</div>
+            `;
         }
     }
 
