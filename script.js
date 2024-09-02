@@ -167,8 +167,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Display luxurious confirmation inside the email popup
     function showLuxuriousConfirmationInPopup(confirmationElement, productName, isFirstTime = false) {
         confirmationElement.innerHTML = ''; // Clear existing content
-
-        // Create the confirmation message based on first-time signup
+    
+        // Create the waitlist confirmation message
         const confirmationMessage = document.createElement('div');
         confirmationMessage.style.padding = '20px';
         confirmationMessage.style.background = 'linear-gradient(135deg, gold, #e5c100, #f5e1b9)';
@@ -179,23 +179,23 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationMessage.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
         confirmationMessage.style.animation = 'fadeInScale 1s ease-out forwards, shimmerEffect 3s infinite alternate';
         confirmationMessage.style.textAlign = 'center';
-        confirmationMessage.style.marginBottom = '20px'; // Increase spacing between confirmations
+        confirmationMessage.style.marginBottom = '20px';
         confirmationMessage.textContent = isFirstTime
             ? `Thank you! You've been added to the waitlist for ${productName}.`
             : `You're waitlisted for ${productName}.`;
-
-        // Append the confirmation message to the email popup content
+    
+        // Append the waitlist confirmation first
         confirmationElement.appendChild(confirmationMessage);
-
-        // Ensure insider alerts button/confirmation is displayed below
+    
+        // Check and append insider alerts confirmation second
         const insiderAlertStatus = getInsiderAlertStatus();
         if (insiderAlertStatus) {
             showInsiderAlertConfirmation(confirmationElement, false);
         } else {
             setupInsiderAlertSection(confirmationElement);
         }
-
-        // Add the "Resume Browsing" button
+    
+        // Add the "Resume Browsing" button at the end
         const resumeButton = document.createElement('button');
         resumeButton.textContent = 'Resume browsing';
         resumeButton.className = 'resume-button';
@@ -203,13 +203,21 @@ document.addEventListener('DOMContentLoaded', function () {
         resumeButton.addEventListener('click', function () {
             emailPopup.style.display = 'none';
         });
-
+    
         confirmationElement.appendChild(resumeButton);
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
 
+
     // Display insider alert confirmation
     function showInsiderAlertConfirmation(confirmationElement, firstTime = false) {
+        // Find the insider section and replace it
+        const insiderOption = document.getElementById('insider-option');
+        if (insiderOption) {
+            insiderOption.innerHTML = ''; // Clear the insider alert section
+        }
+    
+        // Create the insider confirmation message
         const insiderConfirmationMessage = document.createElement('div');
         insiderConfirmationMessage.style.padding = '20px';
         insiderConfirmationMessage.style.background = 'linear-gradient(135deg, #d3d3d3, #e5e5e5)';
@@ -223,8 +231,11 @@ document.addEventListener('DOMContentLoaded', function () {
         insiderConfirmationMessage.textContent = firstTime
             ? `Thank you! You've signed up for insider alerts.`
             : `You're signed up for insider alerts.`;
-
-        confirmationElement.insertBefore(insiderConfirmationMessage, confirmationElement.lastElementChild);
+    
+        // Append the insider confirmation inside the insider option element
+        if (insiderOption) {
+            insiderOption.appendChild(insiderConfirmationMessage);
+        }
     }
 
     // Setup the insider alert section if not signed up yet
