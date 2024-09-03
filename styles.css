@@ -381,11 +381,12 @@ body::after {
 /* Shooting Star Cursor Style */
 /* Shooting Star Style */
 /* Twinkly Shooting Star Cursor Style */
+/* Twinkly Shooting Star Cursor Style */
 .shooting-star {
     position: fixed;
     top: 0;
     left: 0;
-    width: 6px; /* Adjust size to be similar to stars */
+    width: 6px; /* Adjust size to match stars */
     height: 6px;
     background: rgba(255, 255, 255, 0.8); /* White color */
     border-radius: 50%; /* Make it circular */
@@ -396,7 +397,22 @@ body::after {
     animation: twinkle 2s infinite alternate; /* Twinkling effect */
 }
 
-/* Twinkly animation for the stars */
+/* Shooting star trail effect */
+.shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+    animation: trail 0.5s forwards;
+}
+
+/* Keyframes for the shooting star twinkle */
 @keyframes twinkle {
     0% {
         transform: scale(1);
@@ -409,5 +425,17 @@ body::after {
     100% {
         transform: scale(1);
         opacity: 0.8;
+    }
+}
+
+/* Keyframes for the trailing effect */
+@keyframes trail {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
     }
 }
