@@ -437,6 +437,20 @@ document.addEventListener('DOMContentLoaded', function () {
         starTrail.push({ element: shootingStar, x: 0, y: 0 });
     }
 
+    // Function to create a trail effect
+    function createTrail(x, y) {
+        const trail = document.createElement('div');
+        trail.className = 'star-trail';
+        trail.style.left = `${x}px`;
+        trail.style.top = `${y}px`;
+        document.body.appendChild(trail);
+
+        // Remove the trail after animation completes
+        setTimeout(() => {
+            trail.remove();
+        }, 500); // Matches the CSS animation duration
+    }
+
     // Function to update star positions and create the lag effect
     document.addEventListener('mousemove', (e) => {
         // Directly use cursor position for the first star
@@ -448,6 +462,9 @@ document.addEventListener('DOMContentLoaded', function () {
             // Smooth movement without snapping to a grid
             starTrail[i].x += (starTrail[i - 1].x - starTrail[i].x) * 0.3;
             starTrail[i].y += (starTrail[i - 1].y - starTrail[i].y) * 0.3;
+
+            // Create trail for each star movement
+            createTrail(starTrail[i].x, starTrail[i].y);
 
             // Apply the new positions to the stars
             starTrail[i].element.style.transform = `translate(${starTrail[i].x}px, ${starTrail[i].y}px)`;
