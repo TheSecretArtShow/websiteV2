@@ -379,25 +379,6 @@ body::after {
 }
 
 /* Shooting Star Cursor Style */
-/* Shooting Star Style */
-/* Twinkly Shooting Star Cursor Style */
-/* Twinkly Shooting Star Cursor Style */
-.shooting-star {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 6px; /* Adjust size to match stars */
-    height: 6px;
-    background: rgba(255, 255, 255, 0.8); /* White color */
-    border-radius: 50%; /* Make it circular */
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
-    opacity: 0.8; /* Keep a high opacity for visibility */
-    transition: transform 0.1s ease, background-color 0.3s ease;
-    will-change: transform, background-color;
-    animation: twinkle 2s infinite alternate; /* Twinkling effect */
-}
-
-/* Shooting Star Cursor Style */
 .shooting-star {
     position: fixed;
     top: 0;
@@ -407,13 +388,30 @@ body::after {
     background: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
-    pointer-events: none;
-    will-change: transform;
-    z-index: 9999;
+    opacity: 0.8;
+    transition: transform 0.1s ease, background-color 0.3s ease;
+    will-change: transform, background-color;
     animation: twinkle 2s infinite alternate;
+    overflow: visible; /* Ensures the trail is visible outside the element */
 }
 
-/* Twinkling effect for stars */
+/* Add the trailing effect */
+.shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px; /* Length of the trail */
+    height: 2px; /* Thickness of the trail */
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%) rotate(45deg); /* Adjust angle for diagonal effect */
+    transform-origin: left center;
+    filter: blur(2px); /* Adds the glow and blur to make the trail look more realistic */
+    opacity: 0.6;
+    animation: trail 0.5s forwards;
+}
+
+/* Twinkly animation for the stars */
 @keyframes twinkle {
     0% {
         transform: scale(1);
@@ -429,13 +427,14 @@ body::after {
     }
 }
 
-/* Canvas for drawing trails */
-#trail-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none; /* Make sure it doesn't interfere with clicks */
-    z-index: 5; /* Ensure it stays behind the stars */
+/* Animation for the trail */
+@keyframes trail {
+    0% {
+        width: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 80px; /* Match the trail length */
+        opacity: 0; /* Fades out gradually */
+    }
 }
