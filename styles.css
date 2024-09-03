@@ -379,17 +379,15 @@ body::after {
 }
 
 /* Shooting Star Cursor Style */
+/* Shooting Star Style */
 .shooting-star {
-    position: fixed; /* Make sure it's fixed to follow the screen */
-    top: 0;
-    left: 0;
-    width: 6px; /* Adjust the size to match background stars */
+    position: absolute;
+    width: 6px; /* Adjust size to match the desired effect */
     height: 6px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8); /* Star color */
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
-    pointer-events: none; /* Ensure it doesn't interfere with page interactions */
+    pointer-events: none; /* Ensures it doesn't interfere with clicks */
     will-change: transform;
-    z-index: 9999; /* Ensure it stays above all content */
-    transition: transform 0.1s ease; /* Smooth transition for lag effect */
+    transition: transform 0.1s ease; /* Smooth transition for the lag effect */
 }
