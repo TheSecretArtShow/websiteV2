@@ -439,17 +439,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to update star positions and create the lag effect
     document.addEventListener('mousemove', (e) => {
-        // Offset adjustment to align the star with the cursor tip
-        const offsetX = -3; // Adjust offset to align with the cursor tip
-        const offsetY = -3; // Adjust offset to align with the cursor tip
-
-        // Update the first star to the current mouse position with offset
-        starTrail[0].x = e.clientX + offsetX;
-        starTrail[0].y = e.clientY + offsetY;
+        // Directly use cursor position for the first star
+        starTrail[0].x = e.clientX;
+        starTrail[0].y = e.clientY;
 
         // Update each trailing star based on the position of the previous one
         for (let i = 1; i < starTrail.length; i++) {
-            starTrail[i].x += (starTrail[i - 1].x - starTrail[i].x) * 0.3; // Adjust this value for smoother or sharper lag
+            // Smooth movement without snapping to a grid
+            starTrail[i].x += (starTrail[i - 1].x - starTrail[i].x) * 0.3;
             starTrail[i].y += (starTrail[i - 1].y - starTrail[i].y) * 0.3;
 
             // Apply the new positions to the stars
