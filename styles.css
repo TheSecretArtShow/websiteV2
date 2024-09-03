@@ -397,22 +397,48 @@ body::after {
     animation: twinkle 2s infinite alternate; /* Twinkling effect */
 }
 
-/* Shooting star trail effect */
-.shooting-star::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5);
+/* Shooting Star Style */
+.shooting-star {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0.6;
-    animation: trail 0.5s forwards;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    will-change: transform;
+    z-index: 9999;
+    animation: twinkle 2s infinite alternate;
 }
 
-/* Keyframes for the shooting star twinkle */
+/* Trail effect for shooting stars */
+.star-trail {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: scale(1);
+    animation: fadeTrail 0.5s forwards;
+}
+
+/* Animation for the trail fade and shrink */
+@keyframes fadeTrail {
+    0% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+/* Twinkling effect for stars */
 @keyframes twinkle {
     0% {
         transform: scale(1);
@@ -425,17 +451,5 @@ body::after {
     100% {
         transform: scale(1);
         opacity: 0.8;
-    }
-}
-
-/* Keyframes for the trailing effect */
-@keyframes trail {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.6;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0;
     }
 }
