@@ -126,7 +126,7 @@
             color: #888;
         }
 
-        /* Shooting Star Cursor Style */
+        /* Square Container and Shooting Star Styles */
         .square-container {
             position: fixed;
             top: 0;
@@ -137,34 +137,33 @@
             z-index: 5;
         }
 
+        /* Shooting star style to replace squares */
         .shooting-star {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 6px; /* Adjust size to match shooting star style */
+            width: 6px; /* Adjust size to be similar to stars */
             height: 6px;
             background: rgba(255, 255, 255, 0.8); /* White color */
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.5); /* Glowing effect */
-            opacity: 0.8; 
+            border-radius: 50%; /* Make it circular */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
+            opacity: 0.8; /* Keep a high opacity for visibility */
             transition: transform 0.1s ease, background-color 0.3s ease;
             will-change: transform, background-color;
             animation: twinkle 2s infinite alternate; /* Twinkling effect */
         }
 
-        /* Trail effect for shooting stars */
+        /* Shooting star trail effect */
         .shooting-star::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 50%;
+            left: 50%;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)); /* Fading trail effect */
-            border-radius: 50%;
-            transform: translateX(-50%) scaleX(3); /* Elongates the trail to the left */
-            opacity: 0.5;
-            animation: trail-fade 0.5s infinite alternate; /* Animation for trail fading */
+            height: 2px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8));
+            transform-origin: left;
+            transform: translate(-50%, -50%) rotate(45deg);
+            opacity: 0.8;
+            transition: width 0.1s ease, opacity 0.1s ease;
         }
 
         /* Twinkly animation for the stars */
@@ -180,16 +179,6 @@
             100% {
                 transform: scale(1);
                 opacity: 0.8;
-            }
-        }
-
-        /* Trail fading animation */
-        @keyframes trail-fade {
-            0% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 0.2;
             }
         }
 
@@ -362,7 +351,7 @@
         </div>
     </div>
 
-    <!-- Container for shooting star effect -->
+    <!-- Square container for the glitchy cursor effect -->
     <div class="square-container">
         <div class="shooting-star" id="star1"></div>
         <div class="shooting-star" id="star2"></div>
