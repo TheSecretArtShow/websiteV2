@@ -391,71 +391,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const starCount = 5; // Number of stars for the glitch effect
     const starTrail = []; // Array to hold star elements and their positions
 
-    // Setup the canvas for the trails
-    const canvas = document.getElementById('trail-canvas');
-    const ctx = canvas.getContext('2d');
-    resizeCanvas();
-
-    window.addEventListener('resize', resizeCanvas);
-
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-
     // Create the shooting stars
     for (let i = 0; i < starCount; i++) {
         const shootingStar = document.createElement('div');
         shootingStar.className = 'shooting-star';
         shootingStar.style.opacity = 1 - i * 0.2; // Fainter stars for the trail effect
         document.body.appendChild(shootingStar);
-        starTrail.push({ element: shootingStar, x: 0, y: 0, prevX: 0, prevY: 0 });
-    }
-
-    // Function to draw the trail between the stars
-    function drawTrail(prevX, prevY, x, y) {
-        ctx.beginPath();
-        ctx.moveTo(prevX, prevY);
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.lineWidth = 3; // Adjust thickness of the trail
-        ctx.lineCap = 'round';
-        ctx.stroke();
-        ctx.closePath();
+        starTrail.push({ element: shootingStar, x: 0, y: 0 });
     }
 
     // Function to update star positions and create the lag effect
     document.addEventListener('mousemove', (e) => {
-        // Clear the canvas each time before drawing new trails
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         // Directly use cursor position for the first star
-        starTrail[0].prevX = starTrail[0].x; // Store previous position
-        starTrail[0].prevY = starTrail[0].y;
         starTrail[0].x = e.clientX;
         starTrail[0].y = e.clientY;
 
         // Update each trailing star based on the position of the previous one
         for (let i = 1; i < starTrail.length; i++) {
-            const star = starTrail[i];
-            star.prevX = star.x; // Store previous position for drawing
-            star.prevY = star.y;
-
-            // Smooth movement calculation without grid snapping
-            const targetX = starTrail[i - 1].x;
-            const targetY = starTrail[i - 1].y;
-            star.x += (targetX - star.x) * 0.3;
-            star.y += (targetY - star.y) * 0.3;
-
-            // Check if the star has made a noticeable jump
-            const distance = Math.hypot(star.x - star.prevX, star.y - star.prevY);
-            if (distance > 5) { // Threshold distance to trigger trail
-                drawTrail(star.prevX, star.prevY, star.x, star.y);
-            }
+            // Smooth movement without snapping to a grid
+            starTrail[i].x += (starTrail[i - 1].x - starTrail[i].x) * 0.3;
+            starTrail[i].y += (starTrail[i - 1].y - starTrail[i].y) * 0.3;
 
             // Apply the new positions to the stars
-            star.element.style.transform = `translate(${star.x}px, ${star.y}px)`;
+            starTrail[i].element.style.transform = `translate(${starTrail[i].x}px, ${starTrail[i].y}px)`;
         }
     });
 });
-
