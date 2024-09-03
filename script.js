@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const starCount = 5; // Number of stars for the glitch effect
     const starTrail = []; // Array to hold star elements and their positions
 
-    // Setup the canvas
+    // Setup the canvas for the trails
     const canvas = document.getElementById('trail-canvas');
     const ctx = canvas.getContext('2d');
     resizeCanvas();
@@ -413,12 +413,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Function to draw the trail between the stars
-    function drawTrail(prevX, prevY, x, y, opacity) {
+    function drawTrail(prevX, prevY, x, y) {
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(x, y);
-        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-        ctx.lineWidth = 4; // Adjust thickness of the trail
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.lineWidth = 3; // Adjust thickness of the trail
         ctx.lineCap = 'round';
         ctx.stroke();
         ctx.closePath();
@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to update star positions and create the lag effect
     document.addEventListener('mousemove', (e) => {
-        // Clear the canvas for fresh drawing
+        // Clear the canvas each time before drawing new trails
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Directly use cursor position for the first star
@@ -441,14 +441,17 @@ document.addEventListener('DOMContentLoaded', function () {
             star.prevX = star.x; // Store previous position for drawing
             star.prevY = star.y;
 
-            // Smooth movement without snapping to a grid
-            star.x += (starTrail[i - 1].x - star.x) * 0.3;
-            star.y += (starTrail[i - 1].y - star.y) * 0.3;
+            // Smooth movement calculation without grid snapping
+            const targetX = starTrail[i - 1].x;
+            const targetY = starTrail[i - 1].y;
+            star.x += (targetX - star.x) * 0.3;
+            star.y += (targetY - star.y) * 0.3;
 
-            // Draw the trail between previous and current positions
+            // Check if the star has made a noticeable jump
             const distance = Math.hypot(star.x - star.prevX, star.y - star.prevY);
-            const taperOpacity = Math.max(0.2, 1 - distance / 100); // Taper opacity based on distance
-            drawTrail(star.prevX, star.prevY, star.x, star.y, taperOpacity);
+            if (distance > 5) { // Threshold distance to trigger trail
+                drawTrail(star.prevX, star.prevY, star.x, star.y);
+            }
 
             // Apply the new positions to the stars
             star.element.style.transform = `translate(${star.x}px, ${star.y}px)`;
