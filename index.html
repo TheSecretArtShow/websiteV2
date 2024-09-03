@@ -126,7 +126,7 @@
             color: #888;
         }
 
-        /* Square Container and Shooting Star Styles */
+        /* Shooting Star Cursor Style */
         .square-container {
             position: fixed;
             top: 0;
@@ -137,17 +137,60 @@
             z-index: 5;
         }
 
-        /* Shooting star style to replace squares */
-        .square {
-            position: absolute;
-            width: 6px; /* Adjust size to be similar to stars */
+        .shooting-star {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px; /* Adjust size to match shooting star style */
             height: 6px;
-            background: rgba(255, 255, 255, 0.8); /* Change color to white */
-            border-radius: 50%; /* Make it circular */
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
-            opacity: 0.5; /* Keep the opacity similar to the squares */
+            background: rgba(255, 255, 255, 0.8); /* White color */
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.5); /* Glowing effect */
+            opacity: 0.8; 
             transition: transform 0.1s ease, background-color 0.3s ease;
             will-change: transform, background-color;
+            animation: twinkle 2s infinite alternate; /* Twinkling effect */
+        }
+
+        /* Trail effect for shooting stars */
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)); /* Fading trail effect */
+            border-radius: 50%;
+            transform: translateX(-50%) scaleX(3); /* Elongates the trail to the left */
+            opacity: 0.5;
+            animation: trail-fade 0.5s infinite alternate; /* Animation for trail fading */
+        }
+
+        /* Twinkly animation for the stars */
+        @keyframes twinkle {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Trail fading animation */
+        @keyframes trail-fade {
+            0% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0.2;
+            }
         }
 
         @keyframes scroll-horizontal {
@@ -319,13 +362,13 @@
         </div>
     </div>
 
-    <!-- Square container for the glitchy cursor effect -->
+    <!-- Container for shooting star effect -->
     <div class="square-container">
-        <div class="square" id="square1"></div>
-        <div class="square" id="square2"></div>
-        <div class="square" id="square3"></div>
-        <div class="square" id="square4"></div>
-        <div class="square" id="square5"></div>
+        <div class="shooting-star" id="star1"></div>
+        <div class="shooting-star" id="star2"></div>
+        <div class="shooting-star" id="star3"></div>
+        <div class="shooting-star" id="star4"></div>
+        <div class="shooting-star" id="star5"></div>
     </div>
 
     <script src="script.js"></script> <!-- Link to JS file -->
