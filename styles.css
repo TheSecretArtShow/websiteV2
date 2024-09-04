@@ -379,10 +379,9 @@ body::after {
 }
 
 /* Shooting Star Cursor Style */
+/* Ensure the stars are positioned correctly */
 .shooting-star {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 6px;
     height: 6px;
     background: rgba(255, 255, 255, 0.8);
@@ -392,23 +391,9 @@ body::after {
     transition: transform 0.1s ease, background-color 0.3s ease;
     will-change: transform, background-color;
     animation: twinkle 2s infinite alternate;
-    overflow: visible; /* Ensures the trail is visible outside the element */
+    overflow: visible;
 }
 
-.shooting-star {
-    width: 6px;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
-    opacity: 0.8;
-    transition: transform 0.1s ease, background-color 0.3s ease;
-    will-change: transform, background-color;
-    animation: twinkle 2s infinite alternate;
-}
-
-
-/* Twinkly animation for the stars */
 @keyframes twinkle {
     0% {
         transform: scale(1);
@@ -421,17 +406,5 @@ body::after {
     100% {
         transform: scale(1);
         opacity: 0.8;
-    }
-}
-
-/* Animation for the trail */
-@keyframes trail {
-    0% {
-        width: 0;
-        opacity: 1;
-    }
-    100% {
-        width: 80px; /* Match the trail length */
-        opacity: 0; /* Fades out gradually */
     }
 }
