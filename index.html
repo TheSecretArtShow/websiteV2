@@ -126,8 +126,8 @@
             color: #888;
         }
 
-        /* Square Container and Shooting Star Styles */
-        .square-container {
+        /* Star Container and Shooting Star Styles */
+        .star-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -137,15 +137,14 @@
             z-index: 5;
         }
 
-        /* Shooting star style to replace squares */
-        .square {
+        .star {
             position: absolute;
-            width: 6px; /* Adjust size to be similar to stars */
+            width: 6px;
             height: 6px;
-            background: rgba(255, 255, 255, 0.8); /* Change color to white */
-            border-radius: 50%; /* Make it circular */
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
-            opacity: 0.5; /* Keep the opacity similar to the squares */
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
+            opacity: 0.5;
             transition: transform 0.1s ease, background-color 0.3s ease;
             will-change: transform, background-color;
         }
@@ -204,7 +203,6 @@
     </style>
 </head>
 <body>
-        <!-- Add this canvas inside your body, before the other elements -->
     <canvas id="trail-canvas"></canvas>
 
     <header>
@@ -321,16 +319,17 @@
         </div>
     </div>
 
-    <!-- Square container for the glitchy cursor effect -->
-        <!-- Updated HTML for Shooting Stars with Trail -->
+    <!-- Star container for the glitchy cursor effect with trailing effect -->
     <div class="star-container">
+        <!-- Main star -->
         <div class="star" id="star1"></div>
-        <div class="star" id="star2"></div>
-        <div class="star" id="star3"></div>
-        <div class="star" id="star4"></div>
-        <div class="star" id="star5"></div>
+        <!-- Trail stars for tapered effect -->
+        <div class="star trail" id="trail1"></div>
+        <div class="star trail" id="trail2"></div>
+        <div class="star trail" id="trail3"></div>
+        <div class="star trail" id="trail4"></div>
+        <div class="star trail" id="trail5"></div>
     </div>
-    
 
     <script src="script.js"></script> <!-- Link to JS file -->
     <script>
