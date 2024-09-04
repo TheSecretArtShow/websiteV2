@@ -394,25 +394,24 @@ document.addEventListener('DOMContentLoaded', function () {
     // Create the shooting stars
     for (let i = 0; i < starCount; i++) {
         const shootingStar = document.createElement('div');
-        shootingStar.className = 'shooting-star';
+        shootingStar.className = 'shooting-star'; // Match the class name to your CSS
+        shootingStar.style.position = 'absolute'; // Correct positioning
         shootingStar.style.opacity = 1 - i * 0.2; // Fainter stars for the trail effect
         document.body.appendChild(shootingStar);
         starTrail.push({ element: shootingStar, x: 0, y: 0 });
     }
 
-    // Function to update star positions and create the lag effect
+    // Update positions on mouse move
     document.addEventListener('mousemove', (e) => {
-        // Directly use cursor position for the first star
+        // Directly set the first star to the cursor's position
         starTrail[0].x = e.clientX;
         starTrail[0].y = e.clientY;
+        starTrail[0].element.style.transform = `translate(${starTrail[0].x}px, ${starTrail[0].y}px)`;
 
-        // Update each trailing star based on the position of the previous one
+        // Smooth trailing effect for subsequent stars
         for (let i = 1; i < starTrail.length; i++) {
-            // Smooth movement without snapping to a grid
             starTrail[i].x += (starTrail[i - 1].x - starTrail[i].x) * 0.3;
             starTrail[i].y += (starTrail[i - 1].y - starTrail[i].y) * 0.3;
-
-            // Apply the new positions to the stars
             starTrail[i].element.style.transform = `translate(${starTrail[i].x}px, ${starTrail[i].y}px)`;
         }
     });
