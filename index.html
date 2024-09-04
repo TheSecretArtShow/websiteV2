@@ -126,7 +126,7 @@
             color: #888;
         }
 
-        /* Square Container and Shooting Star Styles */
+        /* Square Container and Squares */
         .square-container {
             position: fixed;
             top: 0;
@@ -137,49 +137,14 @@
             z-index: 5;
         }
 
-        /* Shooting star style to replace squares */
-        .shooting-star {
-            position: fixed;
-            width: 6px; /* Adjust size to be similar to stars */
-            height: 6px;
-            background: rgba(255, 255, 255, 0.8); /* White color */
-            border-radius: 50%; /* Make it circular */
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
-            opacity: 0.8; /* Keep a high opacity for visibility */
+        .square {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            opacity: 0.5;
             transition: transform 0.1s ease, background-color 0.3s ease;
             will-change: transform, background-color;
-            animation: twinkle 2s infinite alternate; /* Twinkling effect */
-        }
-
-        /* Shooting star trail effect */
-        .shooting-star::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8));
-            transform-origin: left;
-            transform: translate(-50%, -50%) rotate(45deg);
-            opacity: 0.8;
-            transition: width 0.1s ease, opacity 0.1s ease;
-        }
-
-        /* Twinkly animation for the stars */
-        @keyframes twinkle {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.6;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
         }
 
         @keyframes scroll-horizontal {
@@ -238,26 +203,27 @@
 <body>
 
     <header>
-        <div class="container">
-            <h1 style="text-align: center;">
-                <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-            </h1>
-            <nav>
-                <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
-                    <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                    <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                    <li style="margin: 0 15px; position: relative;">
-                        <a href="shop.html">Shop</a>
-                        <ul class="dropdown">
-                            <li><a href="shop.html">All pieces</a></li>
-                            <li><a href="collections.html">Collections</a></li>
-                        </ul>
-                    </li>
-                    <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="container">
+        <h1 style="text-align: center;">
+            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
+        </h1>
+        <nav>
+            <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
+                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
+                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
+                <li style="margin: 0 15px; position: relative;">
+                    <a href="shop.html">Shop</a>
+                    <ul class="dropdown">
+                        <li><a href="shop.html">All pieces</a></li>
+                        <li><a href="collections.html">Collections</a></li>
+                    </ul>
+                </li>
+                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
 
     <main>
         <section class="hero">
@@ -353,11 +319,11 @@
 
     <!-- Square container for the glitchy cursor effect -->
     <div class="square-container">
-        <div class="shooting-star" id="star1"></div>
-        <div class="shooting-star" id="star2"></div>
-        <div class="shooting-star" id="star3"></div>
-        <div class="shooting-star" id="star4"></div>
-        <div class="shooting-star" id="star5"></div>
+        <div class="square" id="square1"></div>
+        <div class="square" id="square2"></div>
+        <div class="square" id="square3"></div>
+        <div class="square" id="square4"></div>
+        <div class="square" id="square5"></div>
     </div>
 
     <script src="script.js"></script> <!-- Link to JS file -->
@@ -375,7 +341,7 @@
             productCarousel.append(...productCarousel.children);
             productCarousel.offsetHeight; // Trigger reflow to reset animation
             productCarousel.style.transition = 'transform 30s linear';
-            productCarousel.style.transform = `translateX(-${productCarousel.scrollWidth}px)`;
+            productCarousel.style.transform = translateX(-${productCarousel.scrollWidth}px);
         }
 
         productCarousel.addEventListener('animationiteration', resetScroll);
