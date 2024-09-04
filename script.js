@@ -425,29 +425,31 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Create the shooting star element
-    const shootingStar = document.createElement('div');
-    shootingStar.className = 'shooting-star';
-    document.body.appendChild(shootingStar);
+    const starCount = 5; // Number of stars for the glitch effect
+    const starTrail = []; // Array to hold star elements and their positions
 
-    // Array to hold the trail positions for lag effect
-    const starTrail = [];
-    const trailLength = 5; // Number of positions to create the lag effect
-
-    // Initialize the trail array with the initial positions
-    for (let i = 0; i < trailLength; i++) {
-        starTrail.push({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    // Create the shooting stars
+    for (let i = 0; i < starCount; i++) {
+        const shootingStar = document.createElement('div');
+        shootingStar.className = 'shooting-star';
+        shootingStar.style.opacity = 1 - i * 0.2; // Fainter stars for the trail effect
+        document.body.appendChild(shootingStar);
+        starTrail.push({ element: shootingStar, x: 0, y: 0 });
     }
 
-    // Update the position of the star based on the mouse movement
+    // Function to update star positions and create the lag effect
     document.addEventListener('mousemove', (e) => {
-        // Add the new mouse position to the start of the trail array
-        starTrail.unshift({ x: e.clientX, y: e.clientY });
-        // Remove the oldest position to keep the trail length consistent
-        starTrail.pop();
+        // Update the first star to the current mouse position
+        starTrail[0].x = e.clientX;
+        starTrail[0].y = e.clientY;
 
-        // Update the star position to follow the lag effect
-        const lagPosition = starTrail[starTrail.length - 1];
-        shootingStar.style.transform = `translate(${lagPosition.x}px, ${lagPosition.y}px)`;
+        // Update each trailing star based on the position of the previous one
+        for (let i = 1; i < starTrail.length; i++) {
+            starTrail[i].x += (starTrail[i - 1].x - starTrail[i].x) * 0.3; // Adjust this value for smoother or sharper lag
+            starTrail[i].y += (starTrail[i - 1].y - starTrail[i].y) * 0.3;
+
+            // Apply the new positions to the stars
+            starTrail[i].element.style.transform = `translate(${starTrail[i].x}px, ${starTrail[i].y}px)`;
+        }
     });
 });
