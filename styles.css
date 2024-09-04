@@ -395,21 +395,18 @@ body::after {
     overflow: visible; /* Ensures the trail is visible outside the element */
 }
 
-/* Add the trailing effect */
-.shooting-star::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 80px; /* Length of the trail */
-    height: 2px; /* Thickness of the trail */
-    background: rgba(255, 255, 255, 0.5);
-    transform: translate(-50%, -50%) rotate(45deg); /* Adjust angle for diagonal effect */
-    transform-origin: left center;
-    filter: blur(2px); /* Adds the glow and blur to make the trail look more realistic */
-    opacity: 0.6;
-    animation: trail 0.5s forwards;
+.shooting-star {
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
+    opacity: 0.8;
+    transition: transform 0.1s ease, background-color 0.3s ease;
+    will-change: transform, background-color;
+    animation: twinkle 2s infinite alternate;
 }
+
 
 /* Twinkly animation for the stars */
 @keyframes twinkle {
