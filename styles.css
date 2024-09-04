@@ -10,10 +10,12 @@
 
 .square {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    background: red;
-    opacity: 0.5;
+    width: 6px; /* Adjust size to be similar to stars */
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8); /* Default color is white */
+    border-radius: 50%; /* Make it circular */
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
+    opacity: 0.5; /* Keep the opacity similar to the squares */
     transition: transform 0.1s ease, background-color 0.3s ease;
     will-change: transform, background-color;
 }
