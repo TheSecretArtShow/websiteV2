@@ -142,7 +142,7 @@
             position: absolute;
             width: 6px; /* Adjust size to be similar to stars */
             height: 6px;
-            background: rgba(255, 255, 255, 0.8); /* Change color to white */
+            background: rgba(255, 255, 255, 0.8); /* Default color to white */
             border-radius: 50%; /* Make it circular */
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
             opacity: 0.5; /* Keep the opacity similar to the squares */
@@ -350,6 +350,27 @@
 
         // Initial setup
         resetScroll();
+
+        // JavaScript to change the star color when hovering over buttons
+        const stars = document.querySelectorAll('.square');
+
+        document.addEventListener('mousemove', (e) => {
+            let isHoveringOverButton = false;
+
+            // Check if the cursor is over a button
+            document.querySelectorAll('button').forEach(button => {
+                const rect = button.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    isHoveringOverButton = true;
+                }
+            });
+
+            // Change the star color based on hover state
+            stars.forEach(star => {
+                star.style.backgroundColor = isHoveringOverButton ? 'red' : 'rgba(255, 255, 255, 0.8)';
+            });
+        });
     </script>
 </body>
 </html>
