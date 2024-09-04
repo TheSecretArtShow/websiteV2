@@ -395,10 +395,6 @@ document.addEventListener('DOMContentLoaded', function () {
     for (let i = 0; i < starCount; i++) {
         const shootingStar = document.createElement('div');
         shootingStar.className = 'shooting-star'; // Match the class name to your CSS
-        shootingStar.style.position = 'fixed'; // Use fixed to follow the cursor anywhere
-        shootingStar.style.top = '0'; // Start at the top of the viewport
-        shootingStar.style.left = '0'; // Start at the left of the viewport
-        shootingStar.style.opacity = 1 - i * 0.2; // Fainter stars for the trail effect
         document.body.appendChild(shootingStar);
         starTrail.push({ element: shootingStar, x: 0, y: 0 });
     }
