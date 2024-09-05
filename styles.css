@@ -380,19 +380,3 @@ body::after {
     padding: 50px 0;
 }
 
-/* Shooting Star Cursor Style */
-.shooting-star {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 6px; /* Adjust size to match your background stars */
-    height: 6px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
-    pointer-events: none; /* Ensures it doesn't interfere with clicks */
-    will-change: transform;
-    z-index: 9999; /* Make sure it’s above all content */
-    transition: transform 0.1s ease; /* Adjust speed to match lag effect */
-}
-
