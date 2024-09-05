@@ -22,17 +22,16 @@
     z-index: 9999;
 }
 
-/* Style for the trail elements */
+/* Updated trail style */
 .trail {
     position: absolute;
-    width: 60px; /* Length of the trail */
+    width: 50px; /* Length of the trail */
     height: 3px; /* Thickness of the trail */
-    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Tapering effect */
+    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Fading effect */
     border-radius: 50%;
     pointer-events: none;
-    opacity: 0.8;
-    z-index: 9998;
-    transition: all 0.2s ease-out;
+    z-index: 9998; /* Positioned behind stars */
+    transition: all 0.1s ease-out;
 }
 
 
