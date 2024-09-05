@@ -387,14 +387,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// JavaScript to create dynamic trailing effects for shooting stars
 document.addEventListener('DOMContentLoaded', function () {
     const stars = document.querySelectorAll('.square');
     const trails = [];
 
     // Create trailing elements for each star
     stars.forEach(star => {
-        for (let i = 0; i < 5; i++) { // Number of trail elements
+        for (let i = 0; i < 5; i++) { // Adjust number of trails for more or less tail
             const trail = document.createElement('div');
             trail.className = 'trail';
             document.body.appendChild(trail);
@@ -403,12 +402,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.addEventListener('mousemove', (e) => {
-        trails.forEach((trail, index) => {
-            const lagAmount = index * 10; // Adjust lag between each trail segment
-            setTimeout(() => {
-                trail.element.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(-45deg)`;
-                trail.element.style.opacity = 1 - (index * 0.2); // Fade effect as it gets farther
-            }, lagAmount);
+        stars.forEach((star, starIndex) => {
+            const starRect = star.getBoundingClientRect();
+            trails.forEach((trail, trailIndex) => {
+                if (trail.star === star) {
+                    const lagAmount = trailIndex * 5; // Adjust lag between each trail segment
+                    setTimeout(() => {
+                        // Set trail position and angle relative to the star's movement
+                        const deltaX = starRect.left - e.clientX;
+                        const deltaY = starRect.top - e.clientY;
+                        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 180;
+
+                        trail.element.style.transform = `translate(${starRect.left}px, ${starRect.top}px) rotate(${angle}deg)`;
+                        trail.element.style.opacity = 1 - (trailIndex * 0.15); // Fade effect as it gets farther from the star
+                    }, lagAmount);
+                }
+            });
         });
     });
 });
