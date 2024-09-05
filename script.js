@@ -387,3 +387,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// JavaScript to create dynamic trailing effects for shooting stars
+document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('.square');
+    const trails = [];
+
+    // Create trailing elements for each star
+    stars.forEach(star => {
+        for (let i = 0; i < 5; i++) { // Number of trail elements
+            const trail = document.createElement('div');
+            trail.className = 'trail';
+            document.body.appendChild(trail);
+            trails.push({ element: trail, star });
+        }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        trails.forEach((trail, index) => {
+            const lagAmount = index * 10; // Adjust lag between each trail segment
+            setTimeout(() => {
+                trail.element.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(-45deg)`;
+                trail.element.style.opacity = 1 - (index * 0.2); // Fade effect as it gets farther
+            }, lagAmount);
+        });
+    });
+});
+
