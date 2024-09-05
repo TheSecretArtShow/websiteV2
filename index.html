@@ -148,6 +148,69 @@
             transition: transform 0.1s ease, background-color 0.3s ease;
             will-change: transform, background-color;
         }
+
+        /* Canvas for Trails */
+        #trailCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 4; /* Ensure it's behind other interactive elements */
+        }
+
+        @keyframes scroll-horizontal {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: #222;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 80%;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ff6b6b;
+        }
+
+        .popup-content button {
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            border: none;
+            color: #f5f5f5;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup-content button:hover {
+            background-color: #ff3b3b;
+        }
     </style>
 </head>
 <body>
@@ -224,56 +287,47 @@
     const stars = document.querySelectorAll('.square');
     const canvas = document.getElementById('trailCanvas');
     const ctx = canvas.getContext('2d');
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Set up trail drawing
-    function drawTrail(prevX, prevY, currX, currY) {
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.lineWidth = 2;
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    function drawTrail(x, y, prevX, prevY) {
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
-        ctx.lineTo(currX, currY);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.lineWidth = 2;
         ctx.stroke();
     }
 
-    // Clear the canvas gradually to create fading effect
     function clearCanvas() {
-        ctx.fillStyle = 'rgba(18, 18, 18, 0.2)'; // Match the body background color
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    let lastPositions = Array.from(stars).map(() => ({ x: 0, y: 0 }));
+    let previousPositions = stars.map(() => ({ x: 0, y: 0 }));
 
-    // Move stars with trails
-    document.addEventListener('mousemove', (event) => {
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
-
+    function updateStars() {
         stars.forEach((star, index) => {
-            setTimeout(() => {
-                const rect = star.getBoundingClientRect();
-                const prevPosition = lastPositions[index];
+            const rect = star.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
 
-                // Draw trail from the last position to the current position
-                drawTrail(prevPosition.x, prevPosition.y, rect.left, rect.top);
-
-                // Update star position with lag effect
-                star.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-
-                // Update the last known position for the trail
-                lastPositions[index] = { x: rect.left, y: rect.top };
-            }, index * 50);
+            const prevPos = previousPositions[index];
+            drawTrail(x, y, prevPos.x, prevPos.y);
+            previousPositions[index] = { x, y };
         });
-    });
 
-    // Clear canvas on animation frames
-    function animate() {
         clearCanvas();
-        requestAnimationFrame(animate);
+        requestAnimationFrame(updateStars);
     }
 
-    animate();
+    updateStars();
 </script>
 
 </body>
