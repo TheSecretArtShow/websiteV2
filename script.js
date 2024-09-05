@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     } else if ((e.clientX >= shopRect.left - gridSize && e.clientX <= shopRect.right + gridSize && e.clientY >= shopRect.top - gridSize && e.clientY <= shopRect.bottom + gridSize) || isInProduct) {
                         square.style.backgroundColor = 'purple';
                     } else {
-                        square.style.backgroundColor = 'red';
+                        square.style.backgroundColor = 'white';
                     }
                 }, delay);
             });
