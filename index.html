@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Art Show</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* General Reset */
         * {
@@ -300,19 +300,20 @@
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(x, y);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
         ctx.lineWidth = 2;
         ctx.stroke();
     }
 
     function clearCanvas() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     let previousPositions = stars.map(() => ({ x: 0, y: 0 }));
 
     function updateStars() {
+        clearCanvas();
         stars.forEach((star, index) => {
             const rect = star.getBoundingClientRect();
             const x = rect.left + rect.width / 2;
@@ -323,7 +324,6 @@
             previousPositions[index] = { x, y };
         });
 
-        clearCanvas();
         requestAnimationFrame(updateStars);
     }
 
