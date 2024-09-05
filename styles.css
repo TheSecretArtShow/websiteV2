@@ -8,30 +8,32 @@
     z-index: 5;
 }
 
-/* Updated style for the shooting star */
+/* Style for the lagged star (glitchy star) */
 .square {
     position: absolute;
-    width: 8px; /* Size of the star */
-    height: 8px;
-    background: red; /* Star color */
-    border-radius: 50%; /* Make it circular */
+    width: 6px; /* Adjust size to match the shooting star size */
+    height: 6px;
+    background: red; /* Original color of the star */
+    border-radius: 50%; /* Make the star circular */
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Glowing effect */
+    opacity: 0.5;
     transition: transform 0.1s ease, background-color 0.3s ease;
     will-change: transform, background-color;
-    pointer-events: none;
-    z-index: 9999;
+    pointer-events: none; /* Ensure it doesn’t interfere with other page interactions */
+    z-index: 9999; /* Ensure it's visible above other content */
 }
 
-/* Updated trail style */
+/* Style for the trailing effect */
 .trail {
     position: absolute;
     width: 50px; /* Length of the trail */
-    height: 3px; /* Thickness of the trail */
+    height: 2px; /* Thickness of the trail */
     background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Fading effect */
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9998; /* Positioned behind stars */
-    transition: all 0.1s ease-out;
+    opacity: 0.8;
+    z-index: 9998; /* Ensure trail appears behind the stars */
+    transition: all 0.2s ease-out;
 }
 
 
