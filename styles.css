@@ -8,17 +8,36 @@
     z-index: 5;
 }
 
+/* Update the .square class to create a trailing effect */
 .square {
     position: absolute;
     width: 6px; /* Adjust size to be similar to stars */
     height: 6px;
-    background: rgba(255, 255, 255, 0.8); /* Default color is white */
+    background: red; /* Main color of the star */
     border-radius: 50%; /* Make it circular */
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
     opacity: 0.5; /* Keep the opacity similar to the squares */
     transition: transform 0.1s ease, background-color 0.3s ease;
     will-change: transform, background-color;
+    pointer-events: none; /* Ensure it doesn’t interfere with clicks */
+    z-index: 9999; /* Ensure the stars are above all other content */
 }
+
+.square::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px; /* Length of the trail */
+    height: 2px; /* Thickness of the trail */
+    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Tapering effect */
+    transform: translate(-50%, -50%) rotate(45deg); /* Center the trail behind the star and angle it */
+    opacity: 0.7; /* Make the trail semi-transparent */
+    pointer-events: none;
+    transition: all 0.1s ease;
+    z-index: -1; /* Ensure trail appears behind the star */
+}
+
 
 .product {
     background: rgba(30, 30, 30, 0.8); /* Slightly transparent dark color to make text readable */
