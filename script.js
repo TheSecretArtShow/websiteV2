@@ -387,48 +387,55 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+//STAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR TRAAAAAAAAAIIIIIIIIIIIIILLLLLLLLLSS
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const stars = document.querySelectorAll('.square');
     const trails = [];
 
     // Create trailing elements for each star
     stars.forEach(star => {
-        for (let i = 0; i < 5; i++) { // Number of trail segments
+        for (let i = 0; i < 5; i++) { // Number of trail segments for each star
             const trail = document.createElement('div');
             trail.className = 'trail';
             document.body.appendChild(trail);
-            trails.push({ element: trail, star });
+            trails.push({ element: trail, star, offset: i * 5 });
         }
     });
 
-    // Update star and trail positions
+    // Event listener for mouse movement to update star and trail positions
     document.addEventListener('mousemove', (e) => {
-        stars.forEach((star, starIndex) => {
-            // Get the current position of the star
+        // Update each star's position based on the mouse
+        stars.forEach(star => {
             const starRect = star.getBoundingClientRect();
-            trails.forEach((trail, trailIndex) => {
-                // Check if the trail corresponds to the current star
+            const starX = e.clientX;
+            const starY = e.clientY;
+
+            star.style.transform = `translate(${starX}px, ${starY}px)`;
+            
+            // Update each trail associated with the star
+            trails.forEach((trail, index) => {
                 if (trail.star === star) {
-                    // Set delay to create the lagging effect of the trail
-                    const lagAmount = trailIndex * 30; // Adjust lag timing
-
                     setTimeout(() => {
-                        // Update the position of the trail to match the star
-                        const trailX = starRect.left + window.scrollX;
-                        const trailY = starRect.top + window.scrollY;
-                        
-                        // Calculate angle based on movement direction
-                        const deltaX = e.clientX - trailX;
-                        const deltaY = e.clientY - trailY;
-                        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+                        // Calculate the position and movement for each trail segment
+                        const trailX = starX - trail.offset;
+                        const trailY = starY - trail.offset;
 
-                        trail.element.style.transform = `translate(${trailX}px, ${trailY}px) rotate(${angle}deg)`;
-                        trail.element.style.opacity = 1 - (trailIndex * 0.15); // Fade effect
-                    }, lagAmount);
+                        // Align and position the trail segment
+                        trail.element.style.transform = `translate(${trailX}px, ${trailY}px)`;
+                        trail.element.style.opacity = 1 - (index * 0.2); // Fade effect
+
+                        // Optional: Adjust angle based on previous trail segment for more dynamic look
+                        if (index > 0) {
+                            const prevTrail = trails[index - 1].element.getBoundingClientRect();
+                            const angle = Math.atan2(trailY - prevTrail.top, trailX - prevTrail.left) * (180 / Math.PI);
+                            trail.element.style.transform += ` rotate(${angle}deg)`;
+                        }
+                    }, index * 20); // Delay between each trail segment to create lag effect
                 }
             });
         });
     });
 });
-;
-
