@@ -32,9 +32,10 @@
     border-radius: 50%;
     pointer-events: none;
     opacity: 0.8;
-    z-index: 9998; /* Ensure trail appears behind the stars */
+    z-index: 9998; /* Ensure it appears behind the stars */
     transition: all 0.2s ease-out;
 }
+
 
 
 
