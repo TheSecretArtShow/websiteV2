@@ -139,26 +139,26 @@
 
         .square {
             position: absolute;
-            width: 6px; /* Adjust size to be similar to stars */
+            width: 6px;
             height: 6px;
-            background: rgba(255, 255, 255, 0.8); /* Default color to white */
-            border-radius: 50%; /* Make it circular */
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
-            opacity: 0.5; /* Keep the opacity similar to the squares */
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
+            opacity: 0.8;
             transition: transform 0.1s ease, background-color 0.3s ease;
             will-change: transform, background-color;
         }
 
         .trail {
             position: absolute;
-            width: 50px; /* Length of the trail */
-            height: 2px; /* Thickness of the trail */
-            background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Fading effect */
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
             border-radius: 50%;
             pointer-events: none;
-            opacity: 0.8;
-            z-index: 4; /* Ensure it appears behind the stars */
-            transition: all 0.2s ease-out;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 4;
         }
 
         @keyframes scroll-horizontal {
