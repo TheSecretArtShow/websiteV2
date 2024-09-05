@@ -142,7 +142,7 @@
             position: absolute;
             width: 6px; /* Adjust size to be similar to stars */
             height: 6px;
-            background: rgba(255, 255, 255, 0.8); /* Default color is white */
+            background: rgba(255, 255, 255, 0.8); /* Default color to white */
             border-radius: 50%; /* Make it circular */
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
             opacity: 0.5; /* Keep the opacity similar to the squares */
@@ -368,7 +368,7 @@
 
             // Change the star color based on hover state
             stars.forEach(star => {
-                star.style.backgroundColor = isHoveringOverButton ? 'rgba(0, 162, 255, 0.8)' : 'rgba(255, 255, 255, 0.8)'; // Change to bluish color when hovering over a button
+                star.style.backgroundColor = isHoveringOverButton ? 'red' : 'rgba(255, 255, 255, 0.8)';
             });
         });
     </script>
