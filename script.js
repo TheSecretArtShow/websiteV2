@@ -397,45 +397,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Create trailing elements for each star
     stars.forEach(star => {
-        for (let i = 0; i < 5; i++) { // Number of trail segments for each star
+        for (let i = 0; i < 5; i++) { // Number of trail segments per star
             const trail = document.createElement('div');
             trail.className = 'trail';
             document.body.appendChild(trail);
-            trails.push({ element: trail, star, offset: i * 5 });
+            trails.push({ element: trail, star, offset: i * 10 }); // Set an offset for lag effect
         }
     });
 
-    // Event listener for mouse movement to update star and trail positions
-    document.addEventListener('mousemove', (e) => {
-        // Update each star's position based on the mouse
+    // Function to update the positions of stars and trails
+    function updatePositions(event) {
         stars.forEach(star => {
-            const starRect = star.getBoundingClientRect();
-            const starX = e.clientX;
-            const starY = e.clientY;
+            const starX = event.clientX;
+            const starY = event.clientY;
 
+            // Move the star to the current mouse position
             star.style.transform = `translate(${starX}px, ${starY}px)`;
-            
-            // Update each trail associated with the star
-            trails.forEach((trail, index) => {
+
+            // Update trails linked to this star
+            trails.forEach(trail => {
                 if (trail.star === star) {
                     setTimeout(() => {
-                        // Calculate the position and movement for each trail segment
+                        // Calculate the new trail position with lag
                         const trailX = starX - trail.offset;
                         const trailY = starY - trail.offset;
 
-                        // Align and position the trail segment
-                        trail.element.style.transform = `translate(${trailX}px, ${trailY}px)`;
-                        trail.element.style.opacity = 1 - (index * 0.2); // Fade effect
+                        // Position the trail behind the star
+                        trail.element.style.left = `${trailX}px`;
+                        trail.element.style.top = `${trailY}px`;
 
-                        // Optional: Adjust angle based on previous trail segment for more dynamic look
-                        if (index > 0) {
-                            const prevTrail = trails[index - 1].element.getBoundingClientRect();
-                            const angle = Math.atan2(trailY - prevTrail.top, trailX - prevTrail.left) * (180 / Math.PI);
-                            trail.element.style.transform += ` rotate(${angle}deg)`;
-                        }
-                    }, index * 20); // Delay between each trail segment to create lag effect
+                        // Apply the fading effect based on trail index
+                        trail.element.style.opacity = 1 - (trail.offset / 50); // Adjust the divisor to change fading speed
+                    }, trail.offset); // Delay each trail's movement for the lag effect
                 }
             });
         });
-    });
+    }
+
+    // Listen to mousemove event to trigger updates
+    document.addEventListener('mousemove', updatePositions);
 });
