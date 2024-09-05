@@ -8,7 +8,7 @@
     z-index: 5;
 }
 
-/* Update the .square class to create a trailing effect */
+/* Shooting star effect for .square */
 .square {
     position: absolute;
     width: 6px; /* Adjust size to be similar to stars */
@@ -23,20 +23,19 @@
     z-index: 9999; /* Ensure the stars are above all other content */
 }
 
-.square::before {
-    content: '';
+/* Style for the trailing effect */
+.trail {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100px; /* Length of the trail */
+    width: 50px; /* Length of the trail */
     height: 2px; /* Thickness of the trail */
     background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Tapering effect */
-    transform: translate(-50%, -50%) rotate(45deg); /* Center the trail behind the star and angle it */
-    opacity: 0.7; /* Make the trail semi-transparent */
     pointer-events: none;
-    transition: all 0.1s ease;
-    z-index: -1; /* Ensure trail appears behind the star */
+    opacity: 0.7;
+    z-index: 9998; /* Ensure it appears behind the stars */
+    border-radius: 50%;
+    transition: all 0.2s ease;
 }
+
 
 
 .product {
