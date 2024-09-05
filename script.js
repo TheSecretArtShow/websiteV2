@@ -390,14 +390,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //STAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR TRAAAAAAAAAIIIIIIIIIIIIILLLLLLLLLSS
 
-
 document.addEventListener('DOMContentLoaded', function () {
     const stars = document.querySelectorAll('.square');
     const trails = [];
 
-    // Create trailing elements for each star
+    // Create trail segments dynamically
     stars.forEach(star => {
-        for (let i = 0; i < 5; i++) { // Number of trail segments per star
+        for (let i = 0; i < 5; i++) { // Number of trailing segments per star
             const trail = document.createElement('div');
             trail.className = 'trail';
             document.body.appendChild(trail);
@@ -405,46 +404,41 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    let lastX = 0, lastY = 0;
+    let lastPositions = stars.map(() => ({ x: 0, y: 0 }));
 
-    // Update positions of stars and trails
-    function updatePositions(event) {
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
+    // Update the positions of the stars and trails
+    document.addEventListener('mousemove', (event) => {
+        stars.forEach((star, starIndex) => {
+            const currentPosition = {
+                x: event.clientX,
+                y: event.clientY
+            };
 
-        stars.forEach(star => {
-            // Calculate the star's new position
-            const starX = mouseX;
-            const starY = mouseY;
+            // Move the star with some lag effect
+            setTimeout(() => {
+                star.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
+            }, starIndex * 30); // Adjust timing for lag effect
 
-            // Move the star to the new position
-            star.style.transform = `translate(${starX}px, ${starY}px)`;
-
-            // Update the trails associated with this star
-            trails.forEach(trail => {
+            // Update trails for this star
+            trails.forEach((trail, trailIndex) => {
                 if (trail.star === star) {
                     setTimeout(() => {
-                        // Calculate direction based on star movement
-                        const deltaX = starX - lastX;
-                        const deltaY = starY - lastY;
-                        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+                        const deltaX = currentPosition.x - lastPositions[starIndex].x;
+                        const deltaY = currentPosition.y - lastPositions[starIndex].y;
 
-                        // Position trail segment behind the star based on its movement
-                        const trailX = starX - deltaX * (trail.offset / 20);
-                        const trailY = starY - deltaY * (trail.offset / 20);
+                        // Calculate the position for the trail behind the star
+                        const trailX = lastPositions[starIndex].x - deltaX * (trailIndex / 5);
+                        const trailY = lastPositions[starIndex].y - deltaY * (trailIndex / 5);
 
-                        trail.element.style.transform = `translate(${trailX}px, ${trailY}px) rotate(${angle}deg)`;
-                        trail.element.style.opacity = 1 - (trail.offset / 50); // Adjust fade effect
+                        trail.element.style.transform = `translate(${trailX}px, ${trailY}px)`;
+                        trail.element.style.opacity = 1 - (trailIndex * 0.15); // Fade effect as trail goes further
                     }, trail.offset);
                 }
             });
 
-            // Update last known position for the next movement calculation
-            lastX = starX;
-            lastY = starY;
+            // Update the last known position of the star
+            lastPositions[starIndex] = currentPosition;
         });
-    }
-
-    // Listen for mouse movement to update star and trail positions
-    document.addEventListener('mousemove', updatePositions);
+    });
 });
+
