@@ -387,7 +387,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Adding trailing stars
+// Array to store active trails
+let activeTrails = [];
+
+// Function to handle mouse movement and star trails
 document.addEventListener('mousemove', (e) => {
     const gridSize = 20;
     let targetX = Math.floor(e.clientX / gridSize) * gridSize;
@@ -400,28 +403,36 @@ document.addEventListener('mousemove', (e) => {
     }
     moveX = !moveX;
 
+    // Move each star to follow the mouse
     squares.forEach((square, index) => {
-        const delay = index * 250;
+        const delay = index * 100; // Adjust delay for smoother trailing
         setTimeout(() => {
             square.style.transform = `translate(${lastX}px, ${lastY}px)`;
-            createTrailEffect(lastX, lastY); // Call function to create the trail
+            createTrailEffect(lastX, lastY); // Call the function to create a trail
         }, delay);
     });
 });
 
-// Function to create the trail effect
+// Function to create and animate the trail effect
 function createTrailEffect(x, y) {
-    const trail = document.createElement('div');
+    // Create a new trail element
+    let trail = document.createElement('div');
     trail.classList.add('trail');
     trail.style.left = `${x}px`;
     trail.style.top = `${y}px`;
 
+    // Append the trail to the body
     document.body.appendChild(trail);
+    activeTrails.push(trail);
 
-    // Fade out and remove trail after some time
+    // Animate and remove the trail
     setTimeout(() => {
-        trail.style.opacity = 0;
-        setTimeout(() => trail.remove(), 800); // Ensure trail is fully removed
-    }, 100);
+        trail.style.opacity = 0; // Fade out
+        trail.style.transform = `translate(${x - 10}px, ${y - 10}px) scale(0.5)`; // Move and shrink trail
+        setTimeout(() => {
+            trail.remove();
+            activeTrails = activeTrails.filter(t => t !== trail); // Clean up the array
+        }, 500); // Time to remove the trail completely
+    }, 100); // Duration before starting to fade out
 }
 
