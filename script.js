@@ -386,3 +386,42 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Adding trailing stars
+document.addEventListener('mousemove', (e) => {
+    const gridSize = 20;
+    let targetX = Math.floor(e.clientX / gridSize) * gridSize;
+    let targetY = Math.floor(e.clientY / gridSize) * gridSize;
+
+    if (moveX) {
+        lastX = targetX;
+    } else {
+        lastY = targetY;
+    }
+    moveX = !moveX;
+
+    squares.forEach((square, index) => {
+        const delay = index * 250;
+        setTimeout(() => {
+            square.style.transform = `translate(${lastX}px, ${lastY}px)`;
+            createTrailEffect(lastX, lastY); // Call function to create the trail
+        }, delay);
+    });
+});
+
+// Function to create the trail effect
+function createTrailEffect(x, y) {
+    const trail = document.createElement('div');
+    trail.classList.add('trail');
+    trail.style.left = `${x}px`;
+    trail.style.top = `${y}px`;
+
+    document.body.appendChild(trail);
+
+    // Fade out and remove trail after some time
+    setTimeout(() => {
+        trail.style.opacity = 0;
+        setTimeout(() => trail.remove(), 800); // Ensure trail is fully removed
+    }, 100);
+}
+
