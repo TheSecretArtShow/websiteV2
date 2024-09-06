@@ -8,14 +8,14 @@
     z-index: 5;
 }
 
-/* Main star styling */
+/* Star styling */
 .square {
     position: absolute;
     width: 6px;
     height: 6px;
-    background: rgba(255, 255, 255, 1); /* Brighter star */
+    background: rgba(255, 255, 255, 1);
     border-radius: 50%;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8), 0 0 24px rgba(255, 255, 255, 0.6); /* Enhanced glow */
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8), 0 0 24px rgba(255, 255, 255, 0.6);
     opacity: 1;
     transition: transform 0.1s ease;
     will-change: transform, background-color;
@@ -23,16 +23,16 @@
     z-index: 9999;
 }
 
-/* Trail effect for shooting star effect */
+/* Trail effect */
 .trail {
     position: absolute;
     width: 8px;
     height: 8px;
-    background: rgba(255, 255, 255, 0.6); /* Fainter trail */
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 0 16px rgba(255, 255, 255, 0.3); /* Subtle trail glow */
-    opacity: 0;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 255, 255, 0.3);
+    opacity: 1;
+    transition: transform 0.5s ease, opacity 0.7s ease;
     will-change: transform, opacity;
     pointer-events: none;
     z-index: 9998;
