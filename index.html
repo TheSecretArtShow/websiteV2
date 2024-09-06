@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Art Show</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
     <style>
         /* General Reset */
         * {
@@ -139,25 +139,26 @@
 
         .square {
             position: absolute;
-            width: 6px;
+            width: 6px; /* Adjust size to be similar to stars */
             height: 6px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5);
-            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.8); /* Default color to white */
+            border-radius: 50%; /* Make it circular */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Add glowing effect */
+            opacity: 0.5; /* Keep the opacity similar to the squares */
             transition: transform 0.1s ease, background-color 0.3s ease;
             will-change: transform, background-color;
         }
 
-        /* Canvas for Trails */
-        #trailCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .trail {
+            position: absolute;
+            width: 50px; /* Length of the trail */
+            height: 2px; /* Thickness of the trail */
+            background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Fading effect */
+            border-radius: 50%;
             pointer-events: none;
-            z-index: 4; /* Ensure it's behind other interactive elements */
+            opacity: 0.8;
+            z-index: 4; /* Ensure it appears behind the stars */
+            transition: all 0.2s ease-out;
         }
 
         @keyframes scroll-horizontal {
@@ -249,7 +250,66 @@
     <section class="products">
         <div class="container">
             <div class="product-carousel">
-                <!-- Product items here -->
+                <div class="product" id="product1">
+                    <img src="images/rage.png">
+                    <h3>R@GE</h3>
+                    <p>$125.00</p>
+                </div>
+                <div class="product" id="product2">
+                    <img src="images/end.png" alt="Shirt 2">
+                    <h3>END</h3>
+                    <p>$125.00</p>
+                </div>
+                <div class="product" id="product3">
+                    <img src="images/void.png" alt="Shirt 3">
+                    <h3>V0ID</h3>
+                    <p>$150.00</p>
+                </div>
+                <div class="product" id="product4">
+                    <img src="images/ribs.png" alt="Shirt 4">
+                    <h3>Ribs</h3>
+                    <p>$113.00</p>
+                </div>
+                <div class="product" id="product5">
+                    <img src="images/crow.png" alt="Shirt 5">
+                    <h3>Crow</h3>
+                    <p>$175.00</p>
+                </div>
+                <div class="product" id="product6">
+                    <img src="images/butterfly.png" alt="Shirt 6">
+                    <h3>Butterfly</h3>
+                    <p>$200.00</p>
+                </div>
+                <div class="product" id="product7">
+                    <img src="images/centipede-front.png" alt="Shirt 7">
+                    <h3>Centipede</h3>
+                    <p>$185.00</p>
+                </div>
+                <div class="product" id="product8">
+                    <img src="images/girl.png" alt="Shirt 8">
+                    <h3>Girl</h3>
+                    <p>$185.00</p>
+                </div>
+                <div class="product" id="product9">
+                    <img src="images/pick your poison.png" alt="Shirt 9">
+                    <h3>Pick Your Poison</h3>
+                    <p>$175.00</p>
+                </div>
+                <div class="product" id="product10">
+                    <img src="images/Bleach.png" alt="Shirt 9">
+                    <h3>Bleach</h3>
+                    <p>$250.00</p>
+                </div>
+                <div class="product" id="product11">
+                    <img src="images/3rdeye.png" alt="Shirt 9">
+                    <h3>3rd Eye</h3>
+                    <p>$175.00</p>
+                </div>
+                <div class="product" id="product12">
+                    <img src="images/flower.png" alt="Shirt 9">
+                    <h3>Flower</h3>
+                    <p>$150.00</p>
+                </div>
             </div>
         </div>
     </section>
@@ -277,57 +337,75 @@
     <div class="square" id="square3"></div>
     <div class="square" id="square4"></div>
     <div class="square" id="square5"></div>
-</div>
 
-<!-- Canvas for Drawing Trails -->
-<canvas id="trailCanvas"></canvas>
+    <!-- Trails for Each Star -->
+    <div class="trail" id="trail1"></div>
+    <div class="trail" id="trail2"></div>
+    <div class="trail" id="trail3"></div>
+    <div class="trail" id="trail4"></div>
+    <div class="trail" id="trail5"></div>
+</div>
 
 <script src="script.js"></script> <!-- Link to JS file -->
 <script>
-    const stars = document.querySelectorAll('.square');
-    const canvas = document.getElementById('trailCanvas');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    // Handle Popup
+    document.getElementById('popup-button').addEventListener('click', function() {
+        document.getElementById('popup-overlay').style.display = 'none';
     });
 
-    function drawTrail(x, y, prevX, prevY) {
-        ctx.beginPath();
-        ctx.moveTo(prevX, prevY);
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+    const productCarousel = document.querySelector('.product-carousel');
+
+    function resetScroll() {
+        productCarousel.style.transition = 'none';
+        productCarousel.style.transform = 'translateX(0)';
+        productCarousel.append(...productCarousel.children);
+        productCarousel.offsetHeight; // Trigger reflow to reset animation
+        productCarousel.style.transition = 'transform 30s linear';
+        productCarousel.style.transform = `translateX(-${productCarousel.scrollWidth}px)`;
     }
 
-    function clearCanvas() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
+    productCarousel.addEventListener('animationiteration', resetScroll);
 
-    let previousPositions = stars.map(() => ({ x: 0, y: 0 }));
+    // Initial setup
+    resetScroll();
 
-    function updateStars() {
-        clearCanvas();
-        stars.forEach((star, index) => {
-            const rect = star.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
+    // JavaScript to change the star color when hovering over buttons
+    const stars = document.querySelectorAll('.square');
+    const trails = document.querySelectorAll('.trail');
+    let lastPositions = Array.from(stars).map(() => ({ x: 0, y: 0 }));
 
-            const prevPos = previousPositions[index];
-            drawTrail(x, y, prevPos.x, prevPos.y);
-            previousPositions[index] = { x, y };
+    // Update positions based on mouse movement
+    document.addEventListener('mousemove', (event) => {
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+
+        stars.forEach((star, starIndex) => {
+            const currentPosition = { x: mouseX, y: mouseY };
+
+            // Move star with lag
+            setTimeout(() => {
+                star.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
+            }, starIndex * 50);
+
+            // Update trail positions behind stars
+            trails.forEach((trail, trailIndex) => {
+                if (trailIndex === starIndex) {
+                    setTimeout(() => {
+                        const deltaX = currentPosition.x - lastPositions[starIndex].x;
+                        const deltaY = currentPosition.y - lastPositions[starIndex].y;
+                        const trailX = lastPositions[starIndex].x + deltaX * 0.5;
+                        const trailY = lastPositions[starIndex].y + deltaY * 0.5;
+
+                        // Position trail behind the lagging star
+                        trail.style.transform = `translate(${trailX}px, ${trailY}px)`;
+                        trail.style.opacity = 0.5; // Adjust opacity to create the trailing effect
+                    }, trailIndex * 50);
+                }
+            });
+
+            lastPositions[starIndex] = currentPosition;
         });
-
-        requestAnimationFrame(updateStars);
-    }
-
-    updateStars();
+    });
 </script>
 
 </body>
