@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // General setup
-    const squares = document.querySelectorAll('.square');
+    const stars = document.querySelectorAll('.star');
     const shopNowButton = document.getElementById('shop-now');
     const products = document.querySelectorAll('.product, .collection-item');
     let lastX = 0, lastY = 0;
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         resetScroll();
     }
 
-    // Mouse movement effect
+    // Mouse movement effect for the star trail cursor
     document.addEventListener('mousemove', (e) => {
         const gridSize = 20;
         let targetX = Math.floor(e.clientX / gridSize) * gridSize;
@@ -60,33 +60,48 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         moveX = !moveX;
 
-        if (shopNowButton) {
-            const shopRect = shopNowButton.getBoundingClientRect();
-            const isInShopNowButton = e.clientX >= shopRect.left && e.clientX <= shopRect.right && e.clientY >= shopRect.top && e.clientY <= shopRect.bottom;
+        stars.forEach((star, index) => {
+            const delay = index * 200 * 1.7; // Increased delay to 1.7x for all non-main stars
+            setTimeout(() => {
+                const rect = star.getBoundingClientRect();
+                const currentX = rect.left + rect.width / 2;
+                const currentY = rect.top + rect.height / 2;
 
-            let isInProduct = false;
-            products.forEach(product => {
-                const productRect = product.getBoundingClientRect();
-                if (e.clientX >= productRect.left && e.clientX <= productRect.right && e.clientY >= productRect.top && e.clientY <= productRect.bottom) {
-                    isInProduct = true;
+                // Only create trails for the last 4 stars
+                if (index >= stars.length - 4) {
+                    createTrail(currentX, currentY, lastX, lastY, delay);
                 }
-            });
 
-            squares.forEach((square, index) => {
-                const delay = index * 250;
-                setTimeout(() => {
-                    square.style.transform = `translate(${lastX}px, ${lastY}px)`;
-                    if (isInShopNowButton || isInProduct) {
-                        square.style.backgroundColor = 'blue';
-                    } else if ((e.clientX >= shopRect.left - gridSize && e.clientX <= shopRect.right + gridSize && e.clientY >= shopRect.top - gridSize && e.clientY <= shopRect.bottom + gridSize) || isInProduct) {
-                        square.style.backgroundColor = 'purple';
-                    } else {
-                        square.style.backgroundColor = 'white';
-                    }
-                }, delay);
-            });
-        }
+                star.style.transform = `translate(${lastX}px, ${lastY}px)`;
+            }, delay);
+        });
     });
+
+    function createTrail(startX, startY, endX, endY, starDelay) {
+        const trail = document.createElement('div');
+        trail.classList.add('trail');
+        document.body.appendChild(trail);
+
+        // Position the trail at the starting point of the star's movement
+        trail.style.left = `${startX}px`;
+        trail.style.top = `${startY}px`;
+
+        // Calculate angle and distance based on movement direction
+        const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+        const distance = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+
+        // Set the trail's appearance to match the star's movement
+        trail.style.width = `${distance}px`;
+        trail.style.transform = `rotate(${angle}deg)`;
+
+        // Fade out the trail after it is positioned
+        setTimeout(() => {
+            trail.classList.add('fade');
+            setTimeout(() => {
+                trail.remove();
+            }, 500); // Duration for the trail to disappear
+        }, 10);
+    }
 
     // Handle Random Pop-up
     const popups = [
@@ -221,8 +236,6 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationElement.appendChild(resumeButton);
         emailPopup.style.display = 'flex'; // Ensure the popup shows up
     }
-
-
 
     // Display insider alert confirmation
     function showInsiderAlertConfirmation(confirmationElement, firstTime = false) {
@@ -386,41 +399,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
-// Adding trailing stars
-document.addEventListener('mousemove', (e) => {
-    const gridSize = 20;
-    let targetX = Math.floor(e.clientX / gridSize) * gridSize;
-    let targetY = Math.floor(e.clientY / gridSize) * gridSize;
-
-    if (moveX) {
-        lastX = targetX;
-    } else {
-        lastY = targetY;
-    }
-    moveX = !moveX;
-
-    squares.forEach((square, index) => {
-        const delay = index * 250;
-        setTimeout(() => {
-            square.style.transform = `translate(${lastX}px, ${lastY}px)`;
-            createTrailEffect(lastX, lastY); // Call function to create the trail
-        }, delay);
-    });
-});
-
-// Function to create the trail effect
-function createTrailEffect(x, y) {
-    const trail = document.createElement('div');
-    trail.classList.add('trail');
-    trail.style.left = `${x}px`;
-    trail.style.top = `${y}px`;
-
-    document.body.appendChild(trail);
-
-    // Fade out and remove trail after some time
-    setTimeout(() => {
-        trail.style.opacity = 0;
-        setTimeout(() => trail.remove(), 800); // Ensure trail is fully removed
-    }, 100);
-}
