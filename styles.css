@@ -8,31 +8,31 @@
     z-index: 5;
 }
 
-/* Style for the lagged star (glitchy star) */
+/* Main star styling */
 .square {
     position: absolute;
-    width: 8px; /* Slightly larger for more presence */
-    height: 8px;
-    background: rgba(255, 255, 255, 0.8);
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 1); /* Brighter star */
     border-radius: 50%;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7);
-    opacity: 0.8;
-    transition: transform 0.1s ease, background-color 0.3s ease, opacity 0.5s;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8), 0 0 24px rgba(255, 255, 255, 0.6); /* Enhanced glow */
+    opacity: 1;
+    transition: transform 0.1s ease;
     will-change: transform, background-color;
     pointer-events: none;
     z-index: 9999;
 }
 
-/* Trail Effect */
+/* Trail effect for shooting star effect */
 .trail {
     position: absolute;
-    width: 4px; /* Smaller for a trailing effect */
-    height: 4px;
-    background: rgba(255, 255, 255, 0.5);
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.6); /* Fainter trail */
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 16px rgba(255, 255, 255, 0.3);
-    opacity: 0.3;
-    transition: transform 0.5s ease-out, opacity 0.8s ease-out;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 0 16px rgba(255, 255, 255, 0.3); /* Subtle trail glow */
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
     will-change: transform, opacity;
     pointer-events: none;
     z-index: 9998;
