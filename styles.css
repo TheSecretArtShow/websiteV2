@@ -1,4 +1,5 @@
-.square-container {
+/* Star Container for the star trail cursor effect */
+.star-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,39 +9,39 @@
     z-index: 5;
 }
 
-/* Star styling */
-.square {
+/* Star styling for the trail cursor effect */
+.star {
     position: absolute;
-    width: 6px;
-    height: 6px;
-    background: rgba(255, 255, 255, 1);
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, white 0%, transparent 70%);
     border-radius: 50%;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8), 0 0 24px rgba(255, 255, 255, 0.6);
-    opacity: 1;
-    transition: transform 0.1s ease;
-    will-change: transform, background-color;
+    opacity: 0.8;
+    transition: transform 0.1s ease, opacity 0.2s ease;
+    will-change: transform, opacity;
     pointer-events: none;
     z-index: 9999;
 }
 
-/* Trail effect */
+/* Trail effect for stars */
 .trail {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.5);
+    width: 30px;
+    height: 2px;
+    background: white;
     border-radius: 50%;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 255, 255, 0.3);
-    opacity: 1;
-    transition: transform 0.5s ease, opacity 0.7s ease;
-    will-change: transform, opacity;
+    opacity: 0.6;
+    transform-origin: left;
     pointer-events: none;
+    transition: opacity 0.5s ease;
     z-index: 9998;
 }
 
+.trail.fade {
+    opacity: 0;
+}
 
-
-
+/* Existing styles for product, navigation, collections, etc. */
 .product {
     background: rgba(30, 30, 30, 0.8); /* Slightly transparent dark color to make text readable */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -340,6 +341,7 @@ nav ul li .dropdown li a:hover {
 .resume-button:hover {
     background-color: #666;
 }
+
 .notification {
     position: fixed;
     top: 20px;
