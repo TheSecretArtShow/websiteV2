@@ -387,54 +387,65 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Track the last known cursor position and movement toggle
-let lastX = 0, lastY = 0;
-let moveX = true;
+// Get the canvas and set up the context for drawing
+const canvas = document.getElementById('trailCanvas');
+const ctx = canvas.getContext('2d');
 
-// Function to create the trails
-function createTrailEffect(x, y) {
-    // Create the trail element
-    const trail = document.createElement('div');
-    trail.className = 'trail';
-    trail.style.left = `${x}px`;
-    trail.style.top = `${y}px`;
-
-    // Add the trail to the body
-    document.body.appendChild(trail);
-
-    // Fade and move the trail after creation
-    setTimeout(() => {
-        trail.style.opacity = 0; // Fade out
-        trail.style.transform = `scale(0.5)`; // Slight shrink to enhance the trail effect
-        // Remove the trail after the animation ends
-        setTimeout(() => {
-            trail.remove();
-        }, 700); // Match with the fade-out duration
-    }, 50); // Delay before starting the fade effect
+// Resize the canvas to match the window
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
-// Main mousemove event to track cursor movement
+// Define the positions of the stars to keep track of their movement
+const starPositions = Array.from(document.querySelectorAll('.square')).map(star => ({ x: 0, y: 0, prevX: 0, prevY: 0 }));
+
+// Update the stars and draw trails
 document.addEventListener('mousemove', (e) => {
-    const gridSize = 20; // Adjust grid snapping size for smoother movement
+    const gridSize = 20;
     let targetX = Math.floor(e.clientX / gridSize) * gridSize;
     let targetY = Math.floor(e.clientY / gridSize) * gridSize;
 
-    // Toggle between X and Y movement to create staggered movement
-    if (moveX) {
-        lastX = targetX;
-    } else {
-        lastY = targetY;
-    }
-    moveX = !moveX;
+    starPositions.forEach((pos, index) => {
+        pos.prevX = pos.x;
+        pos.prevY = pos.y;
 
-    // Animate each star to follow the cursor with delay
-    document.querySelectorAll('.square').forEach((square, index) => {
-        const delay = index * 100; // Adjust delay to spread the stars' movement
-        setTimeout(() => {
-            square.style.transform = `translate(${lastX}px, ${lastY}px)`;
-            // Call the trail effect function for each movement
-            createTrailEffect(lastX, lastY);
-        }, delay);
+        // Alternate updates between x and y for a laggy effect
+        if (index % 2 === 0) {
+            pos.x = targetX;
+        } else {
+            pos.y = targetY;
+        }
+
+        // Draw the trail
+        drawTrail(pos.prevX, pos.prevY, pos.x, pos.y);
+
+        // Move the star element
+        const star = document.querySelector(`#square${index + 1}`);
+        if (star) {
+            setTimeout(() => {
+                star.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+            }, index * 250);
+        }
     });
 });
+
+// Function to draw the tapered trail
+function drawTrail(prevX, prevY, x, y) {
+    ctx.strokeStyle = 'white'; // Trail color
+    ctx.lineWidth = 4; // Adjust for trail thickness
+    ctx.lineCap = 'round'; // Makes the trail ends rounded
+    ctx.beginPath();
+    ctx.moveTo(prevX, prevY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+
+    // Fade the trail gradually
+    ctx.globalAlpha = 0.2; // Adjust for trail fade speed
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Slightly transparent fill to fade
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 1.0;
+}
 
