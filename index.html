@@ -137,6 +137,7 @@
             z-index: 5;
         }
 
+        /* Shooting star style to replace squares */
         .square {
             position: absolute;
             width: 6px; /* Adjust size to be similar to stars */
@@ -147,18 +148,6 @@
             opacity: 0.5; /* Keep the opacity similar to the squares */
             transition: transform 0.1s ease, background-color 0.3s ease;
             will-change: transform, background-color;
-        }
-
-        .trail {
-            position: absolute;
-            width: 50px; /* Length of the trail */
-            height: 2px; /* Thickness of the trail */
-            background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Fading effect */
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.8;
-            z-index: 4; /* Ensure it appears behind the stars */
-            transition: all 0.2s ease-out;
         }
 
         @keyframes scroll-horizontal {
@@ -216,197 +205,172 @@
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <h1 style="text-align: center;">
-            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-        </h1>
-        <nav>
-            <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
-                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                <li style="margin: 0 15px; position: relative;">
-                    <a href="shop.html">Shop</a>
-                    <ul class="dropdown">
-                        <li><a href="shop.html">All pieces</a></li>
-                        <li><a href="collections.html">Collections</a></li>
-                    </ul>
-                </li>
-                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<main>
-    <section class="hero">
+    <header>
         <div class="container">
-            <h2>Welcome to The Art Show</h2>
-            <p>Discover clothing designed to be as unique as you.</p>
-            <button id="shop-now">Shop, Now</button>
+            <h1 style="text-align: center;">
+                <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
+            </h1>
+            <nav>
+                <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
+                    <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
+                    <li style="margin: 0 15px;"><a href="about.html">About</a></li>
+                    <li style="margin: 0 15px; position: relative;">
+                        <a href="shop.html">Shop</a>
+                        <ul class="dropdown">
+                            <li><a href="shop.html">All pieces</a></li>
+                            <li><a href="collections.html">Collections</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-    </section>
+    </header>
 
-    <section class="products">
-        <div class="container">
-            <div class="product-carousel">
-                <div class="product" id="product1">
-                    <img src="images/rage.png">
-                    <h3>R@GE</h3>
-                    <p>$125.00</p>
-                </div>
-                <div class="product" id="product2">
-                    <img src="images/end.png" alt="Shirt 2">
-                    <h3>END</h3>
-                    <p>$125.00</p>
-                </div>
-                <div class="product" id="product3">
-                    <img src="images/void.png" alt="Shirt 3">
-                    <h3>V0ID</h3>
-                    <p>$150.00</p>
-                </div>
-                <div class="product" id="product4">
-                    <img src="images/ribs.png" alt="Shirt 4">
-                    <h3>Ribs</h3>
-                    <p>$113.00</p>
-                </div>
-                <div class="product" id="product5">
-                    <img src="images/crow.png" alt="Shirt 5">
-                    <h3>Crow</h3>
-                    <p>$175.00</p>
-                </div>
-                <div class="product" id="product6">
-                    <img src="images/butterfly.png" alt="Shirt 6">
-                    <h3>Butterfly</h3>
-                    <p>$200.00</p>
-                </div>
-                <div class="product" id="product7">
-                    <img src="images/centipede-front.png" alt="Shirt 7">
-                    <h3>Centipede</h3>
-                    <p>$185.00</p>
-                </div>
-                <div class="product" id="product8">
-                    <img src="images/girl.png" alt="Shirt 8">
-                    <h3>Girl</h3>
-                    <p>$185.00</p>
-                </div>
-                <div class="product" id="product9">
-                    <img src="images/pick your poison.png" alt="Shirt 9">
-                    <h3>Pick Your Poison</h3>
-                    <p>$175.00</p>
-                </div>
-                <div class="product" id="product10">
-                    <img src="images/Bleach.png" alt="Shirt 9">
-                    <h3>Bleach</h3>
-                    <p>$250.00</p>
-                </div>
-                <div class="product" id="product11">
-                    <img src="images/3rdeye.png" alt="Shirt 9">
-                    <h3>3rd Eye</h3>
-                    <p>$175.00</p>
-                </div>
-                <div class="product" id="product12">
-                    <img src="images/flower.png" alt="Shirt 9">
-                    <h3>Flower</h3>
-                    <p>$150.00</p>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Welcome to The Art Show</h2>
+                <p>Discover clothing designed to be as unique as you.</p>
+                <button id="shop-now">Shop, Now</button>
+            </div>
+        </section>
+
+        <section class="products">
+            <div class="container">
+                <div class="product-carousel">
+                    <div class="product" id="product1">
+                        <img src="images/rage.png">
+                        <h3>R@GE</h3>
+                        <p>$125.00</p>
+                    </div>
+                    <div class="product" id="product2">
+                        <img src="images/end.png" alt="Shirt 2">
+                        <h3>END</h3>
+                        <p>$125.00</p>
+                    </div>
+                    <div class="product" id="product3">
+                        <img src="images/void.png" alt="Shirt 3">
+                        <h3>V0ID</h3>
+                        <p>$150.00</p>
+                    </div>
+                    <div class="product" id="product4">
+                        <img src="images/ribs.png" alt="Shirt 4">
+                        <h3>Ribs</h3>
+                        <p>$113.00</p>
+                    </div>
+                    <div class="product" id="product5">
+                        <img src="images/crow.png" alt="Shirt 5">
+                        <h3>Crow</h3>
+                        <p>$175.00</p>
+                    </div>
+                    <div class="product" id="product6">
+                        <img src="images/butterfly.png" alt="Shirt 6">
+                        <h3>Butterfly</h3>
+                        <p>$200.00</p>
+                    </div>
+                    <div class="product" id="product7">
+                        <img src="images/centipede-front.png" alt="Shirt 7">
+                        <h3>Centipede</h3>
+                        <p>$185.00</p>
+                    </div>
+                    <div class="product" id="product8">
+                        <img src="images/girl.png" alt="Shirt 8">
+                        <h3>Girl</h3>
+                        <p>$185.00</p>
+                    </div>
+                    <div class="product" id="product9">
+                        <img src="images/pick your poison.png" alt="Shirt 9">
+                        <h3>Pick Your Poison</h3>
+                        <p>$175.00</p>
+                    </div>
+                    <div class="product" id="product10">
+                        <img src="images/Bleach.png" alt="Shirt 9">
+                        <h3>Bleach</h3>
+                        <p>$250.00</p>
+                    </div>
+                    <div class="product" id="product11">
+                        <img src="images/3rdeye.png" alt="Shirt 9">
+                        <h3>3rd Eye</h3>
+                        <p>$175.00</p>
+                    </div>
+                    <div class="product" id="product12">
+                        <img src="images/flower.png" alt="Shirt 9">
+                        <h3>Flower</h3>
+                        <p>$150.00</p>
+                    </div>
                 </div>
             </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 The Art Show. All rights reserved.</p>
         </div>
-    </section>
-</main>
+    </footer>
 
-<footer>
-    <div class="container">
-        <p>&copy; 2024 The Art Show. All rights reserved.</p>
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <h2>For the few, not the many. Are you among the few?</h2>
+            <button id="popup-button-yes">I'm one of one</button>
+            <button id="popup-button-no">No</button>
+        </div>
     </div>
-</footer>
 
-<!-- Popup Overlay -->
-<div class="popup-overlay" id="popup-overlay">
-    <div class="popup-content">
-        <h2>For the few, not the many. Are you among the few?</h2>
-        <button id="popup-button-yes">I'm one of one</button>
-        <button id="popup-button-no">No</button>
+    <!-- Square container for the glitchy cursor effect -->
+    <div class="square-container">
+        <div class="square" id="square1"></div>
+        <div class="square" id="square2"></div>
+        <div class="square" id="square3"></div>
+        <div class="square" id="square4"></div>
+        <div class="square" id="square5"></div>
     </div>
-</div>
 
-<!-- Square container for the glitchy cursor effect -->
-<div class="square-container">
-    <div class="square" id="square1"></div>
-    <div class="square" id="square2"></div>
-    <div class="square" id="square3"></div>
-    <div class="square" id="square4"></div>
-    <div class="square" id="square5"></div>
+    <script src="script.js"></script> <!-- Link to JS file -->
+    <script>
+        // Handle Popup
+        document.getElementById('popup-button').addEventListener('click', function() {
+            document.getElementById('popup-overlay').style.display = 'none';
+        });
 
-    <!-- Trails for Each Star -->
-    <div class="trail" id="trail1"></div>
-    <div class="trail" id="trail2"></div>
-    <div class="trail" id="trail3"></div>
-    <div class="trail" id="trail4"></div>
-    <div class="trail" id="trail5"></div>
-</div>
+        const productCarousel = document.querySelector('.product-carousel');
 
-<script src="script.js"></script> <!-- Link to JS file -->
-<script>
-    // Handle Popup
-    document.getElementById('popup-button').addEventListener('click', function() {
-        document.getElementById('popup-overlay').style.display = 'none';
-    });
+        function resetScroll() {
+            productCarousel.style.transition = 'none';
+            productCarousel.style.transform = 'translateX(0)';
+            productCarousel.append(...productCarousel.children);
+            productCarousel.offsetHeight; // Trigger reflow to reset animation
+            productCarousel.style.transition = 'transform 30s linear';
+            productCarousel.style.transform = `translateX(-${productCarousel.scrollWidth}px)`;
+        }
 
-    const productCarousel = document.querySelector('.product-carousel');
+        productCarousel.addEventListener('animationiteration', resetScroll);
 
-    function resetScroll() {
-        productCarousel.style.transition = 'none';
-        productCarousel.style.transform = 'translateX(0)';
-        productCarousel.append(...productCarousel.children);
-        productCarousel.offsetHeight; // Trigger reflow to reset animation
-        productCarousel.style.transition = 'transform 30s linear';
-        productCarousel.style.transform = `translateX(-${productCarousel.scrollWidth}px)`;
-    }
+        // Initial setup
+        resetScroll();
 
-    productCarousel.addEventListener('animationiteration', resetScroll);
+        // JavaScript to change the star color when hovering over buttons
+        const stars = document.querySelectorAll('.square');
 
-    // Initial setup
-    resetScroll();
+        document.addEventListener('mousemove', (e) => {
+            let isHoveringOverButton = false;
 
-    // JavaScript to change the star color when hovering over buttons
-    const stars = document.querySelectorAll('.square');
-    const trails = document.querySelectorAll('.trail');
-    let lastPositions = Array.from(stars).map(() => ({ x: 0, y: 0 }));
-
-    // Update positions based on mouse movement
-    document.addEventListener('mousemove', (event) => {
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
-
-        stars.forEach((star, starIndex) => {
-            const currentPosition = { x: mouseX, y: mouseY };
-
-            // Move star with lag
-            setTimeout(() => {
-                star.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
-            }, starIndex * 50);
-
-            // Update trail positions behind stars
-            trails.forEach((trail, trailIndex) => {
-                if (trailIndex === starIndex) {
-                    setTimeout(() => {
-                        const deltaX = currentPosition.x - lastPositions[starIndex].x;
-                        const deltaY = currentPosition.y - lastPositions[starIndex].y;
-                        const trailX = lastPositions[starIndex].x + deltaX * 0.5;
-                        const trailY = lastPositions[starIndex].y + deltaY * 0.5;
-
-                        // Position trail behind the lagging star
-                        trail.style.transform = `translate(${trailX}px, ${trailY}px)`;
-                        trail.style.opacity = 0.5; // Adjust opacity to create the trailing effect
-                    }, trailIndex * 50);
+            // Check if the cursor is over a button
+            document.querySelectorAll('button').forEach(button => {
+                const rect = button.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    isHoveringOverButton = true;
                 }
             });
 
-            lastPositions[starIndex] = currentPosition;
+            // Change the star color based on hover state
+            stars.forEach(star => {
+                star.style.backgroundColor = isHoveringOverButton ? 'red' : 'rgba(255, 255, 255, 0.8)';
+            });
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>
