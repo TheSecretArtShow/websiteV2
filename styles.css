@@ -11,17 +11,33 @@
 /* Style for the lagged star (glitchy star) */
 .square {
     position: absolute;
-    width: 6px; /* Adjust size to match the shooting star size */
-    height: 6px;
-    background: red; /* Original color of the star */
-    border-radius: 50%; /* Make the star circular */
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.5); /* Glowing effect */
-    opacity: 0.5;
-    transition: transform 0.1s ease, background-color 0.3s ease;
+    width: 8px; /* Slightly larger for more presence */
+    height: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7);
+    opacity: 0.8;
+    transition: transform 0.1s ease, background-color 0.3s ease, opacity 0.5s;
     will-change: transform, background-color;
-    pointer-events: none; /* Ensure it doesn’t interfere with other page interactions */
-    z-index: 9999; /* Ensure it's visible above other content */
+    pointer-events: none;
+    z-index: 9999;
 }
+
+/* Trail Effect */
+.trail {
+    position: absolute;
+    width: 4px; /* Smaller for a trailing effect */
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 16px rgba(255, 255, 255, 0.3);
+    opacity: 0.3;
+    transition: transform 0.5s ease-out, opacity 0.8s ease-out;
+    will-change: transform, opacity;
+    pointer-events: none;
+    z-index: 9998;
+}
+
 
 
 
