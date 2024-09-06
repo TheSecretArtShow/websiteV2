@@ -78,30 +78,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function createTrail(startX, startY, endX, endY, starDelay) {
-        const trail = document.createElement('div');
-        trail.classList.add('trail');
-        document.body.appendChild(trail);
+    const trail = document.createElement('div');
+    trail.classList.add('trail');
 
-        // Position the trail at the starting point of the star's movement
-        trail.style.left = `${startX}px`;
-        trail.style.top = `${startY}px`;
+    // Append trail to the body and ensure it has the correct positioning context
+    document.body.appendChild(trail);
 
-        // Calculate angle and distance based on movement direction
-        const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
-        const distance = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+    // Set the position based on viewport coordinates
+    trail.style.position = 'fixed'; // Use fixed positioning to align with the screen
+    trail.style.left = `${startX}px`;
+    trail.style.top = `${startY}px`;
 
-        // Set the trail's appearance to match the star's movement
-        trail.style.width = `${distance}px`;
-        trail.style.transform = `rotate(${angle}deg)`;
+    // Calculate angle and distance based on movement direction
+    const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+    const distance = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
 
-        // Fade out the trail after it is positioned
+    // Set the trail's appearance to match the star's movement
+    trail.style.width = `${distance}px`;
+    trail.style.transform = `rotate(${angle}deg)`;
+
+    // Fade out the trail after it is positioned
+    setTimeout(() => {
+        trail.classList.add('fade');
         setTimeout(() => {
-            trail.classList.add('fade');
-            setTimeout(() => {
-                trail.remove();
-            }, 500); // Duration for the trail to disappear
-        }, 10);
-    }
+            trail.remove();
+        }, 500); // Duration for the trail to disappear
+    }, 10);
+}
+
 
     // Handle Random Pop-up
     const popups = [
