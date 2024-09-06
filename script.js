@@ -387,15 +387,39 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Array to store active trails
-let activeTrails = [];
+// Track the last known cursor position and movement toggle
+let lastX = 0, lastY = 0;
+let moveX = true;
 
-// Function to handle mouse movement and star trails
+// Function to create the trails
+function createTrailEffect(x, y) {
+    // Create the trail element
+    const trail = document.createElement('div');
+    trail.className = 'trail';
+    trail.style.left = `${x}px`;
+    trail.style.top = `${y}px`;
+
+    // Add the trail to the body
+    document.body.appendChild(trail);
+
+    // Fade and move the trail after creation
+    setTimeout(() => {
+        trail.style.opacity = 0; // Fade out
+        trail.style.transform = `scale(0.5)`; // Slight shrink to enhance the trail effect
+        // Remove the trail after the animation ends
+        setTimeout(() => {
+            trail.remove();
+        }, 700); // Match with the fade-out duration
+    }, 50); // Delay before starting the fade effect
+}
+
+// Main mousemove event to track cursor movement
 document.addEventListener('mousemove', (e) => {
-    const gridSize = 20;
+    const gridSize = 20; // Adjust grid snapping size for smoother movement
     let targetX = Math.floor(e.clientX / gridSize) * gridSize;
     let targetY = Math.floor(e.clientY / gridSize) * gridSize;
 
+    // Toggle between X and Y movement to create staggered movement
     if (moveX) {
         lastX = targetX;
     } else {
@@ -403,36 +427,14 @@ document.addEventListener('mousemove', (e) => {
     }
     moveX = !moveX;
 
-    // Move each star to follow the mouse
-    squares.forEach((square, index) => {
-        const delay = index * 100; // Adjust delay for smoother trailing
+    // Animate each star to follow the cursor with delay
+    document.querySelectorAll('.square').forEach((square, index) => {
+        const delay = index * 100; // Adjust delay to spread the stars' movement
         setTimeout(() => {
             square.style.transform = `translate(${lastX}px, ${lastY}px)`;
-            createTrailEffect(lastX, lastY); // Call the function to create a trail
+            // Call the trail effect function for each movement
+            createTrailEffect(lastX, lastY);
         }, delay);
     });
 });
-
-// Function to create and animate the trail effect
-function createTrailEffect(x, y) {
-    // Create a new trail element
-    let trail = document.createElement('div');
-    trail.classList.add('trail');
-    trail.style.left = `${x}px`;
-    trail.style.top = `${y}px`;
-
-    // Append the trail to the body
-    document.body.appendChild(trail);
-    activeTrails.push(trail);
-
-    // Animate and remove the trail
-    setTimeout(() => {
-        trail.style.opacity = 0; // Fade out
-        trail.style.transform = `translate(${x - 10}px, ${y - 10}px) scale(0.5)`; // Move and shrink trail
-        setTimeout(() => {
-            trail.remove();
-            activeTrails = activeTrails.filter(t => t !== trail); // Clean up the array
-        }, 500); // Time to remove the trail completely
-    }, 100); // Duration before starting to fade out
-}
 
