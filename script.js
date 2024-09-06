@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
             productCarousel.append(...productCarousel.children);
             productCarousel.offsetHeight;
             productCarousel.style.transition = 'transform 30s linear';
-            productCarousel.style.transform = translateX(-${productCarousel.scrollWidth}px);
+            productCarousel.style.transform = `translateX(-${productCarousel.scrollWidth}px)`;
         }
 
         productCarousel.addEventListener('animationiteration', resetScroll);
@@ -75,13 +75,13 @@ document.addEventListener('DOMContentLoaded', function () {
             squares.forEach((square, index) => {
                 const delay = index * 250;
                 setTimeout(() => {
-                    square.style.transform = translate(${lastX}px, ${lastY}px);
+                    square.style.transform = `translate(${lastX}px, ${lastY}px)`;
                     if (isInShopNowButton || isInProduct) {
                         square.style.backgroundColor = 'blue';
                     } else if ((e.clientX >= shopRect.left - gridSize && e.clientX <= shopRect.right + gridSize && e.clientY >= shopRect.top - gridSize && e.clientY <= shopRect.bottom + gridSize) || isInProduct) {
                         square.style.backgroundColor = 'purple';
                     } else {
-                        square.style.backgroundColor = 'red';
+                        square.style.backgroundColor = 'white';
                     }
                 }, delay);
             });
@@ -139,11 +139,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Track waitlist status per product
     function getWaitlistStatus(productName) {
-        return localStorage.getItem(waitlisted_${productName}) === 'true';
+        return localStorage.getItem(`waitlisted_${productName}`) === 'true';
     }
 
     function setWaitlistStatus(productName) {
-        localStorage.setItem(waitlisted_${productName}, 'true');
+        localStorage.setItem(`waitlisted_${productName}`, 'true');
     }
 
     // Track if insider alerts have been signed up for
@@ -157,11 +157,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Track if the initial waitlist confirmation has been shown
     function isFirstWaitlistConfirmationDisplayed(productName) {
-        return localStorage.getItem(first_confirmation_displayed_${productName}) === 'true';
+        return localStorage.getItem(`first_confirmation_displayed_${productName}`) === 'true';
     }
 
     function setWaitlistConfirmationDisplayed(productName) {
-        localStorage.setItem(first_confirmation_displayed_${productName}, 'true');
+        localStorage.setItem(`first_confirmation_displayed_${productName}`, 'true');
     }
 
     // Display luxurious confirmation inside the email popup
@@ -181,8 +181,8 @@ document.addEventListener('DOMContentLoaded', function () {
         waitlistConfirmationMessage.style.textAlign = 'center';
         waitlistConfirmationMessage.style.marginBottom = '20px';
         waitlistConfirmationMessage.textContent = isFirstTime
-            ? Thank you! You've been added to the waitlist for ${productName}.
-            : You're waitlisted for ${productName}.;
+            ? `Thank you! You've been added to the waitlist for ${productName}.`
+            : `You're waitlisted for ${productName}.`;
     
         // Append the waitlist confirmation first
         confirmationElement.appendChild(waitlistConfirmationMessage);
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
             insiderConfirmationMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
             insiderConfirmationMessage.style.textAlign = 'center';
             insiderConfirmationMessage.style.marginBottom = '20px';
-            insiderConfirmationMessage.textContent = You're signed up for insider alerts.;
+            insiderConfirmationMessage.textContent = `You're signed up for insider alerts.`;
     
             // Append the insider confirmation after the waitlist confirmation
             confirmationElement.appendChild(insiderConfirmationMessage);
@@ -244,8 +244,8 @@ document.addEventListener('DOMContentLoaded', function () {
         insiderConfirmationMessage.style.textAlign = 'center';
         insiderConfirmationMessage.style.marginBottom = '20px'; 
         insiderConfirmationMessage.textContent = firstTime
-            ? Thank you! You've signed up for insider alerts.
-            : You're signed up for insider alerts.;
+            ? `Thank you! You've signed up for insider alerts.`
+            : `You're signed up for insider alerts.`;
     
         // Append the insider confirmation inside the insider option element
         if (insiderOption) {
@@ -258,11 +258,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const insiderOption = document.createElement('div');
         insiderOption.className = 'signup-option';
         insiderOption.id = 'insider-option';
-        insiderOption.innerHTML = 
+        insiderOption.innerHTML = `
             <button id="insider-button">Insider alerts</button>
             <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
             <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
-        ;
+        `;
         confirmationElement.appendChild(insiderOption);
         setupInsiderAlertListeners();
     }
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetForm() {
         const insiderAlertStatus = getInsiderAlertStatus();
 
-        popupContent.innerHTML = 
+        popupContent.innerHTML = `
             <h2>Join Our Community</h2>
             <p>Enter your email to sign up for exclusive access to our collections.</p>
             <div class="signup-option" id="waitlist-option">
@@ -309,14 +309,14 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="signup-option" id="insider-option">
                 ${insiderAlertStatus ? 
-                    <div style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; margin-bottom: 20px;">You're signed up for insider alerts.</div> :
-                    <button id="insider-button">Insider alerts</button>
+                    `<div style="padding: 20px; background: linear-gradient(135deg, #d3d3d3, #e5e5e5); color: #2a2a2a; font-family: 'Garamond', serif; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; margin-bottom: 20px;">You're signed up for insider alerts.</div>` :
+                    `<button id="insider-button">Insider alerts</button>
                     <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
-                    <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
+                    <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>`
                 }
             </div>
             <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
-        ;
+        `;
     }
 
     // Set up listeners for dynamically created popup elements
@@ -387,69 +387,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const starContainer = document.createElement('div');
-    starContainer.style.position = 'fixed';
-    starContainer.style.top = 0;
-    starContainer.style.left = 0;
-    starContainer.style.width = '100%';
-    starContainer.style.height = '100%';
-    starContainer.style.pointerEvents = 'none'; // Ensures it does not block interactions
-    starContainer.style.zIndex = '-1'; // Keeps it behind all other content
-    document.body.appendChild(starContainer);
-
-    const createStar = () => {
-        const star = document.createElement('div');
-        const size = Math.random() * 2 + 0.5; // Random star size
-
-        star.style.position = 'absolute';
-        star.style.width = ${size}px;
-        star.style.height = ${size}px;
-        star.style.background = 'rgba(255, 255, 255, 0.8)';
-        star.style.borderRadius = '50%';
-        star.style.top = ${Math.random() * 100}vh;
-        star.style.left = ${Math.random() * 100}vw;
-        star.style.opacity = Math.random();
-        star.style.animation = twinkle ${Math.random() * 5 + 5}s infinite alternate;
-
-        starContainer.appendChild(star);
-
-        // Remove stars after some time to keep the container light
-        setTimeout(() => {
-            starContainer.removeChild(star);
-        }, 10000);
-    };
-
-    // Function to continuously create stars
-    setInterval(createStar, 100); // Adjust interval for star density
-});
-
 document.addEventListener('DOMContentLoaded', function () {
-    const starCount = 5; // Number of stars for the glitch effect
-    const starTrail = []; // Array to hold star elements and their positions
+    const stars = document.querySelectorAll('.square');
+    const trails = [];
 
-    // Create the shooting stars
-    for (let i = 0; i < starCount; i++) {
-        const shootingStar = document.createElement('div');
-        shootingStar.className = 'shooting-star';
-        shootingStar.style.opacity = 1 - i * 0.2; // Fainter stars for the trail effect
-        document.body.appendChild(shootingStar);
-        starTrail.push({ element: shootingStar, x: 0, y: 0 });
-    }
-
-    // Function to update star positions and create the lag effect
-    document.addEventListener('mousemove', (e) => {
-        // Update the first star to the current mouse position
-        starTrail[0].x = e.clientX;
-        starTrail[0].y = e.clientY;
-
-        // Update each trailing star based on the position of the previous one
-        for (let i = 1; i < starTrail.length; i++) {
-            starTrail[i].x += (starTrail[i - 1].x - starTrail[i].x) * 0.3; // Adjust this value for smoother or sharper lag
-            starTrail[i].y += (starTrail[i - 1].y - starTrail[i].y) * 0.3;
-
-            // Apply the new positions to the stars
-            starTrail[i].element.style.transform = translate(${starTrail[i].x}px, ${starTrail[i].y}px);
+    // Create trailing elements for each star
+    stars.forEach(star => {
+        for (let i = 0; i < 5; i++) { // Adjust number of trails for more or less tail
+            const trail = document.createElement('div');
+            trail.className = 'trail';
+            document.body.appendChild(trail);
+            trails.push({ element: trail, star });
         }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        stars.forEach((star, starIndex) => {
+            const starRect = star.getBoundingClientRect();
+            trails.forEach((trail, trailIndex) => {
+                if (trail.star === star) {
+                    const lagAmount = trailIndex * 5; // Adjust lag between each trail segment
+                    setTimeout(() => {
+                        // Set trail position and angle relative to the star's movement
+                        const deltaX = starRect.left - e.clientX;
+                        const deltaY = starRect.top - e.clientY;
+                        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 180;
+
+                        trail.element.style.transform = `translate(${starRect.left}px, ${starRect.top}px) rotate(${angle}deg)`;
+                        trail.element.style.opacity = 1 - (trailIndex * 0.15); // Fade effect as it gets farther from the star
+                    }, lagAmount);
+                }
+            });
+        });
     });
 });
