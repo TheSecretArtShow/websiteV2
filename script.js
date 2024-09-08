@@ -403,3 +403,41 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const starContainer = document.createElement('div');
+    starContainer.style.position = 'fixed';
+    starContainer.style.top = 0;
+    starContainer.style.left = 0;
+    starContainer.style.width = '100%';
+    starContainer.style.height = '100%';
+    starContainer.style.pointerEvents = 'none'; // Ensures it does not block interactions
+    starContainer.style.zIndex = '-1'; // Keeps it behind all other content
+    document.body.appendChild(starContainer);
+
+    const createStar = () => {
+        const star = document.createElement('div');
+        const size = Math.random() * 2 + 0.5; // Random star size
+
+        star.style.position = 'absolute';
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.background = 'rgba(255, 255, 255, 0.8)';
+        star.style.borderRadius = '50%';
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.opacity = Math.random();
+        star.style.animation = `twinkle ${Math.random() * 5 + 5}s infinite alternate`;
+
+        starContainer.appendChild(star);
+
+        // Remove stars after some time to keep the container light
+        setTimeout(() => {
+            starContainer.removeChild(star);
+        }, 10000);
+    };
+
+    // Function to continuously create stars
+    setInterval(createStar, 100); // Adjust interval for star density
+});
+
