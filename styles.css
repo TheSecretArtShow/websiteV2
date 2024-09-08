@@ -404,15 +404,16 @@ body::after {
 }
 
 
-/* Galaxy background styling */
+/* Ensure the body is scrollable */
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow-y: auto; /* Allows vertical scrolling */
     background: linear-gradient(to top, #020111, #3a3a52, #18181a);
+    position: relative; /* Keeps positioning context for children */
 }
 
-/* Stars effect using pseudo-elements */
+/* Make sure star container is non-blocking */
 body::before,
 body::after {
     content: '';
@@ -422,26 +423,5 @@ body::after {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    background: transparent;
-    z-index: -1; /* Ensure this is behind all content */
-}
-
-body::before {
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px) 0 0 / 50px 50px;
-    animation: starAnimation 100s linear infinite;
-}
-
-body::after {
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px) 0 0 / 100px 100px;
-    animation: starAnimation 150s linear infinite;
-}
-
-/* Keyframes for the star movement */
-@keyframes starAnimation {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-1000px);
-    }
+    z-index: -1;
 }
