@@ -143,30 +143,30 @@
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1 style="text-align: center;">
-                <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-            </h1>
-            <nav>
-                <ul style="display: flex; justify-content: center; list-style: none; padding: 0;">
-                    <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                    <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                    <li style="margin: 0 15px; position: relative;">
-                        <a href="shop.html">Shop</a>
-                        <ul class="dropdown">
-                            <li><a href="shop.html">All pieces</a></li>
-                            <li><a href="collections.html">Collections</a></li>
-                        </ul>
-                    </li>
-                    <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<header>
+    <div class="container">
+        <h1 style="text-align: center;">
+            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
+        </h1>
+        <nav>
+            <ul style="display: flex; justify-content: center; list-style: none; padding: 0;">
+                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
+                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
+                <li style="margin: 0 15px; position: relative;">
+                    <a href="shop.html">Shop</a>
+                    <ul class="dropdown">
+                        <li><a href="shop.html">All pieces</a></li>
+                        <li><a href="collections.html">Collections</a></li>
+                    </ul>
+                </li>
+                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-    <main>
-        <section class="collections">
+<main>
+    <section class="collections">
         <div class="container">
             <h2>Our Collections</h2>
             <p>Explore our exclusive collections...</p>
@@ -191,39 +191,50 @@
                 </div>
             </div>
         </div>
-</section>
+    </section>
+</main>
 
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 The Art Show. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Email Signup Popup Modal -->
-    <div class="email-popup-overlay" id="email-popup">
-        <div class="email-popup-content">
-            <h2>Join Our Community</h2>
-            <p>Enter your email to sign up for exclusive access to our collections.</p>
-
-            <div class="signup-option" id="waitlist-option">
-                <button id="waitlist-button">Waitlist</button>
-                <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
-                <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
-            </div>
-
-            <div class="signup-option" id="insider-option">
-                <button id="insider-button">Insider alerts</button>
-                <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
-                <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
-            </div>
-
-            <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
-            <input type="hidden" id="selected-product" name="selected-product">
-        </div>
+<footer>
+    <div class="container">
+        <p>&copy; 2024 The Art Show. All rights reserved.</p>
     </div>
+</footer>
 
-    <script src="script.js"></script>
+<!-- Star container for the cursor effect -->
+<div class="star-container">
+    <div class="star" id="star1"></div>
+    <div class="star" id="star2"></div>
+    <div class="star" id="star3"></div>
+    <div class="star" id="star4"></div>
+    <div class="star" id="star5"></div>
+    <div class="star" id="star6"></div>
+    <div class="star" id="star7"></div>
+    <div class="star" id="star8"></div>
+</div>
+
+<!-- Email Signup Popup Modal -->
+<div class="email-popup-overlay" id="email-popup">
+    <div class="email-popup-content">
+        <h2>Join Our Community</h2>
+        <p>Enter your email to sign up for exclusive access to our collections.</p>
+
+        <div class="signup-option" id="waitlist-option">
+            <button id="waitlist-button">Waitlist</button>
+            <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
+            <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
+        </div>
+
+        <div class="signup-option" id="insider-option">
+            <button id="insider-button">Insider alerts</button>
+            <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
+            <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
+        </div>
+
+        <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
+        <input type="hidden" id="selected-product" name="selected-product">
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
