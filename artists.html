@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artists - The Art Show</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+        }
+        .artist-section {
+            margin: 50px 0;
+            text-align: center;
+        }
+        .artist-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+        .artist-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin: 0 0 40px;
+        }
+        .artist-works {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .work-item {
+            flex: 0 0 250px;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .work-item img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .work-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1><img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;"></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="artists.html">Artists</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Artist 1 Section -->
+        <section class="artist-section">
+            <h2>Artist Name 1</h2>
+            <p>About this artist: A brief biography or description of the artist, their background, and their creative process.</p>
+            
+            <div class="artist-works">
+                <div class="work-item">
+                    <img src="path_to_work_image.jpg" alt="Work by Artist 1">
+                    <h3>Work Title 1</h3>
+                    <p>$Price</p>
+                </div>
+                <div class="work-item">
+                    <img src="path_to_work_image.jpg" alt="Work by Artist 1">
+                    <h3>Work Title 2</h3>
+                    <p>$Price</p>
+                </div>
+                <!-- Add more works as needed -->
+            </div>
+        </section>
+
+        <!-- Artist 2 Section -->
+        <section class="artist-section">
+            <h2>Artist Name 2</h2>
+            <p>About this artist: A brief biography or description of the artist, their background, and their creative process.</p>
+            
+            <div class="artist-works">
+                <div class="work-item">
+                    <img src="path_to_work_image.jpg" alt="Work by Artist 2">
+                    <h3>Work Title 1</h3>
+                    <p>$Price</p>
+                </div>
+                <div class="work-item">
+                    <img src="path_to_work_image.jpg" alt="Work by Artist 2">
+                    <h3>Work Title 2</h3>
+                    <p>$Price</p>
+                </div>
+                <!-- Add more works as needed -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 The Art Show. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
