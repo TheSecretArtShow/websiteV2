@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artists - The Art Show</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to the same CSS file -->
+    <style>
+        /* Galaxy Background */
+        body {
+            background: linear-gradient(to top, #020111, #3a3a52, #18181a); /* Galaxy-like background */
+            position: relative; /* Keeps positioning context for children */
+        }
+
+        /* Dynamic Stars */
+        .star-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1; /* Make sure stars appear behind other content */
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -24,6 +59,9 @@
         </nav>
     </div>
 </header>
+
+<!-- Dynamic star background -->
+<div class="star-container"></div>
 
 <main>
     <section class="artist">
@@ -80,5 +118,28 @@
 </footer>
 
 <script src="script.js"></script> <!-- Link to JS file -->
+<script>
+    // JavaScript for creating dynamic stars in the background
+    const starContainer = document.querySelector('.star-container');
+
+    function createStar() {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.width = `${Math.random() * 2}px`;
+        star.style.height = star.style.width;
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.animationDuration = `${Math.random() * 5 + 2}s`;
+        starContainer.appendChild(star);
+
+        // Remove the star after its animation ends
+        setTimeout(() => {
+            star.remove();
+        }, 7000);
+    }
+
+    // Continuously create stars at intervals
+    setInterval(createStar, 100);
+</script>
 </body>
 </html>
