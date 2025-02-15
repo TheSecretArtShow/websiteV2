@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Inner Circle - The Art Show</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Garamond:wght@400;700&family=Helvetica:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         /* General Styling */
         body {
             background-color: #121212;
             color: #f5f5f5;
-            line-height: 1.6;
-            font-family: 'Arial', sans-serif;
+            line-height: 1.8;
+            font-family: 'Helvetica', sans-serif;
             overflow-x: hidden;
             margin: 0;
             padding: 0;
@@ -20,13 +21,23 @@
             min-height: 100vh;
         }
 
-        h1, h2 {
+        h1, h2, h3 {
+            font-family: 'Garamond', serif;
+            font-weight: 700;
             color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
         }
 
         a {
             color: #ff6b6b;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         a:hover {
@@ -37,101 +48,184 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(45deg, #333, #000);
-            padding: 60px 0;
+            background: linear-gradient(135deg, #1f1f1f, #121212);
+            padding: 100px 0;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
         }
 
         /* Inner Circle Content */
         .inner-circle-content {
             text-align: center;
-            margin-bottom: 20px; /* Reduced to bring the email box closer */
+            margin-bottom: 40px;
         }
 
         .inner-circle-content h2 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
 
         .inner-circle-content p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
+            font-size: 1.2rem;
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto 40px;
         }
 
         /* Email Signup Form */
         .email-signup {
             max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #282828;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            margin-top: 10px; /* Reduced to move the container upwards */
-            margin-bottom: 20px; /* Optional: Adjusts space below the container */
+            width: 100%;
+            padding: 40px;
+            background: linear-gradient(135deg, #282828, #1f1f1f);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            margin: 20px auto;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centers content horizontally */
-            justify-content: center; /* Centers content vertically */
-            text-align: center; /* Centers text */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .email-signup h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .email-signup input[type="email"] {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #444;
             background-color: #1f1f1f;
             color: #f5f5f5;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .email-signup input[type="email"]:focus {
+            border-color: #ff6b6b;
+            outline: none;
         }
 
         .email-signup button {
             width: 100%;
-            padding: 10px;
-            background: linear-gradient(45deg, #ff6b6b, #ff3b3b);
+            padding: 12px;
+            background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
             border: none;
             color: #f5f5f5;
             cursor: pointer;
             font-size: 1rem;
-            border-radius: 5px;
+            border-radius: 6px;
             transition: background 0.3s ease, transform 0.3s ease;
         }
 
         .email-signup button:hover {
-            background: linear-gradient(45deg, #ff3b3b, #ff1a1a);
+            background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
             transform: scale(1.05);
         }
 
         /* Footer */
         footer {
             background-color: #1f1f1f;
-            padding: 20px 0;
+            padding: 40px 0;
             text-align: center;
             font-size: 0.9rem;
             color: #888;
             flex-shrink: 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Star container for the cursor effect */
+        .star-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Email Signup Popup Modal */
+        .email-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .email-popup-content {
+            background: linear-gradient(135deg, #282828, #1f1f1f);
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .email-popup-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .email-popup-content p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .email-popup-content button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+            border: none;
+            color: #f5f5f5;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 6px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .email-popup-content button:hover {
+            background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
+            transform: scale(1.05);
         }
     </style>
 </head>
