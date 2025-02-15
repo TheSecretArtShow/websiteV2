@@ -4,188 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Art Show</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
     <style>
-        /* General Styling */
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
         body {
             background-color: #121212;
             color: #f5f5f5;
             line-height: 1.6;
-            font-family: 'Helvetica', sans-serif;
             overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Garamond', serif;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 15px;
-        }
-
-        p {
-            font-size: 1rem;
-            color: #e0e0e0;
-            margin-bottom: 20px;
         }
 
         a {
-            color: #ff6b6b;
             text-decoration: none;
+            color: #f5f5f5;
             transition: color 0.3s ease;
         }
 
         a:hover {
-            color: #ff3b3b;
+            color: #ff6b6b;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            padding: 20px 0;
         }
 
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
         }
 
-        /* Hero Section with Video */
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        main {
+            padding: 50px 0;
+        }
+
         .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-            overflow: hidden;
+            background: linear-gradient(45deg, #333, #000);
+            padding: 60px 0;
         }
 
-        .hero-content {
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
+        .hero h2 {
+            font-size: 2.5rem;
             margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
         }
 
         .hero p {
             font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 20px;
+            margin-bottom: 30px;
         }
 
-        .hero-video {
-            position: absolute;
+        #shop-now {
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            border: none;
+            color: #f5f5f5;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #shop-now:hover {
+            background-color: #ff3b3b;
+        }
+
+        .products {
+            padding: 50px 0;
+            width: 100%;
+            overflow: hidden; /* Hide the scrollbar */
+        }
+
+        .product-carousel {
+            display: flex;
+            gap: 30px;
+            animation: scroll-horizontal 30s linear infinite; /* Adjust timing as needed */
+        }
+
+        .product {
+            flex: 0 0 250px;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .product img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+        }
+
+        footer {
+            background-color: #1f1f1f;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        @keyframes scroll-horizontal {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        /* Inner Circle Content */
-        .inner-circle-content {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .inner-circle-content h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .inner-circle-content p {
-            font-size: 1rem;
-            max-width: 800px;
-            margin: 0 auto 20px;
-        }
-
-        /* Email Signup Form */
-        .email-signup {
-            max-width: 500px;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, #282828, #1f1f1f);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            margin: 10px auto;
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: #222;
+            padding: 30px;
             text-align: center;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 80%;
         }
 
-        .email-signup h2 {
-            font-size: 1.75rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .popup-content h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ff6b6b;
         }
 
-        .email-signup input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            border: 1px solid #444;
-            background-color: #1f1f1f;
-            color: #f5f5f5;
-            font-size: 0.9rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .email-signup input[type="email"]:focus {
-            border-color: #ff6b6b;
-            outline: none;
-        }
-
-        .email-signup button {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+        .popup-content button {
+            padding: 10px 20px;
+            background-color: #ff6b6b;
             border: none;
             color: #f5f5f5;
             cursor: pointer;
-            font-size: 0.9rem;
-            border-radius: 6px;
-            transition: background 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
         }
 
-        .email-signup button:hover {
-            background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
-            transform: scale(1.05);
+        .popup-content button:hover {
+            background-color: #ff3b3b;
         }
 
-        /* Footer */
-        footer {
-            background-color: #1f1f1f;
-            padding: 10px 0;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #888;
-            flex-shrink: 0;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        /* Star container for the cursor effect */
+        /* Star Trail Cursor Styles */
         .star-container {
             position: fixed;
             top: 0;
@@ -196,181 +189,271 @@
             z-index: 5;
         }
 
-        /* Email Signup Popup Modal */
-        .email-popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+        .star {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, white 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: transform 0.1s ease, opacity 0.2s ease;
+            will-change: transform, opacity;
         }
 
-        .email-popup-content {
-            background: linear-gradient(135deg, #282828, #1f1f1f);
-            padding: 30px;
-            text-align: center;
-            border-radius: 12px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        .trail {
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            transform-origin: left;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
         }
 
-        .email-popup-content h2 {
-            font-size: 1.75rem;
-            margin-bottom: 15px;
-        }
-
-        .email-popup-content p {
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-
-        .email-popup-content button {
-            padding: 8px 16px;
-            background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
-            border: none;
-            color: #f5f5f5;
-            cursor: pointer;
-            font-size: 0.9rem;
-            border-radius: 6px;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .email-popup-content button:hover {
-            background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
-            transform: scale(1.05);
+        .trail.fade {
+            opacity: 0;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <h1 style="text-align: center;">
-            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-        </h1>
-        <nav>
-            <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
-                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                <li style="margin: 0 15px; position: relative;">
-                    <a href="shop.html">Shop</a>
-                    <ul class="dropdown">
-                        <li><a href="shop.html">All pieces</a></li>
-                        <li><a href="collections.html">Collections</a></li>
-                    </ul>
-                </li>
-                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<main>
-    <!-- Hero Section with Video -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Welcome to The Art Show</h1>
-            <p>Gain exclusive access to limited-edition drops, early releases, and insider perks.</p>
-            <a href="#shop" class="cta-button">Shop Now</a>
-        </div>
-        <video autoplay muted loop class="hero-video">
-            <source src="luxury-background.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </section>
-
-    <!-- Inner Circle Content -->
-    <section class="inner-circle-content">
+    <header>
         <div class="container">
-            <h2>Why Join The Inner Circle?</h2>
-            <p>
-                As a member of The Inner Circle, you'll be the first to know about new collections, receive
-                exclusive discounts, and have access to members-only events. Be part of an elite community
-                that celebrates art and individuality.
-            </p>
+            <h1 style="text-align: center;">
+                <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
+            </h1>
+            <nav>
+                <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
+                    <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
+                    <li style="margin: 0 15px;"><a href="about.html">About</a></li>
+                    <li style="margin: 0 15px; position: relative;">
+                        <a href="shop.html">Shop</a>
+                        <ul class="dropdown">
+                            <li><a href="shop.html">All pieces</a></li>
+                            <li><a href="collections.html">Collections</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin: 0 15px;"><a href="InnerCircle.html">The Inner Circle</a></li>
+                    <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-    </section>
+    </header>
 
-    <!-- Email Signup Form -->
-    <section class="email-signup">
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Welcome to The Art Show</h2>
+                <p>Discover clothing designed to be as unique as you.</p>
+                <button id="shop-now">Shop, Now</button>
+            </div>
+        </section>
+
+        <section class="products">
+            <div class="container">
+                <div class="product-carousel">
+                    <div class="product" id="product1">
+                        <img src="images2/rage.png">
+                        <h3>R@GE</h3>
+                        <p>$125.00</p>
+                    </div>
+                    <div class="product" id="product2">
+                        <img src="images2/end.png" alt="Shirt 2">
+                        <h3>END</h3>
+                        <p>$125.00</p>
+                    </div>
+                    <div class="product" id="product3">
+                        <img src="images2/void.png" alt="Shirt 3">
+                        <h3>V0ID</h3>
+                        <p>$150.00</p>
+                    </div>
+                    <div class="product" id="product4">
+                        <img src="images2/RIBS.png" alt="Shirt 4">
+                        <h3>Ribs</h3>
+                        <p>$113.00</p>
+                    </div>
+                    <div class="product" id="product5">
+                        <img src="images2/pumpkin.png" alt="Shirt 5">
+                        <h3>Pumpkin</h3>
+                        <p>$175.00</p>
+                    </div>
+                    <div class="product" id="product5">
+                        <img src="images2/basquiat.PNG" alt="Shirt 5">
+                        <h3>Basquiat</h3>
+                        <p>$175.00</p>
+                    </div>
+                    <div class="product" id="product6">
+                        <img src="images2/bleach.png" alt="Shirt 6">
+                        <h3>Bleach</h3>
+                        <p>$200.00</p>
+                    </div>
+                    <div class="product" id="product7">
+                        <img src="images2/ribs2.png" alt="Shirt 7">
+                        <h3>Skeleton</h3>
+                        <p>$185.00</p>
+                    </div>
+                    <div class="product" id="product8">
+                        <img src="image2/kurt.png" alt="Shirt 8">
+                        <h3>Cobain</h3>
+                        <p>$185.00</p>
+                    </div>
+                    <div class="product" id="product9">
+                        <img src="images2/pfaff.png" alt="Shirt 9">
+                        <h3>Pfaff</h3>
+                        <p>$175.00</p>
+                    </div>
+                    <div class="product" id="product10">
+                        <img src="images2/pin front.png" alt="Shirt 9">
+                        <h3>Stab</h3>
+                        <p>$250.00</p>
+                    </div>
+                    <div class="product" id="product11">
+                        <img src="images2/3rd eye.png" alt="Shirt 9">
+                        <h3>3rd Eye</h3>
+                        <p>$175.00</p>
+                    </div>
+                    <div class="product" id="product12">
+                        <img src="images2/WOB centipede.png" alt="Shirt 9">
+                        <h3>Centipede</h3>
+                        <p>$150.00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
         <div class="container">
-            <h2>Join The Inner Circle</h2>
-            <form id="inner-circle-form">
-                <input type="email" id="inner-circle-email" placeholder="Enter your email" required>
-                <button type="submit">Join Now</button>
-            </form>
+            <p>&copy; 2024 The Art Show. All rights reserved.</p>
         </div>
-    </section>
-</main>
+    </footer>
 
-<footer>
-    <div class="container">
-        <p>&copy; 2024 The Art Show. All rights reserved.</p>
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <h2>For the few, not the many. Are you among the few?</h2>
+            <button id="popup-button-yes">I'm one of one</button>
+            <button id="popup-button-no">No</button>
+        </div>
     </div>
-</footer>
 
-<!-- Star container for the cursor effect -->
-<div class="star-container">
-    <div class="star" id="star1"></div>
-    <div class="star" id="star2"></div>
-    <div class="star" id="star3"></div>
-    <div class="star" id="star4"></div>
-    <div class="star" id="star5"></div>
-    <div class="star" id="star6"></div>
-    <div class="star" id="star7"></div>
-    <div class="star" id="star8"></div>
-</div>
-
-<!-- Email Signup Popup Modal -->
-<div class="email-popup-overlay" id="email-popup">
-    <div class="email-popup-content">
-        <h2>Thank You for Joining The Inner Circle!</h2>
-        <p>You'll receive a confirmation email shortly.</p>
-        <button id="resume-browsing-button" class="resume-button">Resume Browsing</button>
+    <!-- Star container for the star cursor effect -->
+    <div class="star-container">
+        <div class="star" id="star1"></div>
+        <div class="star" id="star2"></div>
+        <div class="star" id="star3"></div>
+        <div class="star" id="star4"></div>
+        <div class="star" id="star5"></div>
+        <div class="star" id="star6"></div>
+        <div class="star" id="star7"></div>
+        <div class="star" id="star8"></div>
     </div>
-</div>
 
-<script>
-    // Handle Email Submission
-    document.getElementById('inner-circle-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const email = document.getElementById('inner-circle-email').value;
+    <script src="script.js"></script> <!-- Link to JS file -->
+    <script>
+        // Handle Popup
+        document.getElementById('popup-button').addEventListener('click', function() {
+            document.getElementById('popup-overlay').style.display = 'none';
+        });
 
-        if (email) {
-            // Send email to Google Sheets (same logic as shop.html)
-            fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: email, listType: 'Inner Circle', name: '' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Show confirmation popup ONLY after successful submission
-                document.getElementById('email-popup').style.display = 'flex';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
-        } else {
-            alert('Please enter a valid email address.');
+        const productCarousel = document.querySelector('.product-carousel');
+
+        function resetScroll() {
+            productCarousel.style.transition = 'none';
+            productCarousel.style.transform = 'translateX(0)';
+            productCarousel.append(...productCarousel.children);
+            productCarousel.offsetHeight; // Trigger reflow to reset animation
+            productCarousel.style.transition = 'transform 30s linear';
+            productCarousel.style.transform = `translateX(-${productCarousel.scrollWidth}px)`;
         }
-    });
 
-    // Close Popup
-    document.getElementById('resume-browsing-button').addEventListener('click', function () {
-        document.getElementById('email-popup').style.display = 'none';
-    });
-</script>
+        productCarousel.addEventListener('animationiteration', resetScroll);
 
-<script src="script.js"></script>
+        // Initial setup
+        resetScroll();
+
+        // JavaScript to change the star color when hovering over buttons
+        const stars = document.querySelectorAll('.square');
+
+        document.addEventListener('mousemove', (e) => {
+            let isHoveringOverButton = false;
+
+            // Check if the cursor is over a button
+            document.querySelectorAll('button').forEach(button => {
+                const rect = button.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    isHoveringOverButton = true;
+                }
+            });
+
+            // Change the star color based on hover state
+            stars.forEach(star => {
+                star.style.backgroundColor = isHoveringOverButton ? 'red' : 'rgba(255, 255, 255, 0.8)';
+            });
+        });
+
+        // Star Trail Cursor JavaScript
+        const trailStars = document.querySelectorAll('.star');
+        let lastX = 0, lastY = 0;
+        let moveX = true;
+
+        document.addEventListener('mousemove', (e) => {
+            const gridSize = 20;
+            let targetX = Math.floor(e.clientX / gridSize) * gridSize;
+            let targetY = Math.floor(e.clientY / gridSize) * gridSize;
+
+            if (moveX) {
+                lastX = targetX;
+            } else {
+                lastY = targetY;
+            }
+            moveX = !moveX;
+
+            trailStars.forEach((star, index) => {
+                const delay = index * 200 * 1.7; // Increased delay to 1.7x for all non-main stars
+                setTimeout(() => {
+                    const rect = star.getBoundingClientRect();
+                    const currentX = rect.left + rect.width / 2;
+                    const currentY = rect.top + rect.height / 2;
+
+                    // Only create trails for the last 4 stars
+                    if (index >= trailStars.length - 4) {
+                        createTrail(currentX, currentY, lastX, lastY, delay);
+                    }
+
+                    star.style.transform = `translate(${lastX}px, ${lastY}px)`;
+                }, delay);
+            });
+        });
+
+        function createTrail(startX, startY, endX, endY, starDelay) {
+            const trail = document.createElement('div');
+            trail.classList.add('trail');
+            document.body.appendChild(trail);
+
+            // Position the trail at the starting point of the star's movement
+            trail.style.left = `${startX}px`;
+            trail.style.top = `${startY}px`;
+
+            // Calculate angle and distance based on movement direction
+            const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+            const distance = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+
+            // Set the trail's appearance to match the star's movement
+            trail.style.width = `${distance}px`;
+            trail.style.transform = `rotate(${angle}deg)`;
+
+            // Fade out the trail after it is positioned
+            setTimeout(() => {
+                trail.classList.add('fade');
+                setTimeout(() => {
+                    trail.remove();
+                }, 500); // Duration for the trail to disappear
+            }, 10);
+        }
+    </script>
 </body>
 </html>
