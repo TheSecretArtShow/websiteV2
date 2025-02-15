@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Inner Circle - The Art Show</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1 style="text-align: center;">
+            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
+        </h1>
+        <nav>
+            <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
+                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
+                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
+                <li style="margin: 0 15px;"><a href="shop.html">Shop</a></li>
+                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="container hero">
+        <h2>Welcome to The Inner Circle</h2>
+        <p>Exclusive early access to our latest collections and special editions.</p>
+        <div class="email-signup">
+            <input type="email" id="inner-circle-email" placeholder="Enter your email" class="email-input">
+            <button id="join-inner-circle" class="submit-button">Join The Inner Circle</button>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 The Art Show. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+    document.getElementById('join-inner-circle').addEventListener('click', function() {
+        const email = document.getElementById('inner-circle-email').value;
+        if(email) {
+            fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email, listType: 'Inner Circle' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Thank you for joining The Inner Circle!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        } else {
+            alert('Please enter a valid email address.');
+        }
+    });
+</script>
+</body>
+</html>
 
