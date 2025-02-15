@@ -100,7 +100,7 @@
         .email-signup {
             max-width: 500px;
             width: 100%;
-            padding: 40px;
+            padding: 30px 40px; /* Reduced top and bottom padding */
             background: linear-gradient(135deg, #282828, #1f1f1f);
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -156,7 +156,7 @@
         /* Footer */
         footer {
             background-color: #1f1f1f;
-            padding: 40px 0;
+            padding: 15px 0; /* Reduced padding to make the footer less "fat" */
             text-align: center;
             font-size: 0.9rem;
             color: #888;
@@ -186,7 +186,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
-            display: flex;
+            display: none; /* Hidden by default */
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -316,7 +316,7 @@
 <script>
     // Handle Email Submission
     document.getElementById('inner-circle-form').addEventListener('submit', function (e) {
-        e.preventDefault();
+        e.preventDefault(); // Prevent the form from submitting the traditional way
         const email = document.getElementById('inner-circle-email').value;
 
         if (email) {
@@ -330,13 +330,15 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Show confirmation popup
+                // Show confirmation popup ONLY after successful submission
                 document.getElementById('email-popup').style.display = 'flex';
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again.');
             });
+        } else {
+            alert('Please enter a valid email address.'); // Show an error if the email field is empty
         }
     });
 
