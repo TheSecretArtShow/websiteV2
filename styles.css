@@ -1,4 +1,164 @@
-/* Star Container for the star trail cursor effect */
+/* General Styling */
+body {
+    background-color: #121212;
+    color: #f5f5f5;
+    line-height: 1.6; /* Reduced line height for tighter text */
+    font-family: 'Helvetica', sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    font-family: 'Garamond', serif;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+p {
+    font-size: 1rem; /* Slightly smaller font size */
+    color: #e0e0e0;
+    margin-bottom: 20px; /* Reduced margin */
+}
+
+a {
+    color: #ff6b6b;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ff3b3b;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px; /* Reduced padding */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #1f1f1f, #121212);
+    padding: 60px 0; /* Reduced padding */
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem; /* Slightly smaller font size */
+    margin-bottom: 15px; /* Reduced margin */
+    text-transform: uppercase;
+    letter-spacing: 1.5px; /* Reduced letter spacing */
+}
+
+.hero p {
+    font-size: 1.1rem; /* Slightly smaller font size */
+    max-width: 800px;
+    margin: 0 auto 20px; /* Reduced margin */
+}
+
+/* Inner Circle Content */
+.inner-circle-content {
+    text-align: center;
+    margin-bottom: 20px; /* Reduced margin */
+}
+
+.inner-circle-content h2 {
+    font-size: 2rem; /* Slightly smaller font size */
+    margin-bottom: 15px; /* Reduced margin */
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Reduced letter spacing */
+}
+
+.inner-circle-content p {
+    font-size: 1rem; /* Slightly smaller font size */
+    max-width: 800px;
+    margin: 0 auto 20px; /* Reduced margin */
+}
+
+/* Email Signup Form */
+.email-signup {
+    max-width: 500px;
+    width: 100%;
+    padding: 20px; /* Reduced padding */
+    background: linear-gradient(135deg, #282828, #1f1f1f);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    margin: 10px auto; /* Reduced margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.email-signup h2 {
+    font-size: 1.75rem; /* Slightly smaller font size */
+    margin-bottom: 15px; /* Reduced margin */
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Reduced letter spacing */
+}
+
+.email-signup input[type="email"] {
+    width: 100%;
+    padding: 10px; /* Reduced padding */
+    margin-bottom: 15px; /* Reduced margin */
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #1f1f1f;
+    color: #f5f5f5;
+    font-size: 0.9rem; /* Slightly smaller font size */
+    transition: border-color 0.3s ease;
+}
+
+.email-signup input[type="email"]:focus {
+    border-color: #ff6b6b;
+    outline: none;
+}
+
+.email-signup button {
+    width: 100%;
+    padding: 10px; /* Reduced padding */
+    background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+    border: none;
+    color: #f5f5f5;
+    cursor: pointer;
+    font-size: 0.9rem; /* Slightly smaller font size */
+    border-radius: 6px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.email-signup button:hover {
+    background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    background-color: #1f1f1f;
+    padding: 10px 0; /* Reduced padding */
+    text-align: center;
+    font-size: 0.8rem; /* Slightly smaller font size */
+    color: #888;
+    flex-shrink: 0;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Star container for the cursor effect */
 .star-container {
     position: fixed;
     top: 0;
@@ -9,256 +169,7 @@
     z-index: 5;
 }
 
-/* Star styling for the trail cursor effect */
-.star {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: radial-gradient(circle, white 0%, transparent 70%);
-    border-radius: 50%;
-    opacity: 0.8;
-    transition: transform 0.1s ease, opacity 0.2s ease;
-    will-change: transform, opacity;
-    pointer-events: none;
-    z-index: 9999;
-}
-
-/* Trail effect for stars */
-.trail {
-    position: absolute;
-    width: 30px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.6;
-    transform-origin: left;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-    z-index: 9998;
-}
-
-.trail.fade {
-    opacity: 0;
-}
-
-/* Existing styles for product, navigation, collections, etc. */
-.product {
-    background: rgba(30, 30, 30, 0.8); /* Slightly transparent dark color to make text readable */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-carousel {
-    display: flex;
-    gap: 30px;
-    animation: scroll-horizontal 30s linear infinite; /* Adjust timing as needed */
-}
-
-.product {
-    flex: 0 0 250px;
-    background-color: #1f1f1f;
-    padding: 20px;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-    text-align: center;
-    position: relative; /* Added for the popup */
-}
-
-.product img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.product:hover {
-    transform: translateY(-10px);
-}
-
-@keyframes scroll-horizontal {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-.popup-content button {
-    padding: 10px 20px;
-    background-color: #ff6b6b;
-    border: none;
-    color: #f5f5f5;
-    cursor: pointer;
-    font-size: 1rem;
-    margin: 5px; /* Add some space between the buttons */
-    transition: background-color 0.3s ease;
-}
-
-.popup-content button#popup-button-no {
-    background-color: #444; /* Different color for the No button */
-}
-
-.popup-content button:hover {
-    background-color: #ff3b3b;
-}
-
-.popup-content button#popup-button-no:hover {
-    background-color: #666; /* Hover effect for the No button */
-}
-
-nav ul li a {
-    color: #ff6b6b; /* Change this to your preferred orange/salmon color */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-    color: #ff3b3b; /* Optional: a slightly darker shade on hover */
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    position: relative;
-}
-
-nav ul li {
-    position: relative;
-}
-
-nav ul li .dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #1f1f1f;
-    padding: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-nav ul li:hover .dropdown {
-    display: block;
-}
-
-nav ul li .dropdown li {
-    margin: 0;
-    padding: 10px 20px;
-    white-space: nowrap;
-}
-
-nav ul li .dropdown li a {
-    color: #f5f5f5;
-    text-decoration: none;
-}
-
-nav ul li .dropdown li a:hover {
-    color: #ff6b6b;
-}
-
-/* Collection Item Container */
-.collection-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px; /* Horizontal space between items */
-    margin-bottom: 50px; /* Adds vertical spacing between rows */
-}
-
-/* Collection Item Styling */
-.collection-item {
-    background: rgba(30, 30, 30, 0.8); /* Same as above for consistency */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.collection-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.collection-item h3 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    font-size: 1.5rem;
-    color: #f5f5f5;
-    text-transform: uppercase;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    padding: 10px 20px;
-    border-radius: 5px;
-    z-index: 1;
-    opacity: 1;
-    transition: opacity 0.3s ease; /* Add transition for smooth fade-out */
-}
-
-.collection-item .coming-soon-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(255, 255, 255, 0.3));
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: scale(1.2);
-}
-
-.collection-item .view-details {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #ff6b6b;
-    color: #f5f5f5;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateY(20px);
-}
-
-.collection-item:hover {
-    transform: translateY(-10px); /* Lifts the entire box */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Adds shadow for depth */
-}
-
-.collection-item:hover .coming-soon-overlay {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.collection-item:hover img {
-    transform: scale(1.1);
-}
-
-.collection-item:hover .view-details {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-.collection-item:hover h3 {
-    opacity: 0; /* Fade out the title on hover */
-}
-
-/* Email Popup Styling */
+/* Email Signup Popup Modal */
 .email-popup-overlay {
     position: fixed;
     top: 0;
@@ -266,178 +177,44 @@ nav ul li .dropdown li a:hover {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    display: none;
+    display: none; /* Hidden by default */
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
 .email-popup-content {
-    background: #222;
-    padding: 30px;
+    background: linear-gradient(135deg, #282828, #1f1f1f);
+    padding: 30px; /* Reduced padding */
     text-align: center;
-    border-radius: 10px;
+    border-radius: 12px;
     max-width: 400px;
-    width: 80%;
+    width: 90%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .email-popup-content h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #ff6b6b;
+    font-size: 1.75rem; /* Slightly smaller font size */
+    margin-bottom: 15px; /* Reduced margin */
 }
 
 .email-popup-content p {
-    font-size: 1rem;
-    color: #f5f5f5;
-    margin-bottom: 20px;
+    font-size: 1rem; /* Slightly smaller font size */
+    margin-bottom: 15px; /* Reduced margin */
 }
 
-.signup-option {
-    margin-bottom: 20px;
-}
-
-.email-input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-/* Styling for the more appealing buttons */
-.signup-option button {
-    padding: 10px 20px;
-    background: linear-gradient(45deg, #ff6b6b, #ff3b3b);
+.email-popup-content button {
+    padding: 8px 16px; /* Reduced padding */
+    background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
     border: none;
     color: #f5f5f5;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 10px; /* Adjust spacing between the buttons */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    font-size: 0.9rem; /* Slightly smaller font size */
+    border-radius: 6px;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.signup-option button:hover {
-    background: linear-gradient(45deg, #ff3b3b, #ff1a1a);
+.email-popup-content button:hover {
+    background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
     transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Styling for the less appealing "Resume browsing" button */
-.resume-button {
-    padding: 10px 20px;
-    background-color: #444;
-    border: none;
-    color: #f5f5f5;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-    margin-top: 10px; /* Adjust spacing above the button */
-    border-radius: 5px;
-}
-
-.resume-button:hover {
-    background-color: #666;
-}
-
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #ff6b6b;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    font-size: 1rem;
-}
-
-.luxurious-confirmation {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background: linear-gradient(45deg, #ffd700, #ffec8b);
-    border-radius: 8px;
-    color: #333;
-    font-family: 'Times New Roman', serif;
-    font-size: 1.2rem;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-    transform: scale(0.8);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.luxurious-confirmation.animate {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Ensure the body is scrollable */
-body {
-    margin: 0;
-    padding: 0;
-    overflow-y: auto; /* Allows vertical scrolling */
-    background: linear-gradient(to top, #020111, #3a3a52, #18181a);
-    position: relative; /* Keeps positioning context for children */
-}
-
-/* Make sure star container is non-blocking */
-body::before,
-body::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.catalogue {
-    background: transparent; /* Removes the dark gray background */
-    padding: 50px 0;
-}
-
-
-/* Ensure the body is scrollable */
-body {
-    margin: 0;
-    padding: 0;
-    overflow-y: auto; /* Allows vertical scrolling */
-    background: linear-gradient(to top, #020111, #3a3a52, #18181a);
-    position: relative; /* Keeps positioning context for children */
-}
-
-/* Make sure star container is non-blocking */
-body::before,
-body::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.email-signup {
-    max-width: 500px;
-    margin: 0 auto; /* Centers the container horizontally */
-    padding: 20px;
-    background-color: #282828;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    margin-top: 10px; /* Adjust this value to move the container up or down */
-    margin-bottom: 20px; /* Optional: Adjusts space below the container */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers content horizontally */
-    justify-content: center; /* Centers content vertically */
-    text-align: center; /* Centers text */
 }
