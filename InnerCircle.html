@@ -11,7 +11,7 @@
         body {
             background-color: #121212;
             color: #f5f5f5;
-            line-height: 1.8;
+            line-height: 1.6;
             font-family: 'Helvetica', sans-serif;
             overflow-x: hidden;
             margin: 0;
@@ -25,13 +25,13 @@
             font-family: 'Garamond', serif;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #e0e0e0;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         a {
@@ -48,7 +48,7 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -60,51 +60,51 @@
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #1f1f1f, #121212);
-            padding: 100px 0;
+            padding: 60px 0;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 20px;
         }
 
         /* Inner Circle Content */
         .inner-circle-content {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .inner-circle-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
         }
 
         .inner-circle-content p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 20px;
         }
 
         /* Email Signup Form */
         .email-signup {
             max-width: 500px;
             width: 100%;
-            padding: 30px 40px; /* Reduced top and bottom padding */
+            padding: 20px;
             background: linear-gradient(135deg, #282828, #1f1f1f);
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            margin: 20px auto;
+            margin: 10px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -113,21 +113,21 @@
         }
 
         .email-signup h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 1.75rem;
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .email-signup input[type="email"] {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
+            padding: 10px;
+            margin-bottom: 15px;
             border-radius: 6px;
             border: 1px solid #444;
             background-color: #1f1f1f;
             color: #f5f5f5;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: border-color 0.3s ease;
         }
 
@@ -138,12 +138,12 @@
 
         .email-signup button {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
             border: none;
             color: #f5f5f5;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.9rem;
             border-radius: 6px;
             transition: background 0.3s ease, transform 0.3s ease;
         }
@@ -156,9 +156,9 @@
         /* Footer */
         footer {
             background-color: #1f1f1f;
-            padding: 15px 0; /* Reduced padding to make the footer less "fat" */
+            padding: 10px 0;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #888;
             flex-shrink: 0;
         }
@@ -186,7 +186,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
-            display: none; /* Hidden by default */
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -194,7 +194,7 @@
 
         .email-popup-content {
             background: linear-gradient(135deg, #282828, #1f1f1f);
-            padding: 40px;
+            padding: 30px;
             text-align: center;
             border-radius: 12px;
             max-width: 400px;
@@ -203,22 +203,22 @@
         }
 
         .email-popup-content h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 1.75rem;
+            margin-bottom: 15px;
         }
 
         .email-popup-content p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            margin-bottom: 15px;
         }
 
         .email-popup-content button {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
             border: none;
             color: #f5f5f5;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.9rem;
             border-radius: 6px;
             transition: background 0.3s ease, transform 0.3s ease;
         }
@@ -307,7 +307,7 @@
 <!-- Email Signup Popup Modal -->
 <div class="email-popup-overlay" id="email-popup">
     <div class="email-popup-content">
-        <h2>Welcome to The Inner Circle</h2>
+        <h2>Thank You for Joining The Inner Circle!</h2>
         <p>You'll receive a confirmation email shortly.</p>
         <button id="resume-browsing-button" class="resume-button">Resume Browsing</button>
     </div>
@@ -316,7 +316,7 @@
 <script>
     // Handle Email Submission
     document.getElementById('inner-circle-form').addEventListener('submit', function (e) {
-        e.preventDefault(); // Prevent the form from submitting the traditional way
+        e.preventDefault();
         const email = document.getElementById('inner-circle-email').value;
 
         if (email) {
@@ -338,7 +338,7 @@
                 alert('An error occurred. Please try again.');
             });
         } else {
-            alert('Please enter a valid email address.'); // Show an error if the email field is empty
+            alert('Please enter a valid email address.');
         }
     });
 
