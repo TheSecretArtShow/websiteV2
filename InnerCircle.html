@@ -5,8 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Inner Circle - The Art Show</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styling */
+        body {
+            background-color: #121212;
+            color: #f5f5f5;
+            line-height: 1.6;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2 {
+            color: #ffffff;
+        }
+
+        a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ff3b3b;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(45deg, #333, #000);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Inner Circle Content */
+        .inner-circle-content {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .inner-circle-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .inner-circle-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Email Signup Form */
+        .email-signup {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #282828;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .email-signup input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #1f1f1f;
+            color: #f5f5f5;
+        }
+
+        .email-signup button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ff3b3b);
+            border: none;
+            color: #f5f5f5;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .email-signup button:hover {
+            background: linear-gradient(45deg, #ff3b3b, #ff1a1a);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1f1f1f;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
+
 <header>
     <div class="container">
         <h1 style="text-align: center;">
@@ -16,7 +129,13 @@
             <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
                 <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
                 <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                <li style="margin: 0 15px;"><a href="shop.html">Shop</a></li>
+                <li style="margin: 0 15px; position: relative;">
+                    <a href="shop.html">Shop</a>
+                    <ul class="dropdown">
+                        <li><a href="shop.html">All pieces</a></li>
+                        <li><a href="collections.html">Collections</a></li>
+                    </ul>
+                </li>
                 <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -24,12 +143,34 @@
 </header>
 
 <main>
-    <section class="container hero">
-        <h2>Welcome to The Inner Circle</h2>
-        <p>Exclusive early access to our latest collections and special editions.</p>
-        <div class="email-signup">
-            <input type="email" id="inner-circle-email" placeholder="Enter your email" class="email-input">
-            <button id="join-inner-circle" class="submit-button">Join The Inner Circle</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to The Inner Circle</h1>
+            <p>Gain exclusive access to limited-edition drops, early releases, and insider perks.</p>
+        </div>
+    </section>
+
+    <!-- Inner Circle Content -->
+    <section class="inner-circle-content">
+        <div class="container">
+            <h2>Why Join The Inner Circle?</h2>
+            <p>
+                As a member of The Inner Circle, you'll be the first to know about new collections, receive
+                exclusive discounts, and have access to members-only events. Be part of an elite community
+                that celebrates art and individuality.
+            </p>
+        </div>
+    </section>
+
+    <!-- Email Signup Form -->
+    <section class="email-signup">
+        <div class="container">
+            <h2>Join The Inner Circle</h2>
+            <form id="inner-circle-form">
+                <input type="email" id="inner-circle-email" placeholder="Enter your email" required>
+                <button type="submit">Join Now</button>
+            </form>
         </div>
     </section>
 </main>
@@ -40,31 +181,60 @@
     </div>
 </footer>
 
-<script src="script.js"></script>
+<!-- Star container for the cursor effect -->
+<div class="star-container">
+    <div class="star" id="star1"></div>
+    <div class="star" id="star2"></div>
+    <div class="star" id="star3"></div>
+    <div class="star" id="star4"></div>
+    <div class="star" id="star5"></div>
+    <div class="star" id="star6"></div>
+    <div class="star" id="star7"></div>
+    <div class="star" id="star8"></div>
+</div>
+
+<!-- Email Signup Popup Modal -->
+<div class="email-popup-overlay" id="email-popup">
+    <div class="email-popup-content">
+        <h2>Thank You for Joining The Inner Circle!</h2>
+        <p>You'll receive a confirmation email shortly.</p>
+        <button id="resume-browsing-button" class="resume-button">Resume Browsing</button>
+    </div>
+</div>
+
 <script>
-    document.getElementById('join-inner-circle').addEventListener('click', function() {
+    // Handle Email Submission
+    document.getElementById('inner-circle-form').addEventListener('submit', function (e) {
+        e.preventDefault();
         const email = document.getElementById('inner-circle-email').value;
-        if(email) {
+
+        if (email) {
+            // Send email to Google Sheets (same logic as shop.html)
             fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: email, listType: 'Inner Circle' })
+                body: JSON.stringify({ email: email, listType: 'Inner Circle', name: '' })
             })
             .then(response => response.json())
             .then(data => {
-                alert('Thank you for joining The Inner Circle!');
+                // Show confirmation popup
+                document.getElementById('email-popup').style.display = 'flex';
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again.');
             });
-        } else {
-            alert('Please enter a valid email address.');
         }
     });
+
+    // Close Popup
+    document.getElementById('resume-browsing-button').addEventListener('click', function () {
+        document.getElementById('email-popup').style.display = 'none';
+    });
 </script>
+
+<script src="script.js"></script>
 </body>
 </html>
-
