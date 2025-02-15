@@ -433,6 +433,6 @@ body::after {
     background-color: #282828;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    margin-top: 20px; /* Adjust this value to move the container up or down */
-    margin-bottom: 300px; /* Adjust this value to control spacing from the footer */
+    margin-top: 10px; /* Reduced to move the container upwards */
+    margin-bottom: 30px; /* Optional: Adjusts space below the container */
 }
