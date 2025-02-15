@@ -425,3 +425,14 @@ body::after {
     pointer-events: none;
     z-index: -1;
 }
+
+.email-signup {
+    max-width: 500px;
+    margin: 0 auto; /* Centers the container horizontally */
+    padding: 20px;
+    background-color: #282828;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-top: 20px; /* Adjust this value to move the container up or down */
+    margin-bottom: 40px; /* Adjust this value to control spacing from the footer */
+}
