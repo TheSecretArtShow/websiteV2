@@ -1,5 +1,44 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Define the sendEmailToServer function near the start
+    // Hero Video Scroll Animation
+    const heroVideoContainer = document.querySelector('.hero-video-container');
+    const heroVideo = document.querySelector('.hero-video');
+    const scrollAnimation = document.querySelector('.scroll-animation');
+    const mainContent = document.querySelector('.main-content');
+
+    let isScrolling = false;
+
+    // Function to handle scroll events
+    function handleScroll() {
+        if (isScrolling) return; // Prevent multiple triggers
+        isScrolling = true;
+
+        const scrollPosition = window.scrollY;
+        const heroHeight = heroVideoContainer.offsetHeight;
+        const scaleFactor = 1 + (scrollPosition / heroHeight) * 0.5; // Adjust scaling factor as needed
+
+        // Scale the video up as the user scrolls down
+        if (scrollPosition <= heroHeight) {
+            heroVideo.style.transform = `scale(${scaleFactor})`;
+            scrollAnimation.classList.add('active');
+        } else {
+            // Reset the video scale when scrolling past the hero section
+            heroVideo.style.transform = 'scale(1)';
+            scrollAnimation.classList.remove('active');
+        }
+
+        // Allow the next scroll event
+        setTimeout(() => {
+            isScrolling = false;
+        }, 100);
+    }
+
+    // Attach the scroll event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Ensure the main content starts below the hero video
+    mainContent.style.paddingTop = `${heroVideoContainer.offsetHeight}px`;
+
+    // Rest of your existing code (popups, star trails, etc.)
     function sendEmailToServer(email, listType, name, confirmationElement) {
         fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
             method: 'POST',
@@ -78,34 +117,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function createTrail(startX, startY, endX, endY, starDelay) {
-    const trail = document.createElement('div');
-    trail.classList.add('trail');
+        const trail = document.createElement('div');
+        trail.classList.add('trail');
 
-    // Append trail to the body and ensure it has the correct positioning context
-    document.body.appendChild(trail);
+        // Append trail to the body and ensure it has the correct positioning context
+        document.body.appendChild(trail);
 
-    // Set the position based on viewport coordinates
-    trail.style.position = 'fixed'; // Use fixed positioning to align with the screen
-    trail.style.left = `${startX}px`;
-    trail.style.top = `${startY}px`;
+        // Set the position based on viewport coordinates
+        trail.style.position = 'fixed'; // Use fixed positioning to align with the screen
+        trail.style.left = `${startX}px`;
+        trail.style.top = `${startY}px`;
 
-    // Calculate angle and distance based on movement direction
-    const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
-    const distance = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+        // Calculate angle and distance based on movement direction
+        const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+        const distance = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
 
-    // Set the trail's appearance to match the star's movement
-    trail.style.width = `${distance}px`;
-    trail.style.transform = `rotate(${angle}deg)`;
+        // Set the trail's appearance to match the star's movement
+        trail.style.width = `${distance}px`;
+        trail.style.transform = `rotate(${angle}deg)`;
 
-    // Fade out the trail after it is positioned
-    setTimeout(() => {
-        trail.classList.add('fade');
+        // Fade out the trail after it is positioned
         setTimeout(() => {
-            trail.remove();
-        }, 500); // Duration for the trail to disappear
-    }, 10);
-}
-
+            trail.classList.add('fade');
+            setTimeout(() => {
+                trail.remove();
+            }, 500); // Duration for the trail to disappear
+        }, 10);
+    }
 
     // Handle Random Pop-up
     const popups = [
@@ -402,41 +440,4 @@ document.addEventListener('DOMContentLoaded', function () {
             showEmailPopup(button);
         });
     });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const starContainer = document.createElement('div');
-    starContainer.style.position = 'fixed';
-    starContainer.style.top = 0;
-    starContainer.style.left = 0;
-    starContainer.style.width = '100%';
-    starContainer.style.height = '100%';
-    starContainer.style.pointerEvents = 'none'; // Ensures it does not block interactions
-    starContainer.style.zIndex = '-1'; // Keeps it behind all other content
-    document.body.appendChild(starContainer);
-
-    const createStar = () => {
-        const star = document.createElement('div');
-        const size = Math.random() * 2 + 0.5; // Random star size
-
-        star.style.position = 'absolute';
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.background = 'rgba(255, 255, 255, 0.8)';
-        star.style.borderRadius = '50%';
-        star.style.top = `${Math.random() * 100}vh`;
-        star.style.left = `${Math.random() * 100}vw`;
-        star.style.opacity = Math.random();
-        star.style.animation = `twinkle ${Math.random() * 5 + 5}s infinite alternate`;
-
-        starContainer.appendChild(star);
-
-        // Remove stars after some time to keep the container light
-        setTimeout(() => {
-            starContainer.removeChild(star);
-        }, 10000);
-    };
-
-    // Function to continuously create stars
-    setInterval(createStar, 100); // Adjust interval for star density
 });
