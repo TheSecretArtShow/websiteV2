@@ -7,6 +7,30 @@
     <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="container">
+            <h1 style="text-align: center;">
+                <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
+            </h1>
+            <nav>
+                <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
+                    <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
+                    <li style="margin: 0 15px;"><a href="about.html">About</a></li>
+                    <li style="margin: 0 15px; position: relative;">
+                        <a href="shop.html">Shop</a>
+                        <ul class="dropdown">
+                            <li><a href="shop.html">All pieces</a></li>
+                            <li><a href="collections.html">Collections</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin: 0 15px;"><a href="InnerCircle.html">The Inner Circle</a></li>
+                    <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <!-- Hero Video Section -->
     <div class="hero-video-container">
         <video class="hero-video" autoplay muted loop>
@@ -19,9 +43,6 @@
             <button id="shop-now">Shop Now</button>
         </div>
     </div>
-
-    <!-- Scroll Animation Container -->
-    <div class="scroll-animation"></div>
 
     <!-- Main Content -->
     <main class="main-content">
