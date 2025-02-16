@@ -79,6 +79,41 @@
             transform: scale(1.2);
         }
 
+        /* Tab Buttons */
+        .tab-buttons {
+            position: fixed;
+            bottom: -100px; /* Start off-screen */
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: rgba(18, 18, 18, 0.9);
+            z-index: 1001;
+            transition: bottom 0.8s ease-in-out;
+        }
+
+        .tab-buttons.visible {
+            bottom: 0; /* Slide up into view */
+        }
+
+        .tab-buttons a {
+            color: #f5f5f5;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-family: 'Garamond', serif;
+            padding: 10px 20px;
+            border: 1px solid #f5f5f5;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .tab-buttons a:hover {
+            background-color: #f5f5f5;
+            color: #121212;
+        }
+
         /* Content Below Hero */
         .content {
             padding: 100px 20px;
@@ -114,6 +149,14 @@
         </video>
     </section>
 
+    <!-- Tab Buttons -->
+    <nav class="tab-buttons">
+        <a href="#about">About</a>
+        <a href="#inner-circle">Inner Circle</a>
+        <a href="#shop">Shop</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
     <!-- Content Below Hero -->
     <section class="content">
         <h2>Why Choose Us?</h2>
@@ -129,6 +172,7 @@
         const hero = document.querySelector('.hero');
         const heroVideo = document.querySelector('.hero-video');
         const content = document.querySelector('.content');
+        const tabButtons = document.querySelector('.tab-buttons');
 
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
@@ -160,6 +204,13 @@
                 const scale = 1 - ((scrollY - heroHeight * 2) / heroHeight) * 0.5; // Adjust scale factor
                 heroVideo.style.transform = `scale(${scale})`;
                 heroVideo.style.opacity = 1 - ((scrollY - heroHeight * 2) / heroHeight) * 0.5; // Fade out
+            }
+
+            // Show tab buttons after scrolling past the hero section
+            if (scrollY > heroHeight * 0.5) {
+                tabButtons.classList.add('visible');
+            } else {
+                tabButtons.classList.remove('visible');
             }
         });
     </script>
