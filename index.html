@@ -4,114 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Art Show</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <header>
-        <div class="container">
-            <h1 style="text-align: center;">
-                <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-            </h1>
-            <nav>
-                <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
-                    <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                    <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                    <li style="margin: 0 15px; position: relative;">
-                        <a href="shop.html">Shop</a>
-                        <ul class="dropdown">
-                            <li><a href="shop.html">All pieces</a></li>
-                            <li><a href="collections.html">Collections</a></li>
-                        </ul>
-                    </li>
-                    <li style="margin: 0 15px;"><a href="InnerCircle.html">The Inner Circle</a></li>
-                    <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
     <!-- Hero Video Section -->
-    <div class="hero-video-container">
-        <video class="hero-video" autoplay muted loop>
+    <section class="hero-video">
+        <video autoplay muted loop id="hero-video">
             <source src="recording 2.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="hero-content">
-            <h2>Welcome to The Art Show</h2>
-            <p>Discover clothing designed to be as unique as you.</p>
-            <button id="shop-now">Shop Now</button>
-        </div>
-    </div>
+    </section>
+
+    <!-- Nav Buttons Overlay -->
+    <nav class="nav-overlay">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="InnerCircle.html">The Inner Circle</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <!-- Products Section -->
+    <main>
+        <!-- Product Carousel Section -->
         <section class="products">
             <div class="container">
                 <div class="product-carousel">
                     <div class="product" id="product1">
-                        <img src="images2/rage.png">
+                        <img src="images2/rage.png" alt="R@GE">
                         <h3>R@GE</h3>
                         <p>$125.00</p>
                     </div>
                     <div class="product" id="product2">
-                        <img src="images2/end.png" alt="Shirt 2">
+                        <img src="images2/end.png" alt="END">
                         <h3>END</h3>
                         <p>$125.00</p>
                     </div>
                     <div class="product" id="product3">
-                        <img src="images2/void.png" alt="Shirt 3">
+                        <img src="images2/void.png" alt="V0ID">
                         <h3>V0ID</h3>
                         <p>$150.00</p>
                     </div>
                     <div class="product" id="product4">
-                        <img src="images2/RIBS.png" alt="Shirt 4">
+                        <img src="images2/RIBS.png" alt="Ribs">
                         <h3>Ribs</h3>
                         <p>$113.00</p>
                     </div>
                     <div class="product" id="product5">
-                        <img src="images2/pumpkin.png" alt="Shirt 5">
+                        <img src="images2/pumpkin.png" alt="Pumpkin">
                         <h3>Pumpkin</h3>
                         <p>$175.00</p>
                     </div>
-                    <div class="product" id="product5">
-                        <img src="images2/basquiat.PNG" alt="Shirt 5">
+                    <div class="product" id="product6">
+                        <img src="images2/basquiat.PNG" alt="Basquiat">
                         <h3>Basquiat</h3>
                         <p>$175.00</p>
                     </div>
-                    <div class="product" id="product6">
-                        <img src="images2/bleach.png" alt="Shirt 6">
+                    <div class="product" id="product7">
+                        <img src="images2/bleach.png" alt="Bleach">
                         <h3>Bleach</h3>
                         <p>$200.00</p>
                     </div>
-                    <div class="product" id="product7">
-                        <img src="images2/ribs2.png" alt="Shirt 7">
+                    <div class="product" id="product8">
+                        <img src="images2/ribs2.png" alt="Skeleton">
                         <h3>Skeleton</h3>
                         <p>$185.00</p>
                     </div>
-                    <div class="product" id="product8">
-                        <img src="image2/kurt.png" alt="Shirt 8">
+                    <div class="product" id="product9">
+                        <img src="images2/kurt.png" alt="Cobain">
                         <h3>Cobain</h3>
                         <p>$185.00</p>
                     </div>
-                    <div class="product" id="product9">
-                        <img src="images2/pfaff.png" alt="Shirt 9">
+                    <div class="product" id="product10">
+                        <img src="images2/pfaff.png" alt="Pfaff">
                         <h3>Pfaff</h3>
                         <p>$175.00</p>
                     </div>
-                    <div class="product" id="product10">
-                        <img src="images2/pin front.png" alt="Shirt 9">
+                    <div class="product" id="product11">
+                        <img src="images2/pin front.png" alt="Stab">
                         <h3>Stab</h3>
                         <p>$250.00</p>
                     </div>
-                    <div class="product" id="product11">
-                        <img src="images2/3rd eye.png" alt="Shirt 9">
+                    <div class="product" id="product12">
+                        <img src="images2/3rd eye.png" alt="3rd Eye">
                         <h3>3rd Eye</h3>
                         <p>$175.00</p>
                     </div>
-                    <div class="product" id="product12">
-                        <img src="images2/WOB centipede.png" alt="Shirt 9">
+                    <div class="product" id="product13">
+                        <img src="images2/WOB centipede.png" alt="Centipede">
                         <h3>Centipede</h3>
                         <p>$150.00</p>
                     </div>
@@ -136,7 +118,7 @@
         </div>
     </div>
 
-    <!-- Star container for the star cursor effect -->
+    <!-- Star Container for the Star Trail Cursor Effect -->
     <div class="star-container">
         <div class="star" id="star1"></div>
         <div class="star" id="star2"></div>
@@ -148,6 +130,7 @@
         <div class="star" id="star8"></div>
     </div>
 
-    <script src="script.js"></script> <!-- Link to JS file -->
+    <!-- Link to JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
