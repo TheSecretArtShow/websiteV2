@@ -2,41 +2,37 @@ document.addEventListener('DOMContentLoaded', function () {
     // Hero Video Scroll Animation
     const heroVideoContainer = document.querySelector('.hero-video-container');
     const heroVideo = document.querySelector('.hero-video');
-    const scrollAnimation = document.querySelector('.scroll-animation');
     const mainContent = document.querySelector('.main-content');
 
     let isScrolling = false;
 
-    // Function to handle scroll events
     function handleScroll() {
-        if (isScrolling) return; // Prevent multiple triggers
+        if (isScrolling) return;
         isScrolling = true;
 
         const scrollPosition = window.scrollY;
         const heroHeight = heroVideoContainer.offsetHeight;
         const scaleFactor = 1 + (scrollPosition / heroHeight) * 0.5; // Adjust scaling factor as needed
 
-        // Scale the video up as the user scrolls down
         if (scrollPosition <= heroHeight) {
             heroVideo.style.transform = `scale(${scaleFactor})`;
-            scrollAnimation.classList.add('active');
         } else {
-            // Reset the video scale when scrolling past the hero section
             heroVideo.style.transform = 'scale(1)';
-            scrollAnimation.classList.remove('active');
         }
 
-        // Allow the next scroll event
         setTimeout(() => {
             isScrolling = false;
         }, 100);
     }
 
-    // Attach the scroll event listener
     window.addEventListener('scroll', handleScroll);
 
     // Ensure the main content starts below the hero video
     mainContent.style.paddingTop = `${heroVideoContainer.offsetHeight}px`;
+
+    // Rest of your existing code (popups, star trails, etc.)
+    // ...
+});
 
     // Rest of your existing code (popups, star trails, etc.)
     function sendEmailToServer(email, listType, name, confirmationElement) {
