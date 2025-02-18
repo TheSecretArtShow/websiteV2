@@ -34,13 +34,15 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    transition: all 0.5s ease; // Smooth transition for all adjusted properties
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
+    height: 60px; // Specify a height
+    display: none; // Initially hidden
     align-items: center;
-    background-color: transparent; // Start transparent and transition to a solid color on scroll
+    justify-content: center;
+    z-index: 1000;
+    background-color: transparent; // Ensure it starts transparent
+    transition: background-color 0.5s ease, height 0.5s ease, opacity 0.5s ease;
 }
+
 
 .container {
     width: 90%;
