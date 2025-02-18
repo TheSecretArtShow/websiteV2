@@ -14,29 +14,23 @@
             <source src="recording 2.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="logo-hero">The Art Show</div> <!-- Hero title -->
+        <div class="logo-hero">The Art Show</div> <!-- Hero logo -->
     </div>
 
-    <!-- Header -->
-    <header id="header-container" style="display: none;"> <!-- Initially hidden -->
-        <div class="container">
-            <h1 class="logo-header">The Art Show</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="shop.html">Shop</a>
-                        <ul class="dropdown">
-                            <li><a href="shop.html">All pieces</a></li>
-                            <li><a href="collections.html">Collections</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="InnerCircle.html">The Inner Circle</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
+    <!-- Navigation Buttons -->
+    <nav class="nav-buttons">
+        <a href="index.html" class="nav-button">Home</a>
+        <a href="about.html" class="nav-button">About</a>
+        <div class="nav-button-container">
+            <a href="shop.html" class="nav-button">Shop</a>
+            <div class="dropdown">
+                <a href="shop.html" class="dropdown-item">All pieces</a>
+                <a href="collections.html" class="dropdown-item">Collections</a>
+            </div>
         </div>
-    </header>
+        <a href="InnerCircle.html" class="nav-button">The Inner Circle</a>
+        <a href="contact.html" class="nav-button">Contact</a>
+    </nav>
 
     <main>
         <section class="products">
