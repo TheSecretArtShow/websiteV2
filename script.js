@@ -1,10 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Hero Video and Nav Overlay Functionality
+    // Existing functionality for the hero video and nav overlay
     const heroVideo = document.getElementById('hero-video');
     const heroVideoContainer = document.querySelector('.hero-video');
     const navOverlay = document.querySelector('.nav-overlay');
 
-    // Handle Scroll for Video Resizing and Nav Overlay
+    // Additional variables for the logo transition
+    const logoHero = document.querySelector('.logo-hero');
+    const headerContainer = document.getElementById('header-container');
+
+    // Set initial visibility and styles
+    headerContainer.style.display = 'none'; // Hide the header on initial load
+    logoHero.style.fontSize = '4em'; // Large font size initially
+    logoHero.style.opacity = '1'; // Fully visible
+    logoHero.style.position = 'absolute';
+    logoHero.style.top = '33%'; // Positioned two-thirds down the hero video
+    logoHero.style.left = '50%';
+    logoHero.style.transform = 'translate(-50%, -50%)';
+
+    // Handle scroll for video resizing and additional functionalities
     window.addEventListener('scroll', function () {
         const scrollY = window.scrollY;
 
@@ -20,13 +33,31 @@ document.addEventListener('DOMContentLoaded', function () {
             heroVideo.style.transform = 'scale(1)';
         }
 
-        // Show/hide nav buttons based on scroll
+        // Dynamic appearance of the header and resizing of the logo
+        if (scrollY > 100) {
+            headerContainer.style.display = 'block';
+            logoHero.style.fontSize = '1em'; // Smaller font size on scroll
+            logoHero.style.top = '15px';
+            logoHero.style.left = '50%';
+            logoHero.style.transform = 'translate(-50%, 0)';
+        } else {
+            headerContainer.style.display = 'none';
+            logoHero.style.fontSize = '4em'; // Larger font size when scrolled back to top
+            logoHero.style.top = '33%'; // Reset position
+            logoHero.style.left = '50%';
+            logoHero.style.transform = 'translate(-50%, -50%)';
+        }
+
+        // Show/hide nav buttons based on scroll (existing functionality)
         if (scrollY > window.innerHeight * 0.5) {
             navOverlay.style.bottom = '0';
         } else {
             navOverlay.style.bottom = '-100px';
         }
     });
+
+    // Existing star trail cursor functionality and random popup functionality here
+    // Please ensure this section remains unchanged unless it directly affects the new functionalities
 
     // Star Trail Cursor Functionality
     const stars = document.querySelectorAll('.star');
