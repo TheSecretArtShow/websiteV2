@@ -1,11 +1,3 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; // Prevent horizontal scrolling
-    overflow-y: hidden; // Prevent vertical scrolling unless required
-}
-
 /* General Reset */
 * {
     margin: 0;
@@ -14,35 +6,40 @@ html, body {
     font-family: 'Garamond', serif;
 }
 
+html, body {
+    height: 100%; /* Ensure the full height of the viewport is used */
+    overflow-x: hidden; /* Hide horizontal scroll */
+}
+
 body {
-    background-color: #121212;
-    color: #f5f5f5;
+    background-color: #121212; /* Dark background for better contrast */
+    color: #f5f5f5; /* Light text color */
     line-height: 1.6;
 }
 
 a {
     text-decoration: none;
-    color: #f5f5f5;
-    transition: color 0.3s ease;
+    color: #f5f5f5; /* Light text links */
+    transition: color 0.3s ease; /* Smooth color transition for hover */
 }
 
 a:hover {
-    color: #ff6b6b;
+    color: #ff6b6b; /* Reddish color on hover for links */
 }
 
+/* Header */
 header {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 60px; // Specify a height
-    display: none; // Initially hidden
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    background-color: transparent; // Ensure it starts transparent
-    transition: background-color 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+    height: 60px; /* Fixed height for the header */
+    display: none; /* Start hidden */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    background-color: transparent; /* Start with a transparent background */
+    transition: background-color 0.5s ease; /* Smooth transition for background color */
+    z-index: 1000; /* Make sure the header is above other content */
 }
-
 
 .container {
     width: 90%;
@@ -51,36 +48,64 @@ header {
     text-align: center;
 }
 
-h1, h2 {
-    margin-bottom: 20px;
-}
-
 nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
 }
 
+/* Hero Image */
 .hero-image {
-    position: relative;
-    width: 100vw; // Full width of the viewport
-    height: 100vh; // Full height of the viewport
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-#hero-video {
-    position: absolute;
+    position: fixed; /* Fixed to cover the entire viewport */
     top: 0;
     left: 0;
     width: 100%;
+    height: 100vh;
+    z-index: -1; /* Place it behind the header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#hero-video {
+    width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover the entire area without losing aspect ratio */
+    object-fit: cover; /* Cover the entire area of the hero section */
 }
 
 .logo-hero {
-    transition: transform 0.5s ease, font-size 0.5s ease; // Smoothly transition position and size
+    font-size: 4em; /* Large logo size */
+    color: #fff; /* White color for the logo */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the logo perfectly */
+    transition: all 0.5s ease; /* Smooth transition for resizing and repositioning */
 }
+
+/* Additional Styles */
+.products {
+    padding: 80px 0; /* Space for the product section */
+    width: 100%;
+    text-align: center;
+}
+
+.product {
+    background-color: #1f1f1f; /* Dark background for each product */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    transition: transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.product img {
+    max-width: 100%; /* Ensure images are responsive */
+    height: auto;
+    border-radius: 8px; /* Rounded corners for images */
+}
+
+.product:hover {
+    transform: translateY(-10px); /* Lift effect on hover */
+}
+
+
