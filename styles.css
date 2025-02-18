@@ -23,15 +23,15 @@ a:hover {
     color: #ff6b6b;
 }
 
-/* Header */
-header {
-    background-color: transparent; // Initially transparent
+/* Header adjustments specifically for the homepage */
+.home header {
+    background-color: transparent; /* Initially transparent */
     position: fixed;
     width: 100%;
     top: 0;
     transition: background-color 0.5s ease;
-    z-index: 1000; // High z-index to keep nav on top
-    display: none; // Initially hidden
+    z-index: 1000; /* High z-index to keep nav on top */
+    display: none; /* Initially hidden */
 }
 
 .container {
@@ -52,36 +52,25 @@ nav ul {
     gap: 30px;
 }
 
-/* Hero Image Section */
-.hero-image {
+/* Hero Image Section specifically for the homepage */
+.home .hero-image {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100vh; /* Full screen height */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.logo-hero {
-    font-size: 4em; // Large size initially
+.home .logo-hero {
+    font-size: 4em; /* Large size initially */
     color: #fff;
     position: absolute;
-    top: 33%; // Adjust based on design
+    top: 33%; /* Adjust based on design */
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: all 0.5s ease; // Smooth transition for resizing
+    transition: all 0.5s ease; /* Smooth transition for resizing and repositioning */
 }
-
-/* Adjustments when user scrolls */
-.header-scrolled {
-    background-color: #1f1f1f; /* Solid color after scroll */
-}
-
-.logo-header {
-    display: none; /* Hide static logo in nav when not scrolled */
-}
-
-/* Maintain other existing styles for products, popups, etc., unchanged */
 
 /* Products Section */
 .products {
