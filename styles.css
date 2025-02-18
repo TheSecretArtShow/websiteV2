@@ -1,10 +1,9 @@
-/* Ensuring the HTML and body take full height of the viewport and no unwanted overflow */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    overflow-y: auto; /* Allow vertical scroll only if necessary */
+    overflow-x: hidden; // Prevent horizontal scrolling
+    overflow-y: hidden; // Prevent vertical scrolling unless required
 }
 
 /* General Reset */
@@ -31,17 +30,16 @@ a:hover {
     color: #ff6b6b;
 }
 
-/* Header adjustments specifically for the homepage */
 header {
-    background-color: transparent; /* Initially transparent, becomes opaque on scroll */
     position: fixed;
-    width: 100%;
     top: 0;
-    transition: background-color 0.5s ease; /* Smooth transition for background color */
-    z-index: 1000; /* High z-index to keep nav on top */
-    display: flex; /* Use flexbox for centering items */
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
+    width: 100%;
+    transition: all 0.5s ease; // Smooth transition for all adjusted properties
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent; // Start transparent and transition to a solid color on scroll
 }
 
 .container {
@@ -62,15 +60,14 @@ nav ul {
     gap: 30px;
 }
 
-/* Hero Video Section adjustments */
 .hero-image {
     position: relative;
-    width: 100%;
-    height: 100vh; /* Full screen height */
+    width: 100vw; // Full width of the viewport
+    height: 100vh; // Full height of the viewport
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* No overflow */
+    overflow: hidden;
 }
 
 #hero-video {
@@ -83,11 +80,5 @@ nav ul {
 }
 
 .logo-hero {
-    font-size: 4em; /* Large size initially */
-    color: #fff;
-    position: absolute;
-    top: 50%; /* Center vertically */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.5s ease; /* Smooth transition for resizing and repositioning */
+    transition: transform 0.5s ease, font-size 0.5s ease; // Smoothly transition position and size
 }
