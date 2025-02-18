@@ -33,12 +33,32 @@ header {
     top: 0;
     width: 100%;
     height: 60px; /* Fixed height for the header */
-    display: none; /* Start hidden */
+    display: flex; /* Start as flex (we'll control visibility with opacity) */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
-    background-color: transparent; /* Start with a transparent background */
-    transition: background-color 0.5s ease; /* Smooth transition for background color */
+    background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent black background */
+    opacity: 0; /* Start fully transparent */
+    transform: translateY(-100%); /* Start off-screen */
+    transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s; /* Smooth transitions with 0.2s delay */
     z-index: 1000; /* Make sure the header is above other content */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Soft shadow for a luxurious feel */
+}
+
+header.visible {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Slide into view */
+}
+
+/* Logo in Header */
+.logo-header {
+    opacity: 0; /* Start fully transparent */
+    transform: translateY(-20px); /* Start slightly above */
+    transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s; /* Smooth transitions with 0.3s delay */
+}
+
+header.visible .logo-header {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Slide into view */
 }
 
 .container {
@@ -107,5 +127,3 @@ nav ul {
 .product:hover {
     transform: translateY(-10px); /* Lift effect on hover */
 }
-
-
