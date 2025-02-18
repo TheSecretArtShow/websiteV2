@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const header = document.getElementById('header-container');
+    const logoHero = document.querySelector('.logo-hero');
     let isHeaderVisible = false; // State to keep track of header visibility
 
     // Initialize header style to ensure it's correctly hidden initially
@@ -21,12 +22,18 @@ document.addEventListener('DOMContentLoaded', function () {
             header.style.transform = 'translateY(0)';
             header.style.backgroundColor = 'rgba(0, 0, 0, 0.85)'; // Semi-transparent black background
             isHeaderVisible = true;
+
+            // Shrink and move the hero title to the header
+            logoHero.classList.add('small');
         } else if (event.deltaY < 0 && isHeaderVisible) {
             // Hide the header with a smooth transition
             header.style.opacity = '0';
             header.style.transform = 'translateY(-100%)';
             header.style.backgroundColor = 'transparent';
             isHeaderVisible = false;
+
+            // Restore the hero title to its original position
+            logoHero.classList.remove('small');
         }
     });
 });
