@@ -6,10 +6,10 @@
     <title>The Art Show</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="home"> <!-- Added 'home' class to specify homepage-specific styles -->
+<body class="home">
 
-    <header>
-        <div class="container" id="header-container">
+    <header id="header-container" style="display: none;"> <!-- Initially hidden -->
+        <div class="container">
             <h1 class="logo-header">The Art Show</h1>
             <nav>
                 <ul>
@@ -28,14 +28,14 @@
         </div>
     </header>
 
-    <!-- Hero Image Section -->
-    <section class="hero-image">
-        <video autoplay muted loop id="hero-video">
+    <!-- Hero Video Section -->
+    <div class="hero-image">
+        <video id="hero-video" autoplay loop muted playsinline>
             <source src="recording 2.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="logo-hero">The Art Show</div> <!-- Visible and large initially, transitions on scroll -->
-    </section>
+        <div class="logo-hero">The Art Show</div> <!-- Large logo that transitions on scroll -->
+    </div>
 
     <main>
         <section class="products">
