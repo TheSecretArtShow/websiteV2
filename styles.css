@@ -105,7 +105,7 @@ a:hover {
     z-index: 1; /* Ensure the text is above the spray effect */
 }
 
-/* Spray Paint Effect on Hover with SVG Texture */
+/* Spray Paint Effect on Hover with SVG Texture (Unbounded) */
 .nav-button::before {
     content: '';
     position: absolute;
@@ -115,9 +115,10 @@ a:hover {
     height: 0;
     background: url('paint-texture.svg') center/cover no-repeat; /* Use an SVG paint texture */
     transform: translate(-50%, -50%);
-    border-radius: 50%;
     z-index: -1; /* Place the effect behind the text */
     transition: width 0.3s ease, height 0.3s ease; /* Smooth spray animation */
+    border-radius: 50%; /* Circular spray effect */
+    overflow: visible; /* Allow the spray to go beyond the button boundaries */
 }
 
 .nav-button:hover::before {
@@ -129,6 +130,16 @@ a:hover {
 .nav-button:hover {
     color: #121212; /* Dark text to contrast with the yellow spray */
     transition: color 0.3s ease; /* Smooth text color transition */
+}
+
+/* Special case for the Shop button (keep it bounded) */
+.nav-button-container .nav-button::before {
+    overflow: hidden; /* Keep the spray effect bounded for the Shop button */
+}
+
+.nav-button-container .nav-button:hover::before {
+    width: 100%; /* Expand to full button width */
+    height: 100%; /* Expand to full button height */
 }
 
 /* Dropdown for Shop */
