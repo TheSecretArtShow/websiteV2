@@ -132,14 +132,14 @@ a:hover {
     transition: color 0.3s ease; /* Smooth text color transition */
 }
 
-/* Special case for the Shop button (keep it bounded) */
+/* Spray Paint Effect for the Shop Button */
 .nav-button-container .nav-button::before {
-    overflow: hidden; /* Keep the spray effect bounded for the Shop button */
+    overflow: visible; /* Allow the spray effect to go beyond the button */
 }
 
 .nav-button-container .nav-button:hover::before {
-    width: 100%; /* Expand to full button width */
-    height: 100%; /* Expand to full button height */
+    width: 200px; /* Expand the spray effect */
+    height: 200px;
 }
 
 /* Dropdown for Shop */
