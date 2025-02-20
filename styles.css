@@ -101,11 +101,11 @@ a:hover {
     letter-spacing: 1px; /* Add spacing between letters */
     text-decoration: none; /* Remove underline */
     position: relative; /* Required for pseudo-elements */
-    overflow: hidden; /* Hide overflow for the spray effect */
+    overflow: visible; /* Allow the spray effect to go beyond the button */
     z-index: 1; /* Ensure the text is above the spray effect */
 }
 
-/* Spray Paint Effect on Hover with SVG Texture (Unbounded) */
+/* Spray Paint Effect on Hover with SVG Texture (Behind the Button) */
 .nav-button::before {
     content: '';
     position: absolute;
@@ -115,10 +115,10 @@ a:hover {
     height: 0;
     background: url('paint-texture.svg') center/cover no-repeat; /* Use an SVG paint texture */
     transform: translate(-50%, -50%);
-    z-index: -1; /* Place the effect behind the text */
+    z-index: -1; /* Place the effect behind the button */
     transition: width 0.3s ease, height 0.3s ease; /* Smooth spray animation */
     border-radius: 50%; /* Circular spray effect */
-    overflow: visible; /* Allow the spray to go beyond the button boundaries */
+    pointer-events: none; /* Ensure the spray effect doesn't interfere with button clicks */
 }
 
 .nav-button:hover::before {
