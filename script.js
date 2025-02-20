@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Timestamps for glitch effects (in seconds)
     const glitchTimestamps = [5, 10, 15, 20]; // Replace with your video timestamps
+    const glitchDuration = 1; // Duration of the glitch effect in seconds
 
     window.addEventListener('wheel', function (event) {
         // Check if scrolling down (deltaY positive) or up (deltaY negative)
@@ -35,20 +36,24 @@ document.addEventListener('DOMContentLoaded', function () {
     heroVideo.addEventListener('timeupdate', function () {
         const currentTime = heroVideo.currentTime;
 
-        // Check if the current time matches any glitch timestamp
+        // Check if the current time is within any glitch timestamp range
+        let isGlitchActive = false;
         glitchTimestamps.forEach((timestamp) => {
-            if (currentTime >= timestamp && currentTime < timestamp + 1) {
-                // Add glitch effect to buttons
-                buttons.forEach((button) => {
-                    button.classList.add('glitch-effect');
-                    button.setAttribute('data-text', button.textContent); // Add data-text for pseudo-elements
-                });
-            } else {
-                // Remove glitch effect
-                buttons.forEach((button) => {
-                    button.classList.remove('glitch-effect');
-                });
+            if (currentTime >= timestamp && currentTime < timestamp + glitchDuration) {
+                isGlitchActive = true;
             }
         });
+
+        // Add or remove glitch effect based on the current time
+        if (isGlitchActive) {
+            buttons.forEach((button) => {
+                button.classList.add('glitch-effect');
+                button.setAttribute('data-text', button.textContent); // Add data-text for pseudo-elements
+            });
+        } else {
+            buttons.forEach((button) => {
+                button.classList.remove('glitch-effect');
+            });
+        }
     });
 });
