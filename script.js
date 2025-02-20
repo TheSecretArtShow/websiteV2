@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let isNavVisible = false; // State to keep track of navigation visibility
 
     // Timestamps for glitch effects (in seconds)
-    const glitchTimestamps = [5, 10, 15, 20]; // Replace with your video timestamps
+    const glitchTimestamps = [6, 13, 14.25, 15.93, 31]; // Replace with your video timestamps
     const glitchDuration = 1; // Duration of the glitch effect in seconds
 
     window.addEventListener('wheel', function (event) {
