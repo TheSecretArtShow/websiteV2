@@ -70,7 +70,6 @@ a:hover {
     transition: all 0.5s ease 0.2s; /* Smooth transition with 0.2s delay */
 }
 
-
 /* Navigation Buttons */
 .nav-buttons {
     position: fixed;
@@ -101,11 +100,35 @@ a:hover {
     text-transform: uppercase; /* Uppercase text for a sleek look */
     letter-spacing: 1px; /* Add spacing between letters */
     text-decoration: none; /* Remove underline */
+    position: relative; /* Required for pseudo-elements */
+    overflow: hidden; /* Hide overflow for the spray effect */
+    z-index: 1; /* Ensure the text is above the spray effect */
 }
 
+/* Spray Paint Effect on Hover with SVG Texture */
+.nav-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: url('paint-texture.svg') center/cover no-repeat; /* Use an SVG paint texture */
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: -1; /* Place the effect behind the text */
+    transition: width 0.3s ease, height 0.3s ease; /* Smooth spray animation */
+}
+
+.nav-button:hover::before {
+    width: 200px; /* Expand the spray effect */
+    height: 200px;
+}
+
+/* Ensure the text remains visible */
 .nav-button:hover {
-    color: #ff6b6b; /* Reddish color on hover */
-    text-decoration: underline; /* Underline on hover */
+    color: #121212; /* Dark text to contrast with the yellow spray */
+    transition: color 0.3s ease; /* Smooth text color transition */
 }
 
 /* Dropdown for Shop */
