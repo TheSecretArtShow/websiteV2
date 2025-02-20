@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Add glitch effect to buttons
                 buttons.forEach((button) => {
                     button.classList.add('glitch-effect');
+                    button.setAttribute('data-text', button.textContent); // Add data-text for pseudo-elements
                 });
             } else {
                 // Remove glitch effect
