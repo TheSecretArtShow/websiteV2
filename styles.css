@@ -177,26 +177,56 @@ a:hover {
     display: block;
 }
 
-/* Additional Styles */
-.products {
-    padding: 80px 0; /* Space for the product section */
-    width: 100%;
-    text-align: center;
+/* Glitch Effect Keyframes */
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+        opacity: 1;
+    }
+    20% {
+        transform: translate(-2px, 2px);
+        opacity: 0.8;
+    }
+    40% {
+        transform: translate(2px, -2px);
+        opacity: 0.8;
+    }
+    60% {
+        transform: translate(-2px, 2px);
+        opacity: 0.8;
+    }
+    80% {
+        transform: translate(2px, -2px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(0);
+        opacity: 1;
+    }
 }
 
-.product {
-    background-color: #1f1f1f; /* Dark background for each product */
-    padding: 20px;
-    border-radius: 8px; /* Rounded corners */
-    transition: transform 0.3s ease; /* Smooth transition for hover effects */
+@keyframes glitch-color {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    20% {
+        filter: hue-rotate(90deg);
+    }
+    40% {
+        filter: hue-rotate(180deg);
+    }
+    60% {
+        filter: hue-rotate(270deg);
+    }
+    80% {
+        filter: hue-rotate(360deg);
+    }
+    100% {
+        filter: hue-rotate(0deg);
+    }
 }
 
-.product img {
-    max-width: 100%; /* Ensure images are responsive */
-    height: auto;
-    border-radius: 8px; /* Rounded corners for images */
-}
-
-.product:hover {
-    transform: translateY(-10px); /* Lift effect on hover */
+/* Apply Glitch Effect to Buttons */
+.glitch-effect {
+    animation: glitch 0.5s infinite, glitch-color 1s infinite;
 }
