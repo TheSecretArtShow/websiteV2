@@ -54,6 +54,7 @@ a:hover {
     transform: translate(-50%, -50%); /* Center the logo perfectly */
     transition: all 0.5s ease; /* Smooth transition for resizing and repositioning */
     z-index: 1001; /* Ensure it's above the navigation buttons */
+    text-align: center; /* Center the logo horizontally */
 }
 
 /* Logo Image */
@@ -64,9 +65,15 @@ a:hover {
 }
 
 /* Smaller logo when moved to the top */
+.logo-hero.small {
+    top: 20px; /* Position at the top (adjust as needed) */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    transition: all 0.5s ease 0.2s; /* Smooth transition with 0.2s delay */
+}
+
 .logo-hero.small .logo-image {
     width: 150px; /* Smaller size when moved to the top */
-    transition: all 0.5s ease 0.2s; /* Smooth transition with 0.2s delay */
 }
 
 /* Navigation Buttons */
