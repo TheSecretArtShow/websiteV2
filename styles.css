@@ -49,8 +49,8 @@ a:hover {
 /* Hero Logo */
 .logo-hero {
     position: fixed; /* Fix the logo to the viewport */
-    top: 50%;
-    left: 50%;
+    top: 50%; /* Start at the vertical center */
+    left: 50%; /* Start at the horizontal center */
     transform: translate(-50%, -50%); /* Center the logo perfectly */
     transition: all 0.5s ease; /* Smooth transition for resizing and repositioning */
     z-index: 1001; /* Ensure it's above the navigation buttons */
