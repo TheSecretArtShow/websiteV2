@@ -57,11 +57,30 @@
             text-align: center;
         }
 
+        /* Hero Video Background */
+        .hero-video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place it behind other content */
+            overflow: hidden;
+        }
+
+        .hero-video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the entire area */
+        }
+
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #1f1f1f, #121212);
+            background: rgba(31, 31, 31, 0.7); /* Semi-transparent background */
             padding: 60px 0;
             text-align: center;
+            position: relative;
+            z-index: 1; /* Ensure it's above the video */
         }
 
         .hero h1 {
@@ -81,6 +100,8 @@
         .inner-circle-content {
             text-align: center;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 1; /* Ensure it's above the video */
         }
 
         .inner-circle-content h2 {
@@ -110,6 +131,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
+            z-index: 1; /* Ensure it's above the video */
         }
 
         .email-signup h2 {
@@ -161,6 +184,8 @@
             font-size: 0.8rem;
             color: #888;
             flex-shrink: 0;
+            position: relative;
+            z-index: 1; /* Ensure it's above the video */
         }
 
         footer p {
@@ -230,6 +255,14 @@
     </style>
 </head>
 <body>
+
+<!-- Hero Video Background -->
+<div class="hero-video-background">
+    <video autoplay loop muted playsinline>
+        <source src="recording 2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
 
 <header>
     <div class="container">
