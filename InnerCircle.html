@@ -74,26 +74,54 @@
             object-fit: cover; /* Cover the entire area */
         }
 
+        /* Header and Logo */
+        header {
+            padding: 20px 0; /* Reduced padding */
+            position: relative;
+            z-index: 1; /* Ensure it's above the video */
+        }
+
+        header img {
+            width: 150px; /* Smaller logo size */
+            height: auto;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 10px 0; /* Reduced margin */
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            font-size: 1rem;
+        }
+
         /* Hero Section */
         .hero {
             background: rgba(31, 31, 31, 0.7); /* Semi-transparent background */
-            padding: 60px 0;
+            padding: 40px 0; /* Reduced padding */
             text-align: center;
             position: relative;
             z-index: 1; /* Ensure it's above the video */
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 2rem; /* Smaller font size */
+            margin-bottom: 10px; /* Reduced margin */
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1rem; /* Smaller font size */
             max-width: 800px;
-            margin: 0 auto 20px;
+            margin: 0 auto 10px; /* Reduced margin */
         }
 
         /* Inner Circle Content */
@@ -105,8 +133,8 @@
         }
 
         .inner-circle-content h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
+            font-size: 1.75rem; /* Smaller font size */
+            margin-bottom: 10px; /* Reduced margin */
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -114,7 +142,7 @@
         .inner-circle-content p {
             font-size: 1rem;
             max-width: 800px;
-            margin: 0 auto 20px;
+            margin: 0 auto 10px; /* Reduced margin */
         }
 
         /* Email Signup Form */
@@ -136,8 +164,8 @@
         }
 
         .email-signup h2 {
-            font-size: 1.75rem;
-            margin-bottom: 15px;
+            font-size: 1.5rem; /* Smaller font size */
+            margin-bottom: 10px; /* Reduced margin */
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -145,7 +173,7 @@
         .email-signup input[type="email"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduced margin */
             border-radius: 6px;
             border: 1px solid #444;
             background-color: #1f1f1f;
@@ -228,13 +256,13 @@
         }
 
         .email-popup-content h2 {
-            font-size: 1.75rem;
-            margin-bottom: 15px;
+            font-size: 1.5rem; /* Smaller font size */
+            margin-bottom: 10px; /* Reduced margin */
         }
 
         .email-popup-content p {
             font-size: 1rem;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduced margin */
         }
 
         .email-popup-content button {
@@ -267,7 +295,7 @@
 <header>
     <div class="container">
         <h1 style="text-align: center;">
-            <img src="TAS Logo Vector.svg" alt="The Art Show" style="max-width: 100%; height: auto;">
+            <img src="TAS Logo Vector.svg" alt="The Art Show" class="logo-image">
         </h1>
         <nav>
             <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
