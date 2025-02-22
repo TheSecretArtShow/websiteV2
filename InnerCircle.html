@@ -6,348 +6,116 @@
     <title>The Inner Circle - The Art Show</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Garamond:wght@400;700&family=Helvetica:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        /* General Styling */
-        body {
-            background-color: #121212;
-            color: #f5f5f5;
-            line-height: 1.6;
-            font-family: 'Helvetica', sans-serif;
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Garamond', serif;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 15px;
-        }
-
-        p {
-            font-size: 1rem;
-            color: #e0e0e0;
-            margin-bottom: 20px;
-        }
-
-        a {
-            color: #ff6b6b;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #ff3b3b;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #1f1f1f, #121212);
-            padding: 60px 0;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto 20px;
-        }
-
-        /* Inner Circle Content */
-        .inner-circle-content {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .inner-circle-content h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .inner-circle-content p {
-            font-size: 1rem;
-            max-width: 800px;
-            margin: 0 auto 20px;
-        }
-
-        /* Email Signup Form */
-        .email-signup {
-            max-width: 500px;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, #282828, #1f1f1f);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            margin: 10px auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .email-signup h2 {
-            font-size: 1.75rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .email-signup input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            border: 1px solid #444;
-            background-color: #1f1f1f;
-            color: #f5f5f5;
-            font-size: 0.9rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .email-signup input[type="email"]:focus {
-            border-color: #ff6b6b;
-            outline: none;
-        }
-
-        .email-signup button {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
-            border: none;
-            color: #f5f5f5;
-            cursor: pointer;
-            font-size: 0.9rem;
-            border-radius: 6px;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .email-signup button:hover {
-            background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
-            transform: scale(1.05);
-        }
-
-        /* Footer */
-        footer {
-            background-color: #1f1f1f;
-            padding: 10px 0;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #888;
-            flex-shrink: 0;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        /* Star container for the cursor effect */
-        .star-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        /* Email Signup Popup Modal */
-        .email-popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .email-popup-content {
-            background: linear-gradient(135deg, #282828, #1f1f1f);
-            padding: 30px;
-            text-align: center;
-            border-radius: 12px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-        }
-
-        .email-popup-content h2 {
-            font-size: 1.75rem;
-            margin-bottom: 15px;
-        }
-
-        .email-popup-content p {
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-
-        .email-popup-content button {
-            padding: 8px 16px;
-            background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
-            border: none;
-            color: #f5f5f5;
-            cursor: pointer;
-            font-size: 0.9rem;
-            border-radius: 6px;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .email-popup-content button:hover {
-            background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
-            transform: scale(1.05);
-        }
-    </style>
 </head>
-<body>
+<body class="inner-circle">
 
-<header>
-    <div class="container">
-        <h1 style="text-align: center;">
-            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-        </h1>
-        <nav>
-            <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
-                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                <li style="margin: 0 15px; position: relative;">
-                    <a href="shop.html">Shop</a>
-                    <ul class="dropdown">
-                        <li><a href="shop.html">All pieces</a></li>
-                        <li><a href="collections.html">Collections</a></li>
-                    </ul>
-                </li>
-                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<main>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Welcome to The Inner Circle</h1>
-            <p>Gain exclusive access to limited-edition drops, early releases, and insider perks.</p>
+    <!-- Hero Video Section -->
+    <div class="hero-image">
+        <video id="hero-video" autoplay loop muted playsinline>
+            <source src="recording 2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <!-- Hero Logo -->
+        <div class="logo-hero">
+            <img src="TAS Logo Vector.svg" alt="The Art Show Logo" class="logo-image">
         </div>
-    </section>
-
-    <!-- Inner Circle Content -->
-    <section class="inner-circle-content">
-        <div class="container">
-            <h2>Why Join The Inner Circle?</h2>
-            <p>
-                As a member of The Inner Circle, you'll be the first to know about new collections, receive
-                exclusive discounts, and have access to members-only events. Be part of an elite community
-                that celebrates art and individuality.
-            </p>
-        </div>
-    </section>
-
-    <!-- Email Signup Form -->
-    <section class="email-signup">
-        <div class="container">
-            <h2>Join The Inner Circle</h2>
-            <form id="inner-circle-form">
-                <input type="email" id="inner-circle-email" placeholder="Enter your email" required>
-                <button type="submit">Join Now</button>
-            </form>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2024 The Art Show. All rights reserved.</p>
     </div>
-</footer>
 
-<!-- Star container for the cursor effect -->
-<div class="star-container">
-    <div class="star" id="star1"></div>
-    <div class="star" id="star2"></div>
-    <div class="star" id="star3"></div>
-    <div class="star" id="star4"></div>
-    <div class="star" id="star5"></div>
-    <div class="star" id="star6"></div>
-    <div class="star" id="star7"></div>
-    <div class="star" id="star8"></div>
-</div>
+    <!-- Navigation Buttons -->
+    <nav class="nav-buttons">
+        <a href="index.html" class="nav-button">Home</a>
+        <a href="about.html" class="nav-button">About</a>
+        <div class="nav-button-container">
+            <a href="shop.html" class="nav-button">Shop</a>
+            <div class="dropdown">
+                <a href="shop.html" class="dropdown-item">All pieces</a>
+                <a href="collections.html" class="dropdown-item">Collections</a>
+            </div>
+        </div>
+        <a href="InnerCircle.html" class="nav-button">The Inner Circle</a>
+        <a href="contact.html" class="nav-button">Contact</a>
+    </nav>
 
-<!-- Email Signup Popup Modal -->
-<div class="email-popup-overlay" id="email-popup">
-    <div class="email-popup-content">
-        <h2>Thank You for Joining The Inner Circle!</h2>
-        <p>You'll receive a confirmation email shortly.</p>
-        <button id="resume-browsing-button" class="resume-button">Resume Browsing</button>
+    <main>
+        <!-- Inner Circle Content -->
+        <section class="inner-circle-content">
+            <div class="container">
+                <h1>Welcome to The Inner Circle</h1>
+                <p>
+                    Gain exclusive access to limited-edition drops, early releases, and insider perks.
+                </p>
+                <h2>Why Join The Inner Circle?</h2>
+                <p>
+                    As a member of The Inner Circle, you'll be the first to know about new collections, receive
+                    exclusive discounts, and have access to members-only events. Be part of an elite community
+                    that celebrates art and individuality.
+                </p>
+            </div>
+        </section>
+
+        <!-- Email Signup Form -->
+        <section class="email-signup">
+            <div class="container">
+                <h2>Join The Inner Circle</h2>
+                <form id="inner-circle-form">
+                    <input type="email" id="inner-circle-email" placeholder="Enter your email" required>
+                    <button type="submit" class="nav-button">Join Now</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 The Art Show. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Email Signup Popup Modal -->
+    <div class="email-popup-overlay" id="email-popup">
+        <div class="email-popup-content">
+            <h2>Thank You for Joining The Inner Circle!</h2>
+            <p>You'll receive a confirmation email shortly.</p>
+            <button id="resume-browsing-button" class="nav-button">Resume Browsing</button>
+        </div>
     </div>
-</div>
 
-<script>
-    // Handle Email Submission
-    document.getElementById('inner-circle-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const email = document.getElementById('inner-circle-email').value;
+    <script>
+        // Handle Email Submission
+        document.getElementById('inner-circle-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('inner-circle-email').value;
 
-        if (email) {
-            // Send email to Google Sheets (same logic as shop.html)
-            fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: email, listType: 'Inner Circle', name: '' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Show confirmation popup ONLY after successful submission
-                document.getElementById('email-popup').style.display = 'flex';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
-        } else {
-            alert('Please enter a valid email address.');
-        }
-    });
+            if (email) {
+                // Send email to Google Sheets (same logic as shop.html)
+                fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: email, listType: 'Inner Circle', name: '' })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Show confirmation popup ONLY after successful submission
+                    document.getElementById('email-popup').style.display = 'flex';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
 
-    // Close Popup
-    document.getElementById('resume-browsing-button').addEventListener('click', function () {
-        document.getElementById('email-popup').style.display = 'none';
-    });
-</script>
+        // Close Popup
+        document.getElementById('resume-browsing-button').addEventListener('click', function () {
+            document.getElementById('email-popup').style.display = 'none';
+        });
+    </script>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
