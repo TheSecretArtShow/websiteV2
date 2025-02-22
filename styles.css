@@ -56,6 +56,9 @@ a:hover {
     z-index: 1001; /* Ensure it's above the navigation buttons */
     text-align: center; /* Center the logo horizontally */
     width: 100%; /* Ensure the container takes full width */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 /* Logo Image */
