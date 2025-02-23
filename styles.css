@@ -59,7 +59,6 @@ a:hover {
     display: flex; /* Use flexbox for centering */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    height: 100vh; /* Ensure the container takes the full viewport height */
 }
 
 /* Logo Image */
@@ -67,8 +66,6 @@ a:hover {
     width: 300px; /* Adjust the size as needed */
     height: auto; /* Maintain aspect ratio */
     transition: all 0.5s ease; /* Smooth transition for resizing */
-    display: block; /* Ensure it behaves as a block element */
-    margin: 0 auto; /* Center horizontally within the container */
 }
 
 /* Smaller logo when moved to the top */
