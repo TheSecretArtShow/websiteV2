@@ -63,7 +63,7 @@ a:hover {
 
 /* Logo Image */
 .logo-image {
-    width: 300px; /* Adjust the size as needed */
+    width: 500px; /* Increased from 300px to 500px (adjust as needed) */
     height: auto; /* Maintain aspect ratio */
     transition: all 0.5s ease; /* Smooth transition for resizing */
 }
