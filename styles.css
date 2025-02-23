@@ -133,7 +133,11 @@ a:hover {
 
 /* Disable spray paint effect during glitch */
 .glitch-effect::before {
-    display: none; /* Hide the spray paint effect during glitch */
+    /* Remove this line: display: none; */
+    background-image: url('paint-texture.svg'); /* Default texture */
+    animation: flash-paint 0.5s infinite; /* Apply flashing animation */
+    background-size: cover; /* Ensure the texture covers the button */
+    background-position: center; /* Center the texture */
 }
 
 /* Apply spray paint effect only on hover (when not glitching) */
