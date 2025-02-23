@@ -48,19 +48,17 @@ a:hover {
 
 /* Hero Logo */
 .logo-hero {
-    position: fixed; /* Fix the logo to the viewport */
+    position: fixed;
     top: 50%; /* Start at the vertical center */
     left: 50%; /* Start at the horizontal center */
     transform: translate(-50%, -50%); /* Center the logo perfectly */
-    transition: all 0.5s ease; /* Smooth transition for resizing and repositioning */
-    z-index: 1001; /* Ensure it's above the navigation buttons */
-    text-align: center; /* Center the logo horizontally */
-    width: 100%; /* Ensure the container takes full width */
-    display: flex; /* Use flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    transition: top 0.5s ease, transform 0.5s ease; /* Smooth transition for repositioning */
+    z-index: 1001;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 /* Logo Image */
 .logo-image {
     width: 500px; /* Increased from 300px to 500px (adjust as needed) */
@@ -72,8 +70,8 @@ a:hover {
 .logo-hero.small {
     top: 20px; /* Position at the top (adjust as needed) */
     left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-    transition: all 0.5s ease 0.2s; /* Smooth transition with 0.2s delay */
+    transform: translateX(-50%); /* Center horizontally only */
+    transition: top 0.5s ease, transform 0.5s ease; /* Smooth transition */
 }
 
 .logo-hero.small .logo-image {
