@@ -131,21 +131,6 @@ a:hover {
     pointer-events: none; /* Ensure the spray effect doesn't interfere with button clicks */
 }
 
-/* Disable spray paint effect during glitch */
-.glitch-effect::before {
-    /* Remove this line: display: none; */
-    background-image: url('paint-texture.svg'); /* Default texture */
-    animation: flash-paint 0.5s infinite; /* Apply flashing animation */
-    background-size: cover; /* Ensure the texture covers the button */
-    background-position: center; /* Center the texture */
-}
-
-/* Apply spray paint effect only on hover (when not glitching) */
-.nav-button:not(.glitch-effect):hover::before {
-    width: 200px; /* Expand the spray effect */
-    height: 200px;
-}
-
 /* Ensure the text remains visible */
 .nav-button:hover {
     color: #121212; /* Dark text to contrast with the yellow spray */
