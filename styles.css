@@ -110,21 +110,21 @@ a:hover {
     text-transform: uppercase; /* Uppercase text for a sleek look */
     letter-spacing: 1px; /* Add spacing between letters */
     text-decoration: none; /* Remove underline */
-    position: relative; /* Required for pseudo-elements */
+    position: relative; /* Ensure the button is a positioning context */
     overflow: visible; /* Allow the spray effect to go beyond the button */
     z-index: 1; /* Ensure the text is above the spray effect */
 }
 
-/* Spray Paint Effect on Hover with SVG Texture (Behind the Button) */
+/* Paint Splatter Container */
 .nav-button::before {
     content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: fixed; /* Use fixed positioning to make it independent of the button */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
     width: 0;
     height: 0;
     background: url('paint-texture.svg') center/cover no-repeat; /* Use an SVG paint texture */
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /* Center the splatter */
     z-index: -1; /* Place the effect behind the button */
     transition: width 0.3s ease, height 0.3s ease; /* Smooth spray animation */
     border-radius: 50%; /* Circular spray effect */
