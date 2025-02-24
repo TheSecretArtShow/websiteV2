@@ -131,10 +131,17 @@ a:hover {
     pointer-events: none; /* Ensure the spray effect doesn't interfere with button clicks */
 }
 
-/* Ensure the text remains visible */
-.nav-button:hover {
-    color: #121212; /* Dark text to contrast with the yellow spray */
-    transition: color 0.3s ease; /* Smooth text color transition */
+/* Ensure the paint splatter expands on hover */
+.nav-button:hover::before {
+    width: 200px; /* Expand the spray effect */
+    height: 200px;
+}
+
+/* Apply flashing effect only during glitch and hover */
+.nav-button.glitch-effect:hover::before {
+    animation: flash-paint 0.5s infinite; /* Adjust timing as needed */
+    background-size: cover; /* Ensure the texture covers the button */
+    background-position: center; /* Center the texture */
 }
 
 /* Dropdown for Shop */
@@ -308,11 +315,4 @@ a:hover {
     70% { background-image: url('paint-texture 6.svg'); }
     84% { background-image: url('paint-texture 7.svg'); }
     100% { background-image: url('paint-texture 8.svg'); }
-}
-
-/* Apply flashing effect only during glitch and hover */
-.nav-button.glitch-effect:hover::before {
-    animation: flash-paint 0.5s infinite; /* Adjust timing as needed */
-    background-size: cover; /* Ensure the texture covers the button */
-    background-position: center; /* Center the texture */
 }
