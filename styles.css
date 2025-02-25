@@ -77,7 +77,7 @@ a:hover {
     width: 150px;
 }
 
-/* Navigation Buttons (Updated Container Padding) */
+/* Navigation Buttons - Updated Container */
 .nav-buttons {
     position: fixed;
     top: -60px;
@@ -90,9 +90,10 @@ a:hover {
     z-index: 1000;
     opacity: 0;
     transition: top 0.5s ease, opacity 0.5s ease;
-    padding: 100px 0 !important; /* Expanded padding */
-    margin: -50px 0; /* Offset for spacing */
+    padding: 150px 0 !important; /* Extra space for spray */
+    margin: -75px 0; /* Offset padding */
     background-color: transparent;
+    overflow: visible; /* Critical for spray visibility */
 }
 
 .nav-buttons.visible {
@@ -100,18 +101,18 @@ a:hover {
     opacity: 1;
 }
 
-/* Nav Button Styles (Increased Spacing) */
+/* Nav Button Styles */
 .nav-button {
     color: #f5f5f5;
     font-size: 1em;
-    padding: 20px 30px !important; /* Larger click area */
+    padding: 20px 30px !important;
     transition: color 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
     position: relative;
-    overflow: visible;
+    overflow: visible !important; /* Allow spray overflow */
     z-index: 1;
-    margin: 0 15px; /* Added horizontal spacing */
+    margin: 0 15px;
 }
 
 /* Default Hover Spray */
@@ -130,15 +131,15 @@ a:hover {
     pointer-events: none;
 }
 
-/* Glitch Spray Override (Full-Size) */
+/* Glitch Spray Fix */
 .glitch-effect::before {
-    width: 400px !important; /* Double the size */
+    width: 400px !important;
     height: 400px !important;
-    margin: -200px 0 0 -200px; /* Center the larger spray */
-    border-radius: 50%;
+    margin: 0 !important;
     background-image: url('paint-texture.svg');
     animation: flash-paint 0.5s infinite;
     filter: brightness(1.2);
+    transform: translate(-50%, -50%); /* Center relative to button */
 }
 
 /* Hover Spray Expansion */
@@ -186,10 +187,41 @@ a:hover {
     display: block;
 }
 
-/* Keyframes (Unchanged) */
-@keyframes glitch { /* ... existing glitch keyframes ... */ }
-@keyframes glitch-color { /* ... existing color keyframes ... */ }
-@keyframes flash-paint { /* ... existing flash-paint keyframes ... */ }
+/* Keyframes */
+@keyframes glitch {
+    0% { transform: translate(0); clip-path: inset(0 0 0 0); }
+    10% { transform: translate(-5px, 5px); clip-path: inset(10% 0 20% 0); }
+    20% { transform: translate(5px, -5px); clip-path: inset(20% 0 10% 0); }
+    30% { transform: translate(-5px, 5px); clip-path: inset(30% 0 20% 0); }
+    40% { transform: translate(5px, -5px); clip-path: inset(10% 0 30% 0); }
+    50% { transform: translate(-5px, 5px); clip-path: inset(20% 0 10% 0); }
+    60% { transform: translate(5px, -5px); clip-path: inset(30% 0 20% 0); }
+    70% { transform: translate(-5px, 5px); clip-path: inset(10% 0 30% 0); }
+    80% { transform: translate(5px, -5px); clip-path: inset(20% 0 10% 0); }
+    90% { transform: translate(-5px, 5px); clip-path: inset(30% 0 20% 0); }
+    100% { transform: translate(0); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glitch-color {
+    0% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+    14% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+    15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+    49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+    50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+    99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+    100% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+}
+
+@keyframes flash-paint {
+    0% { background-image: url('paint-texture.svg'); }
+    14% { background-image: url('paint-texture 2.svg'); }
+    28% { background-image: url('paint-texture 3.svg'); }
+    42% { background-image: url('paint-texture 4.svg'); }
+    56% { background-image: url('paint-texture 5.svg'); }
+    70% { background-image: url('paint-texture 6.svg'); }
+    84% { background-image: url('paint-texture 7.svg'); }
+    100% { background-image: url('paint-texture 8.svg'); }
+}
 
 /* Glitch Effect Styling */
 .glitch-effect {
