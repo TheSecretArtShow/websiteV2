@@ -11,6 +11,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const glitchTimestamps = [6, 13, 14.25, 15.93, 31]; // Replace with your video timestamps
     const glitchDuration = 1; // Duration of the glitch effect in seconds
 
+    // Function to generate random paint texture URL
+    function getRandomPaintTexture() {
+        const randomNum = Math.floor(Math.random() * 9) + 1; // Generates 1-9
+        return `url('paint-texture ${randomNum === 1 ? '' : randomNum}.svg')`;
+    }
+
+    // Add hover event listeners to buttons
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.setProperty('--random-paint', getRandomPaintTexture());
+        });
+    });
+
     window.addEventListener('wheel', function (event) {
         // Check if scrolling down (deltaY positive) or up (deltaY negative)
         if (event.deltaY > 0 && !isLogoSmall) {
