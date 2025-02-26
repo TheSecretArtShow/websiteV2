@@ -11,7 +11,7 @@
         body {
             background-color: #121212;
             color: #f5f5f5;
-            line-height: 1.6;
+            line-height: 1.8;
             font-family: 'Helvetica', sans-serif;
             overflow-x: hidden;
             margin: 0;
@@ -25,13 +25,14 @@
             font-family: 'Garamond', serif;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         p {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #e0e0e0;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            line-height: 1.8;
         }
 
         a {
@@ -48,7 +49,7 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -64,93 +65,103 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Place it behind other content */
+            z-index: -1;
             overflow: hidden;
         }
 
         .hero-video-background video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cover the entire area */
+            object-fit: cover;
+        }
+
+        .hero-video-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 18, 18, 0.5); /* Subtle overlay for better text readability */
         }
 
         /* Hero Section */
         .hero {
-            background: rgba(31, 31, 31, 0.7); /* Semi-transparent background */
-            padding: 60px 0;
+            background: rgba(31, 31, 31, 0.7);
+            padding: 100px 0;
             text-align: center;
             position: relative;
-            z-index: 1; /* Ensure it's above the video */
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             max-width: 800px;
-            margin: 0 auto 20px;
+            margin: 0 auto 30px;
         }
 
         /* Inner Circle Content */
         .inner-circle-content {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             position: relative;
-            z-index: 1; /* Ensure it's above the video */
+            z-index: 1;
         }
 
         .inner-circle-content h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         .inner-circle-content p {
-            font-size: 1rem;
+            font-size: 1.1rem;
             max-width: 800px;
-            margin: 0 auto 20px;
+            margin: 0 auto 30px;
         }
 
         /* Email Signup Form */
         .email-signup {
             max-width: 500px;
             width: 100%;
-            padding: 20px;
+            padding: 30px;
             background: linear-gradient(135deg, #282828, #1f1f1f);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            margin: 10px auto;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+            margin: 20px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
-            z-index: 1; /* Ensure it's above the video */
+            z-index: 1;
         }
 
         .email-signup h2 {
-            font-size: 1.75rem;
-            margin-bottom: 15px;
+            font-size: 2rem;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         .email-signup input[type="email"] {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
             border: 1px solid #444;
             background-color: #1f1f1f;
             color: #f5f5f5;
-            font-size: 0.9rem;
+            font-size: 1rem;
             transition: border-color 0.3s ease;
         }
 
@@ -161,13 +172,13 @@
 
         .email-signup button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
             border: none;
             color: #f5f5f5;
             cursor: pointer;
-            font-size: 0.9rem;
-            border-radius: 6px;
+            font-size: 1rem;
+            border-radius: 8px;
             transition: background 0.3s ease, transform 0.3s ease;
         }
 
@@ -179,13 +190,13 @@
         /* Footer */
         footer {
             background-color: #1f1f1f;
-            padding: 10px 0;
+            padding: 20px 0;
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #888;
             flex-shrink: 0;
             position: relative;
-            z-index: 1; /* Ensure it's above the video */
+            z-index: 1;
         }
 
         footer p {
@@ -210,7 +221,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             display: none;
             justify-content: center;
             align-items: center;
@@ -219,32 +230,32 @@
 
         .email-popup-content {
             background: linear-gradient(135deg, #282828, #1f1f1f);
-            padding: 30px;
+            padding: 40px;
             text-align: center;
-            border-radius: 12px;
+            border-radius: 16px;
             max-width: 400px;
             width: 90%;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
         }
 
         .email-popup-content h2 {
-            font-size: 1.75rem;
-            margin-bottom: 15px;
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
 
         .email-popup-content p {
-            font-size: 1rem;
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
         }
 
         .email-popup-content button {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
             border: none;
             color: #f5f5f5;
             cursor: pointer;
-            font-size: 0.9rem;
-            border-radius: 6px;
+            font-size: 1rem;
+            border-radius: 8px;
             transition: background 0.3s ease, transform 0.3s ease;
         }
 
@@ -271,16 +282,16 @@
         </h1>
         <nav>
             <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
-                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                <li style="margin: 0 15px; position: relative;">
+                <li style="margin: 0 20px;"><a href="index.html">Home</a></li>
+                <li style="margin: 0 20px;"><a href="about.html">About</a></li>
+                <li style="margin: 0 20px; position: relative;">
                     <a href="shop.html">Shop</a>
                     <ul class="dropdown">
                         <li><a href="shop.html">All pieces</a></li>
                         <li><a href="collections.html">Collections</a></li>
                     </ul>
                 </li>
-                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
+                <li style="margin: 0 20px;"><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </div>
