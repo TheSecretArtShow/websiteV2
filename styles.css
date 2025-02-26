@@ -109,11 +109,10 @@ a:hover {
     text-decoration: none;
     position: relative;
     overflow: visible;
-    z-index: 1;
 }
 
-/* Spray Paint Effect (Works during glitches) */
-.nav-button::before {
+/* Spray Paint Effect */
+.nav-button::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -122,28 +121,49 @@ a:hover {
     height: 0;
     background: url('paint-texture.svg') center/cover no-repeat;
     transform: translate(-50%, -50%);
-    z-index: -1;
+    z-index: 0;
     transition: width 0.3s ease, height 0.3s ease;
     border-radius: 50%;
     pointer-events: none;
 }
 
-.nav-button:hover::before { /* Removed :not(.glitch-effect) */
+.nav-button:hover::after {
     width: 200px;
     height: 200px;
-    background-image: url('paint-texture.svg') !important; /* Force override */
 }
 
 .nav-button:hover {
     color: #121212;
 }
 
-/* Glitch Modifications - Allow paint to show */
+/* Glitch Modifications */
+.glitch-effect {
+    animation: glitch 0.2s infinite, glitch-color 0.5s infinite;
+    position: relative;
+    overflow: visible;
+}
+
+.glitch-effect::before,
+.glitch-effect::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    mix-blend-mode: difference;
+    pointer-events: none;
+}
+
 .glitch-effect::before {
-    background-image: none !important; /* Remove glitch textures */
-    width: auto !important; /* Don’t reset size */
-    height: auto !important;
-    animation: none !important; /* Keep glitch animations on text */
+    color: rgba(255, 0, 0, 0.75);
+    animation: glitch 0.2s infinite;
+}
+
+.glitch-effect::after {
+    color: rgba(0, 0, 255, 0.75);
+    animation: glitch 0.2s infinite reverse;
 }
 
 /* Dropdown Menu */
@@ -182,7 +202,7 @@ a:hover {
     display: block;
 }
 
-/* Glitch Animations (Preserved) */
+/* Glitch Animations */
 @keyframes glitch {
     0% { transform: translate(0); clip-path: inset(0 0 0 0); }
     10% { transform: translate(-5px, 5px); clip-path: inset(10% 0 20% 0); }
@@ -205,31 +225,4 @@ a:hover {
     50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
     99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
     100% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
-}
-
-.glitch-effect {
-    animation: glitch 0.2s infinite, glitch-color 0.5s infinite;
-    position: relative;
-}
-
-.glitch-effect::before,
-.glitch-effect::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-    mix-blend-mode: difference;
-}
-
-.glitch-effect::before {
-    color: rgba(255, 0, 0, 0.75);
-    animation: glitch 0.2s infinite;
-}
-
-.glitch-effect::after {
-    color: rgba(0, 0, 255, 0.75);
-    animation: glitch 0.2s infinite reverse;
 }
