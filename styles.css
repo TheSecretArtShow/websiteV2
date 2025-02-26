@@ -112,7 +112,7 @@ a:hover {
     z-index: 1;
 }
 
-/* Spray Paint Effect (Hover Only) */
+/* Spray Paint Effect (Works during glitches) */
 .nav-button::before {
     content: '';
     position: absolute;
@@ -128,22 +128,22 @@ a:hover {
     pointer-events: none;
 }
 
-.nav-button:not(.glitch-effect):hover::before {
+.nav-button:hover::before { /* Removed :not(.glitch-effect) */
     width: 200px;
     height: 200px;
+    background-image: url('paint-texture.svg') !important; /* Force override */
 }
 
 .nav-button:hover {
     color: #121212;
 }
 
-/* Glitch Modifications - Remove Paint Textures */
+/* Glitch Modifications - Allow paint to show */
 .glitch-effect::before {
-    background-image: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    animation: none !important;
-    transition: none !important;
+    background-image: none !important; /* Remove glitch textures */
+    width: auto !important; /* Don’t reset size */
+    height: auto !important;
+    animation: none !important; /* Keep glitch animations on text */
 }
 
 /* Dropdown Menu */
