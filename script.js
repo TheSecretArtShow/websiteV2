@@ -4,56 +4,56 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroVideo = document.getElementById('hero-video');
     const buttons = document.querySelectorAll('.nav-button');
 
-    let isLogoSmall = false; // State to keep track of logo size
-    let isNavVisible = false; // State to keep track of navigation visibility
+    let isLogoSmall = false;
+    let isNavVisible = false;
 
-    // Timestamps for glitch effects (in seconds)
-    const glitchTimestamps = [6, 13, 14.25, 15.93, 31]; // Replace with your video timestamps
-    const glitchDuration = 1; // Duration of the glitch effect in seconds
+    // Glitch timestamps (update these to match your video)
+    const glitchTimestamps = [6, 13, 14.25, 15.93, 31];
+    const glitchDuration = 1;
 
     window.addEventListener('wheel', function (event) {
-        // Check if scrolling down (deltaY positive) or up (deltaY negative)
         if (event.deltaY > 0 && !isLogoSmall) {
-            // Shrink and move the hero logo to the top
             logoHero.classList.add('small');
             isLogoSmall = true;
-
-            // Slide the navigation buttons into view
             navButtons.classList.add('visible');
             isNavVisible = true;
         } else if (event.deltaY < 0 && isLogoSmall) {
-            // Restore the hero logo to its original position
             logoHero.classList.remove('small');
             isLogoSmall = false;
-
-            // Slide the navigation buttons out of view
             navButtons.classList.remove('visible');
             isNavVisible = false;
         }
     });
 
-    // Sync glitch effects with video timestamps
+    // Glitch effect handler
     heroVideo.addEventListener('timeupdate', function () {
         const currentTime = heroVideo.currentTime;
-
-        // Check if the current time is within any glitch timestamp range
         let isGlitchActive = false;
+
         glitchTimestamps.forEach((timestamp) => {
             if (currentTime >= timestamp && currentTime < timestamp + glitchDuration) {
                 isGlitchActive = true;
             }
         });
 
-        // Add or remove glitch effect based on the current time
-        if (isGlitchActive) {
-            buttons.forEach((button) => {
+        buttons.forEach((button) => {
+            const paint = button.querySelector('.glitch-paint');
+            
+            if (isGlitchActive) {
                 button.classList.add('glitch-effect');
-                button.setAttribute('data-text', button.textContent); // Add data-text for pseudo-elements
-            });
-        } else {
-            buttons.forEach((button) => {
+                if (paint) {
+                    paint.style.transition = 'none';
+                    paint.style.width = '200px';
+                    paint.style.height = '200px';
+                }
+            } else {
                 button.classList.remove('glitch-effect');
-            });
-        }
+                if (paint) {
+                    paint.style.transition = 'all 0.3s ease';
+                    paint.style.width = '0';
+                    paint.style.height = '0';
+                }
+            }
+        });
     });
 });
