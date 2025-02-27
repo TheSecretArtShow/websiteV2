@@ -7,31 +7,200 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Garamond:wght@400;700&family=Helvetica:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Page Styles */
+        /* General Styling */
+        body {
+            background-color: #121212;
+            color: #f5f5f5;
+            line-height: 1.8;
+            font-family: 'Helvetica', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Garamond', serif;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        a {
+            color: #ff6b6b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #ff3b3b;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Hero Video Background */
+        .hero-video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .hero-video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-video-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 18, 18, 0.5); /* Subtle overlay for better text readability */
+        }
+
+        /* Header */
+        header h1 {
+            text-align: center;
+            margin: 0;
+        }
+
+        header nav {
+            margin-top: 20px;
+        }
+
+        header nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        header nav ul li {
+            margin: 0 20px;
+            position: relative;
+        }
+
+        header nav ul li a {
+            color: #ff6b6b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #ff3b3b;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: rgba(31, 31, 31, 0.7);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Inner Circle Content */
+        .inner-circle-content {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
         .inner-circle-content h2 {
             font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
 
+        .inner-circle-content p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Email Signup Form */
         .email-signup {
             max-width: 500px;
-            padding: 2rem;
+            width: 100%;
+            padding: 30px;
             background: linear-gradient(135deg, #282828, #1f1f1f);
             border-radius: 16px;
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
-            margin: 2rem auto;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .email-signup h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
 
         .email-signup input[type="email"] {
             width: 100%;
             padding: 12px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
             border-radius: 8px;
             border: 1px solid #444;
             background-color: #1f1f1f;
             color: #f5f5f5;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .email-signup input[type="email"]:focus {
+            border-color: #ff6b6b;
+            outline: none;
         }
 
         .email-signup button {
@@ -41,47 +210,136 @@
             border: none;
             color: #f5f5f5;
             cursor: pointer;
+            font-size: 1rem;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
+        .email-signup button:hover {
+            background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
         footer {
-            padding: 2rem 0;
+            background-color: #1f1f1f;
+            padding: 20px 0;
             text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Star container for the cursor effect */
+        .star-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Email Signup Popup Modal */
+        .email-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .email-popup-content {
+            background: linear-gradient(135deg, #282828, #1f1f1f);
+            padding: 40px;
+            text-align: center;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+        }
+
+        .email-popup-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .email-popup-content p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .email-popup-content button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+            border: none;
+            color: #f5f5f5;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .email-popup-content button:hover {
+            background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
 <!-- Hero Video Background -->
-<div class="hero-image">
-    <video id="hero-video" autoplay loop muted playsinline>
+<div class="hero-video-background">
+    <video autoplay loop muted playsinline>
         <source src="recording 2.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 </div>
 
-<!-- Header & Navigation -->
-<div class="logo-hero">
-    <img src="TAS Logo Vector.svg" alt="The Art Show Logo" class="logo-image">
-</div>
-
-<nav class="nav-buttons">
-    <a href="index.html" class="nav-button">Home</a>
-    <a href="about.html" class="nav-button">About</a>
-    <div class="nav-button-container">
-        <a href="shop.html" class="nav-button">Shop</a>
-        <div class="dropdown">
-            <a href="shop.html" class="dropdown-item">All pieces</a>
-            <a href="collections.html" class="dropdown-item">Collections</a>
-        </div>
+<header>
+    <div class="container">
+        <h1>
+            <img src="TAS Logo Vector.svg" alt="The Art Show" style="max-width: 100%; height: auto;">
+        </h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li>
+                    <a href="shop.html">Shop</a>
+                    <ul class="dropdown">
+                        <li><a href="shop.html">All pieces</a></li>
+                        <li><a href="collections.html">Collections</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
     </div>
-    <a href="InnerCircle.html" class="nav-button">The Inner Circle</a>
-    <a href="contact.html" class="nav-button">Contact</a>
-</nav>
+</header>
 
 <main>
-    <!-- Content Sections -->
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to The Inner Circle</h1>
+            <p>Gain exclusive access to limited-edition drops, early releases, and insider perks.</p>
+        </div>
+    </section>
+
+    <!-- Inner Circle Content -->
     <section class="inner-circle-content">
         <div class="container">
             <h2>Why Join The Inner Circle?</h2>
@@ -93,6 +351,7 @@
         </div>
     </section>
 
+    <!-- Email Signup Form -->
     <section class="email-signup">
         <div class="container">
             <h2>Join The Inner Circle</h2>
@@ -110,10 +369,62 @@
     </div>
 </footer>
 
-<!-- Keep existing script sections -->
+<!-- Star container for the cursor effect -->
+<div class="star-container">
+    <div class="star" id="star1"></div>
+    <div class="star" id="star2"></div>
+    <div class="star" id="star3"></div>
+    <div class="star" id="star4"></div>
+    <div class="star" id="star5"></div>
+    <div class="star" id="star6"></div>
+    <div class="star" id="star7"></div>
+    <div class="star" id="star8"></div>
+</div>
+
+<!-- Email Signup Popup Modal -->
+<div class="email-popup-overlay" id="email-popup">
+    <div class="email-popup-content">
+        <h2>Thank You for Joining The Inner Circle!</h2>
+        <p>You'll receive a confirmation email shortly.</p>
+        <button id="resume-browsing-button" class="resume-button">Resume Browsing</button>
+    </div>
+</div>
+
 <script>
-    // Existing JavaScript code
+    // Handle Email Submission
+    document.getElementById('inner-circle-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = document.getElementById('inner-circle-email').value;
+
+        if (email) {
+            // Send email to Google Sheets (same logic as shop.html)
+            fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email, listType: 'Inner Circle', name: '' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Show confirmation popup ONLY after successful submission
+                document.getElementById('email-popup').style.display = 'flex';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        } else {
+            alert('Please enter a valid email address.');
+        }
+    });
+
+    // Close Popup
+    document.getElementById('resume-browsing-button').addEventListener('click', function () {
+        document.getElementById('email-popup').style.display = 'none';
+    });
 </script>
+
 <script src="script.js"></script>
 </body>
 </html>
