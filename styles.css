@@ -112,7 +112,7 @@ a:hover {
     z-index: 1;
 }
 
-/* Spray Paint Effect (Works during glitches) */
+/* Spray Paint Effect */
 .nav-button::before {
     content: '';
     position: absolute;
@@ -123,12 +123,18 @@ a:hover {
     background: var(--random-paint, url('paint-texture 2.svg')) center/cover no-repeat;
     transform: translate(-50%, -50%);
     z-index: -1;
-    transition: width 0.3s ease, height 0.3s ease;
+    transition: width 0.3s ease, height 0.3s ease, background-size 0.3s ease;
     border-radius: 50%;
     pointer-events: none;
 }
 
-.nav-button:hover::before { /* Removed :not(.glitch-effect) */
+/* Special styling for Inner Circle button */
+a[href="InnerCircle.html"]::before {
+    background-size: contain !important;
+    background-position: center !important;
+}
+
+.nav-button:hover::before {
     width: 200px;
     height: 200px;
 }
@@ -137,12 +143,12 @@ a:hover {
     color: #121212;
 }
 
-/* Glitch Modifications - Allow paint to show */
+/* Glitch Modifications */
 .glitch-effect::before {
-    background-image: none !important; /* Remove glitch textures */
-    width: auto !important; /* Don’t reset size */
+    background-image: none !important;
+    width: auto !important;
     height: auto !important;
-    animation: none !important; /* Keep glitch animations on text */
+    animation: none !important;
 }
 
 /* Dropdown Menu */
@@ -181,7 +187,7 @@ a:hover {
     display: block;
 }
 
-/* Glitch Animations (Preserved) */
+/* Glitch Animations */
 @keyframes glitch {
     0% { transform: translate(0); clip-path: inset(0 0 0 0); }
     10% { transform: translate(-5px, 5px); clip-path: inset(10% 0 20% 0); }
