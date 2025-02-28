@@ -18,9 +18,15 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
     // Add hover event listeners to buttons
+    // Modify the hover event listener
     buttons.forEach(button => {
         button.addEventListener('mouseenter', function() {
-            this.style.setProperty('--random-paint', getRandomPaintTexture());
+        // Check if it's the Inner Circle button
+            if (this.textContent.trim() === "The Inner Circle") {
+                this.style.setProperty('--random-paint', 'url("paint-texture-wide.svg")');
+            } else {
+                this.style.setProperty('--random-paint', getRandomPaintTexture());
+            }
         });
     });
 
