@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const glitchDuration = 1; // Duration of the glitch effect in seconds
 
     // Function to generate random paint texture URL
-    function getRandomPaintTexture() {
-        const randomNum = Math.floor(Math.random() * 9) + 1; // Generates 1-9
-        return `url('paint-texture ${randomNum === 1 ? '' : randomNum}.svg')`;
-    }
+   function getRandomPaintTexture() {
+    const randomNum = Math.floor(Math.random() * 8) + 2; // Generates 2-9
+    return `url('paint-texture ${randomNum}.svg')`;
+}
 
     // Add hover event listeners to buttons
     buttons.forEach(button => {
