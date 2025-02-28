@@ -67,8 +67,7 @@ a:hover {
 }
 
 .logo-hero.small {
-    top: 10px;
-    left: 50%;
+    top: 4rem; /* Original: 10px (≈0.625rem) - increased by 2/3 of 9rem */
     transform: translateX(-50%);
     transition: top 0.5s ease, transform 0.5s ease;
 }
@@ -95,7 +94,7 @@ a:hover {
 }
 
 .nav-buttons.visible {
-    top: 60px;
+    top: 9rem; /* Original: 60px (≈3.75rem) - increased by 1.5" ≈9rem at 1rem=16px */
     opacity: 1;
 }
 
