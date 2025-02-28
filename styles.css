@@ -73,7 +73,7 @@ a:hover {
 }
 
 .logo-hero.small .logo-image {
-    width: 150px;
+    width: 225px;
 }
 
 /* Navigation Buttons */
@@ -123,6 +123,7 @@ a:hover {
     transform: translate(-50%, -50%);
     z-index: -1;
     transition: width 0.3s ease, height 0.3s ease, background-size 0.3s ease;
+    border-radius: 13%;
     pointer-events: none; /* Removed border-radius */
 }
 
