@@ -120,7 +120,7 @@ a:hover {
     left: 50%;
     width: 0;
     height: 0;
-    background: var(--random-paint, url('paint-texture.svg')) center/cover no-repeat;
+    background: var(--random-paint, url('paint-texture 2.svg')) center/cover no-repeat;
     transform: translate(-50%, -50%);
     z-index: -1;
     transition: width 0.3s ease, height 0.3s ease;
