@@ -1,54 +1,57 @@
 /* inner-circle.css */
-/* Page-specific styles only */
+/* Final spacing and navigation fixes */
 
-/* Header Spacing */
-.inner-circle-page .inner-circle-header .container {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
+.inner-circle-page .inner-circle-header {
+    position: relative;
+    z-index: 1000;
 }
 
-.inner-circle-page .inner-circle-header h1 {
-    margin-bottom: 0.5rem !important;
+.inner-circle-page .inner-circle-logo-container {
+    margin: 1.5rem 0 0 0 !important;
+    text-align: center;
 }
 
-.inner-circle-page .inner-circle-header nav {
-    margin-top: 1rem !important;
-}
-
-/* Hero Section Adjustments */
-.inner-circle-page .inner-circle-hero {
-    padding: 40px 0 !important;
-    margin-top: -1rem !important;
-}
-
-/* Email Form Spacing */
-.inner-circle-page .inner-circle-signup {
-    margin-top: 2rem !important;
-}
-
-/* Logo Sizing */
 .inner-circle-page .inner-circle-logo {
-    max-width: 300px !important;
-    transition: transform 0.3s ease;
+    width: 180px !important;
+    height: auto !important;
+    margin: 0 auto !important;
 }
 
-/* Optional Hover Effect */
-.inner-circle-page .inner-circle-logo:hover {
-    transform: scale(1.02);
+.inner-circle-page .nav-buttons {
+    position: static !important;
+    opacity: 1 !important;
+    top: 0 !important;
+    padding: 1rem 0 0 0 !important;
+    gap: 15px;
 }
 
-/* Mobile Responsiveness */
+.inner-circle-page .nav-button {
+    font-size: 0.95rem !important;
+    padding: 8px 15px !important;
+}
+
+.inner-circle-page .inner-circle-hero {
+    padding: 40px 0 20px 0 !important;
+    margin-top: -4rem !important;
+}
+
+/* Mobile Optimization */
 @media (max-width: 768px) {
-    .inner-circle-page .inner-circle-header .container {
-        padding-top: 1.5rem !important;
-        padding-bottom: 1.5rem !important;
-    }
-    
-    .inner-circle-page .inner-circle-hero h1 {
-        font-size: 2rem !important;
-    }
-    
     .inner-circle-page .inner-circle-logo {
-        max-width: 200px !important;
+        width: 140px !important;
+    }
+    
+    .inner-circle-page .nav-buttons {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .inner-circle-page .nav-button {
+        font-size: 0.85rem !important;
+        padding: 6px 12px !important;
+    }
+    
+    .inner-circle-page .inner-circle-hero {
+        margin-top: -2rem !important;
     }
 }
