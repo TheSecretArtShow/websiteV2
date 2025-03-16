@@ -1,0 +1,27 @@
+/* inner-circle.css */
+/* Only affects InnerCircle.html when properly linked */
+
+/* Header Adjustments */
+.inner-circle-header .container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.inner-circle-header h1 {
+    margin-bottom: 0.5rem;
+}
+
+.inner-circle-header nav {
+    margin-top: 1rem;
+}
+
+/* Hero Section Adjustments */
+.inner-circle-hero {
+    padding: 40px 0 !important;
+    margin-top: -1rem;
+}
+
+/* Email Form Positioning */
+.inner-circle-email-signup {
+    margin-top: 2rem !important;
+}
