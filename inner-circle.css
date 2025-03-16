@@ -1,27 +1,54 @@
 /* inner-circle.css */
-/* Only affects InnerCircle.html when properly linked */
+/* Page-specific styles only */
 
-/* Header Adjustments */
-.inner-circle-header .container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+/* Header Spacing */
+.inner-circle-page .inner-circle-header .container {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
 }
 
-.inner-circle-header h1 {
-    margin-bottom: 0.5rem;
+.inner-circle-page .inner-circle-header h1 {
+    margin-bottom: 0.5rem !important;
 }
 
-.inner-circle-header nav {
-    margin-top: 1rem;
+.inner-circle-page .inner-circle-header nav {
+    margin-top: 1rem !important;
 }
 
 /* Hero Section Adjustments */
-.inner-circle-hero {
+.inner-circle-page .inner-circle-hero {
     padding: 40px 0 !important;
-    margin-top: -1rem;
+    margin-top: -1rem !important;
 }
 
-/* Email Form Positioning */
-.inner-circle-email-signup {
+/* Email Form Spacing */
+.inner-circle-page .inner-circle-signup {
     margin-top: 2rem !important;
+}
+
+/* Logo Sizing */
+.inner-circle-page .inner-circle-logo {
+    max-width: 300px !important;
+    transition: transform 0.3s ease;
+}
+
+/* Optional Hover Effect */
+.inner-circle-page .inner-circle-logo:hover {
+    transform: scale(1.02);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .inner-circle-page .inner-circle-header .container {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+    
+    .inner-circle-page .inner-circle-hero h1 {
+        font-size: 2rem !important;
+    }
+    
+    .inner-circle-page .inner-circle-logo {
+        max-width: 200px !important;
+    }
 }
