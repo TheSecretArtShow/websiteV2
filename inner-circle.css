@@ -1,15 +1,17 @@
 /* inner-circle.css */
-/* Tightened spacing version */
+/* Zero-spacing version */
 
 .inner-circle-page .inner-circle-header {
     position: relative;
     z-index: 1000;
-    padding-bottom: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 .inner-circle-page .inner-circle-logo-container {
-    margin: 0 !important; /* Removed all vertical margin */
-    padding: 0.25rem 0 !important; /* Minimal padding */
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important;
 }
 
 .inner-circle-page .inner-circle-logo {
@@ -17,45 +19,43 @@
     height: auto !important;
     margin: 0 auto !important;
     display: block;
+    padding: 0 !important;
 }
 
 .inner-circle-page .nav-buttons {
     position: static !important;
     opacity: 1 !important;
-    padding: 0.25rem 0 0 0 !important; /* Reduced top padding */
+    padding: 0 !important;
+    margin: -1.2rem 0 0 0 !important;
     gap: 12px;
-    margin: -0.5rem 0 !important; /* Negative margin to pull up */
+    transform: translateY(-8px);
 }
 
 .inner-circle-page .inner-circle-hero {
-    padding: 20px 0 10px 0 !important;
-    margin-top: -3rem !important; /* Increased negative margin */
+    padding: 15px 0 0 0 !important;
+    margin-top: -4rem !important;
 }
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
     .inner-circle-page .inner-circle-logo {
         width: 140px !important;
-        margin: 0 auto !important;
+        margin: 0 auto 0.2rem !important;
     }
     
     .inner-circle-page .nav-buttons {
-        padding: 0.1rem 0 0 0 !important;
-        margin: -0.75rem 0 !important;
+        margin: -1.5rem 0 0 0 !important;
         gap: 8px;
+        transform: translateY(-12px);
     }
     
     .inner-circle-page .nav-button {
         font-size: 0.8rem !important;
-        padding: 4px 8px !important;
+        padding: 3px 6px !important;
     }
     
     .inner-circle-page .inner-circle-hero {
-        margin-top: -1.5rem !important;
-        padding: 15px 0 5px 0 !important;
-    }
-
-    .inner-circle-page .inner-circle-logo-container {
-        padding: 0.1rem 0 !important;
+        margin-top: -2.5rem !important;
+        padding: 10px 0 0 0 !important;
     }
 }
