@@ -3,73 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop - The Art Show</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>ARTSHOW | Shop</title>
     <style>
-        /* General Styling */
-        body {
-            background-color: #121212;
-            color: #f5f5f5;
-            line-height: 1.6;
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', sans-serif;
         }
 
-        h1, h2 {
+        body {
+            background: #111111;
             color: #ffffff;
         }
 
-        a {
-            color: #ff6b6b;
-            text-decoration: none;
+        /* Header Styles */
+        .header {
+            padding: 1.8rem 5%;
+            border-bottom: 1px solid #e0e0e0;
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(8px);
+            z-index: 100;
         }
 
-        a:hover {
-            color: #ff3b3b;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        /* Catalogue Style */
-        .catalogue {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            padding: 50px 0;
-            background: transparent;
-            border-radius: 8px;
-            overflow: hidden;
+        .logo {
+            width: 180px;
         }
 
-        .product {
+        .nav-links {
+            display: flex;
+            gap: 2.8rem;
+        }
+
+        .nav-link {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 300;
+            letter-spacing: 2.5px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
             position: relative;
-            background-color: #282828;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
+            padding-bottom: 3px;
+            transition: opacity 0.4s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0.5px;
+            background: #1a1a1a;
+            transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link[href="/shop"] {
+            font-weight: 400;
+        }
+
+        .nav-link[href="/shop"]::after {
+            width: 100%;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            padding: 10rem 5% 5rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .product img {
-            max-width: 100%;
-            border-radius: 8px;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .product:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-        }
-
-        .product:hover img {
-            transform: scale(1.1);
+        .product-image {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3/4;
+            background: #fff;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .product-overlay {
@@ -78,306 +110,218 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(255, 255, 255, 0.3));
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 0.6s ease;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            transform: scale(1.2);
         }
 
-        .product:hover .product-overlay {
+        .product-card:hover .product-overlay {
             opacity: 1;
-            transform: scale(1);
         }
 
-        .product h3 {
-            margin-top: 15px;
+        .product-card:hover .product-image {
+            transform: scale(1.03);
+        }
+
+        .sold-out {
+            color: white;
+            font-weight: 300;
+            letter-spacing: 3px;
             font-size: 1.2rem;
-            color: #ffffff;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .product p {
-            margin-top: 5px;
-            font-size: 1rem;
-            color: #ff6b6b;
+            margin-bottom: 1.5rem;
+            transform: translateY(20px);
+            transition: transform 0.6s ease;
         }
 
         .view-details {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ff6b6b;
-            color: #f5f5f5;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 0.8rem 2rem;
             cursor: pointer;
-            font-size: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            font-weight: 300;
+            letter-spacing: 2px;
             transform: translateY(20px);
+            transition: all 0.6s ease;
         }
 
-        .product:hover .view-details {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
+        .product-card:hover .sold-out,
+        .product-card:hover .view-details {
+            transform: translateY(0);
         }
 
-        /* Footer */
-        footer {
-            background-color: #1f1f1f;
-            padding: 20px 0;
+        .product-info {
+            padding: 1.5rem 0;
             text-align: center;
-            font-size: 0.9rem;
-            color: #888;
+        }
+
+        .product-title {
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .product-price {
+            font-weight: 300;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
-
-<header>
-    <div class="container">
-        <h1 style="text-align: center;">
-            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-        </h1>
-        <nav>
-            <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
-                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                <li style="margin: 0 15px; position: relative;">
-                    <a href="shop.html">Shop</a>
-                    <ul class="dropdown">
-                        <li><a href="shop.html">All pieces</a></li>
-                        <li><a href="collections.html">Collections</a></li>
-                    </ul>
-                </li>
-                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-            </ul>
+    <header class="header">
+        <nav class="header-nav">
+            <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
+            <div class="nav-links">
+                <a href="/" class="nav-link">HOME</a>
+                <a href="/about" class="nav-link">ABOUT</a>
+                <a href="/shop" class="nav-link">SHOP</a>
+                <a href="/inner-circle" class="nav-link">THE INNER CIRCLE</a>
+                <a href="/contact" class="nav-link">CONTACT</a>
+            </div>
         </nav>
-    </div>
-</header>
+    </header>
 
-<main>
-    <section class="catalogue">
-        <div class="product">
-            <img src="images2/rage.png" alt="R@GE">
-            <div class="product-overlay">Sold Out</div>
-            <h3>R@GE</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
+    <main class="products-grid">
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-overlay">
+                    <span class="sold-out">SOLD OUT</span>
+                    <button class="view-details">VIEW DETAILS</button>
+                </div>
+                <div style="width:100%;height:100%;background:#ececec;display:flex;align-items:center;justify-content:center">
+                    PLACEHOLDER
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">Shirt 1</h2>
+                <p class="product-price">$890</p>
+            </div>
         </div>
-        <div class="product">
-            <img src="images2/end.png" alt="END">
-            <div class="product-overlay">Sold Out</div>
-            <h3>END</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-overlay">
+                    <span class="sold-out">SOLD OUT</span>
+                    <button class="view-details">VIEW DETAILS</button>
+                </div>
+                <div style="width:100%;height:100%;background:#ececec;display:flex;align-items:center;justify-content:center">
+                    PLACEHOLDER
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">Shirt 2</h2>
+                <p class="product-price">$890</p>
+            </div>
         </div>
-        <div class="product">
-            <img src="images2/void.png" alt="V0ID">
-            <div class="product-overlay">Sold Out</div>
-            <h3>V0ID</h3>
-            <p>$150.00</p>
-            <button class="view-details">View Details</button>
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-overlay">
+                    <span class="sold-out">SOLD OUT</span>
+                    <button class="view-details">VIEW DETAILS</button>
+                </div>
+                <div style="width:100%;height:100%;background:#ececec;display:flex;align-items:center;justify-content:center">
+                    PLACEHOLDER
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">Shirt 3</h2>
+                <p class="product-price">$890</p>
+            </div>
         </div>
-        <div class="product">
-            <img src="images2/RIBS.png" alt="Ribs">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Ribs</h3>
-            <p>$113.00</p>
-            <button class="view-details">View Details</button>
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-overlay">
+                    <span class="sold-out">SOLD OUT</span>
+                    <button class="view-details">VIEW DETAILS</button>
+                </div>
+                <div style="width:100%;height:100%;background:#ececec;display:flex;align-items:center;justify-content:center">
+                    PLACEHOLDER
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">Shirt 4</h2>
+                <p class="product-price">$890</p>
+            </div>
         </div>
-        <div class="product">
-            <img src="images2/basquiat.PNG" alt="Basquiat">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Basquiat</h3>
-            <p>$175.00</p>
-            <button class="view-details">View Details</button>
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-overlay">
+                    <span class="sold-out">SOLD OUT</span>
+                    <button class="view-details">VIEW DETAILS</button>
+                </div>
+                <div style="width:100%;height:100%;background:#ececec;display:flex;align-items:center;justify-content:center">
+                    PLACEHOLDER
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">Shirt 5</h2>
+                <p class="product-price">$890</p>
+            </div>
         </div>
-        <div class="product">
-            <img src="images2/crow.png" alt="Crow">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Crow</h3>
-            <p>$175.00</p>
-            <button class="view-details">View Details</button>
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-overlay">
+                    <span class="sold-out">SOLD OUT</span>
+                    <button class="view-details">VIEW DETAILS</button>
+                </div>
+                <div style="width:100%;height:100%;background:#ececec;display:flex;align-items:center;justify-content:center">
+                    PLACEHOLDER
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">Shirt 6</h2>
+                <p class="product-price">$890</p>
+            </div>
         </div>
-        <div class="product">
-            <img src="images/butterfly.png" alt="Butterfly">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Butterfly</h3>
-            <p>$200.00</p>
-            <button class="view-details">View Details</button>
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-overlay">
+                    <span class="sold-out">SOLD OUT</span>
+                    <button class="view-details">VIEW DETAILS</button>
+                </div>
+                <div style="width:100%;height:100%;background:#ececec;display:flex;align-items:center;justify-content:center">
+                    PLACEHOLDER
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">Shirt 7</h2>
+                <p class="product-price">$890</p>
+            </div>
         </div>
-        <div class="product">
-            <img src="images2/BOW centipede front.png" alt="Centipede">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Centipede</h3>
-            <p>$185.00</p>
-            <button class="view-details">View Details</button>
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-overlay">
+                    <span class="sold-out">SOLD OUT</span>
+                    <button class="view-details">VIEW DETAILS</button>
+                </div>
+                <div style="width:100%;height:100%;background:#ececec;display:flex;align-items:center;justify-content:center">
+                    PLACEHOLDER
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">Shirt 8</h2>
+                <p class="product-price">$890</p>
+            </div>
         </div>
-        <div class="product">
-            <img src="images2/mj.png" alt="Girl">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Girl</h3>
-            <p>$185.00</p>
-            <button class="view-details">View Details</button>
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-overlay">
+                    <span class="sold-out">SOLD OUT</span>
+                    <button class="view-details">VIEW DETAILS</button>
+                </div>
+                <div style="width:100%;height:100%;background:#ececec;display:flex;align-items:center;justify-content:center">
+                    PLACEHOLDER
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-title">Shirt 9</h2>
+                <p class="product-price">$890</p>
+            </div>
         </div>
-        <div class="product">
-            <img src="images2/poison.png" alt="Pick Your Poison">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Pick Your Poison</h3>
-            <p>$175.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/bleach.png" alt="Bleach">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Bleach</h3>
-            <p>$250.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/3rd eye.png" alt="3rd Eye">
-            <div class="product-overlay">Sold Out</div>
-            <h3>3rd Eye</h3>
-            <p>$175.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images/flower.png" alt="Flower">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Flower</h3>
-            <p>$150.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/ribs2.png" alt="Skeleton">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Skeleton</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/kurt.png" alt="Cobain">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Cobain</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/pumpkin.png" alt="Pumpkin">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Pumpkin</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/ninja.png" alt="Frozen">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Frozen</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/morrison.png" alt="morrison">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Morrison</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/pfaff.png" alt="Pfaff">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Pfaff</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/pin front.png" alt="Stab">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Stab</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/WOB centipede.png" alt="Centipede 2">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Centipede 2</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/ballerina front.png" alt="Dance">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Dance</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/stargirls.png" alt="Stargirls">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Stargirls</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-        <div class="product">
-            <img src="images2/bird.png" alt="Falcon">
-            <div class="product-overlay">Sold Out</div>
-            <h3>Falcon</h3>
-            <p>$125.00</p>
-            <button class="view-details">View Details</button>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2024 The Art Show. All rights reserved.</p>
-    </div>
-</footer>
-
-<!-- Star container for the cursor effect -->
-<div class="star-container">
-    <div class="star" id="star1"></div>
-    <div class="star" id="star2"></div>
-    <div class="star" id="star3"></div>
-    <div class="star" id="star4"></div>
-    <div class="star" id="star5"></div>
-    <div class="star" id="star6"></div>
-    <div class="star" id="star7"></div>
-    <div class="star" id="star8"></div>
-</div>
-
-<!-- Email Signup Popup Modal -->
-<div class="email-popup-overlay" id="email-popup">
-    <div class="email-popup-content">
-        <h2>Join Our Community</h2>
-        <p>Enter your email to sign up for exclusive access to our collections.</p>
-
-        <div class="signup-option" id="waitlist-option">
-            <button id="waitlist-button">Waitlist</button>
-            <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
-            <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
-        </div>
-
-        <div class="signup-option" id="insider-option">
-            <button id="insider-button">Insider alerts</button>
-            <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
-            <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
-        </div>
-
-        <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
-        <input type="hidden" id="selected-product" name="selected-product">
-    </div>
-</div>
-
-<script src="script.js"></script>
+    </main>
 </body>
 </html>
