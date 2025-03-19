@@ -285,7 +285,7 @@
   <button id="scrollTopBtn">Top</button>
 
   <script>
-    // SCROLL PROGRESS BAR
+    /* SCROLL PROGRESS BAR */
     window.addEventListener('scroll', function() {
       const progressBar = document.getElementById('scroll-progress');
       const totalHeight = document.body.scrollHeight - window.innerHeight;
@@ -293,7 +293,7 @@
       progressBar.style.width = progress + '%';
     });
     
-    // REVEAL ON SCROLL
+    /* REVEAL ON SCROLL */
     const revealElements = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -305,7 +305,7 @@
     }, { threshold: 0.1 });
     revealElements.forEach(el => revealObserver.observe(el));
     
-    // TOGGLE MORE CONTENT
+    /* TOGGLE MORE CONTENT */
     const toggleBtn = document.getElementById('toggleJourney');
     const toggleContent = document.getElementById('moreJourney');
     toggleBtn.addEventListener('click', function() {
@@ -313,7 +313,7 @@
       toggleBtn.textContent = toggleContent.classList.contains('open') ? 'Read Less' : 'Read More';
     });
     
-    // SCROLL-TO-TOP BUTTON
+    /* SCROLL-TO-TOP BUTTON */
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', function() {
       scrollTopBtn.style.display = window.pageYOffset > 300 ? 'block' : 'none';
@@ -325,21 +325,18 @@
     /* VIDEO & PARTICLE LOGIC */
     const heroVideo = document.getElementById('heroVideo');
     let explosionTriggered = false;
-    const canvas = document.getElementById('heroCanvas');
-    const ctx = canvas.getContext('2d');
+
+    // We'll only create particles AFTER 0.5s
     let particlesArray = [];
+    let canvas = document.getElementById('heroCanvas');
+    let ctx = canvas.getContext('2d');
     let canvasWidth, canvasHeight;
 
     function initCanvas() {
-      // Make the canvas match the size of .video-container
+      // Match the canvas to the size of .video-container
       const container = canvas.parentElement;
       canvasWidth = canvas.width = container.clientWidth;
       canvasHeight = canvas.height = container.clientHeight;
-      particlesArray = [];
-      // Create an initial set of floating particles
-      for(let i = 0; i < 200; i++) {
-        particlesArray.push(new Particle());
-      }
     }
 
     class Particle {
@@ -392,6 +389,7 @@
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      // Update and draw all existing particles
       particlesArray = particlesArray.filter(p => {
         p.update();
         p.draw();
@@ -420,32 +418,37 @@
       });
     });
 
-    // Additional explosion on click
+    // Additional explosion on click (only after 0.5s, because no particles exist prior to that)
     window.addEventListener('click', function(e) {
-      // Only explode if the click is inside the video container
+      // If no particles exist yet, do nothing
+      if (!explosionTriggered) return;
+
       const rect = canvas.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const clickY = e.clientY - rect.top;
-      // If user clicked outside the container, no effect
-      if (clickX < 0 || clickX > rect.width || clickY < 0 || clickY > rect.height) return;
 
       for (let i = 0; i < 30; i++) {
         particlesArray.push(new ParticleExplosion(clickX, clickY));
       }
     });
 
-    // Video timing
+    // At 0.5s, spawn floating particles + big explosion, then freeze at 4.95s
     heroVideo.addEventListener('timeupdate', () => {
-      // Trigger explosion at 0.5 seconds
+      // 1) Spawn everything at 0.5s
       if (!explosionTriggered && heroVideo.currentTime >= 0.5) {
         explosionTriggered = true;
+        // Create floating particles
+        for (let i = 0; i < 200; i++) {
+          particlesArray.push(new Particle());
+        }
+        // Big explosion in center
         for (let i = 0; i < 100; i++) {
           particlesArray.push(
             new ParticleExplosion(canvasWidth / 2, canvasHeight / 2)
           );
         }
       }
-      // Pause video at 4.95 seconds
+      // 2) Pause video at 4.95s
       if (heroVideo.currentTime >= 4.95) {
         heroVideo.pause();
         heroVideo.currentTime = 4.95;
