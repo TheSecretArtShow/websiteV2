@@ -1,150 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - The Art Show</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Ensure the styles.css is linked -->
-    <style>
-        /* General Styling */
-        body {
-            background-color: #121212;
-            color: #f5f5f5;
-            line-height: 1.6;
-            font-family: 'Arial', sans-serif;
-        }
-
-        h1, h2 {
-            color: #ffffff;
-        }
-
-        a {
-            color: #ff6b6b;
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: #ff3b3b;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: url('images/cityscape.png') no-repeat center center/cover; /* Replace with your image */
-            padding: 100px 0;
-            text-align: center;
-            color: #fff;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-        }
-
-        /* About Section */
-        .about {
-            padding: 50px 0;
-        }
-
-        .about h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .about p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            line-height: 1.8;
-        }
-
-        .about img {
-            max-width: 100%;
-            height: auto;
-            margin: 30px 0;
-            border-radius: 8px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #1f1f1f;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #888;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARTSHOW | About</title>
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+    body {
+      background: #111111;
+      color: #ffffff;
+      overflow-x: hidden;
+      position: relative;
+    }
+    /* Scroll Progress Bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: #fff;
+      width: 0;
+      z-index: 200;
+      transition: width 0.1s ease-out;
+    }
+    /* Header Styles */
+    .header {
+      padding: 1.8rem 5%;
+      border-bottom: 1px solid #3a3a3a;
+      position: fixed;
+      width: 100%;
+      background: rgba(45, 45, 45, 0.97);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .logo {
+      width: 180px;
+      transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.8rem;
+    }
+    .nav-link {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 300;
+      letter-spacing: 2.5px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 3px;
+      transition: opacity 0.4s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0.5px;
+      background: rgba(255, 255, 255, 0.9);
+      transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    /* Active link for ABOUT page */
+    .nav-link[href="about.html"] {
+      font-weight: 400;
+    }
+    .nav-link[href="about.html"]::after {
+      width: 100%;
+    }
+    /* Hero Section with Canvas Background */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      padding-top: 100px; /* space for fixed header */
+      overflow: hidden;
+    }
+    #heroCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+    }
+    /* Removed glitch styling — now it's just a normal heading */
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      line-height: 1.6;
+      margin: 1rem auto 2rem;
+    }
+    /* Content Section with Reveal Animation */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 5%;
+    }
+    .content h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .content p {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Toggle More Content */
+    .toggle-button {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.8);
+      color: rgba(255,255,255,0.8);
+      padding: 0.8rem 2rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: background 0.3s ease, color 0.3s ease;
+      margin: 2rem 0;
+    }
+    .toggle-button:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .toggle-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease;
+    }
+    .toggle-content.open {
+      max-height: 500px; /* Adjust as needed */
+    }
+    /* Scroll-to-Top Button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      padding: 0.8rem 1.2rem;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      display: none;
+      transition: background 0.3s ease;
+      z-index: 150;
+    }
+    #scrollTopBtn:hover {
+      background: rgba(255,255,255,0.4);
+    }
+  </style>
 </head>
 <body>
-
-<header>
-    <div class="container">
-        <h1 style="text-align: center;">
-            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-        </h1>
-        <nav>
-            <ul style="display: flex; justify-content: center; list-style: none; padding: 0; position: relative;">
-                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                <li style="margin: 0 15px; position: relative;">
-                    <a href="shop.html">Shop</a>
-                    <ul class="dropdown">
-                        <li><a href="shop.html">All pieces</a></li>
-                        <li><a href="collections.html">Collections</a></li>
-                    </ul>
-                </li>
-                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+  <div id="scroll-progress"></div>
+  <header class="header">
+    <nav class="header-nav">
+      <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="about.html" class="nav-link">ABOUT</a>
+        <a href="shop.html" class="nav-link">SHOP</a>
+        <a href="InnerCircle.html" class="nav-link">THE INNER CIRCLE</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+      </div>
+    </nav>
+  </header>
+  
+  <main class="hero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-content">
+      <h1>About ARTSHOW</h1>
+      <p>
+        At ARTSHOW, art and fashion collide in an explosion of creativity and luxury. Brace yourself for an experience that defies expectations.
+      </p>
     </div>
-</header>
-
-<section class="hero">
-    <div class="container">
-        <h2>The Art Show</h2>
-        <p>Worn by One</p>
+  </main>
+  
+  <section class="content">
+    <h2 class="reveal">Our Journey</h2>
+    <p class="reveal">
+      Founded on the belief that art is an expression of individuality, ARTSHOW emerged as a sanctuary for creative souls. Our collections reflect a harmonious fusion of classic design and modern innovation.
+    </p>
+    <button class="toggle-button" id="toggleJourney">Read More</button>
+    <div class="toggle-content" id="moreJourney">
+      <p>
+        Our journey is one of passion, persistence, and the relentless pursuit of excellence. Each creation tells a story, imbued with artistic expression and a commitment to timeless quality.
+      </p>
     </div>
-</section>
-
-<main>
-    <section class="about">
-        <div class="container">
-            <h2>Mission Statement</h2>
-            <p>Welcome, to The Art Show</p>
-            <img src="images/tunevert.png" alt="tunevert"> <!-- Replace with a relevant image -->
-            <p>The Art Show is a fashion house which focuses on creating very special, highly personalized clothing. Throughout our collection, every garment will include hand-painted graphics, along with hand-sewn elements. Every item from our collections has been meticulously created by artists and designers. </p>
-            <p>No two pieces of clothing will truly ever be the same, as our personalized process creates deviations from one design to another. Every human on this planet is unique. We believe your clothes should be that way too.</p>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2024 The Art Show. All rights reserved.</p>
-    </div>
-</footer>
-
-<!-- Star container for the cursor effect -->
-<div class="star-container">
-    <div class="star" id="star1"></div>
-    <div class="star" id="star2"></div>
-    <div class="star" id="star3"></div>
-    <div class="star" id="star4"></div>
-    <div class="star" id="star5"></div>
-    <div class="star" id="star6"></div>
-    <div class="star" id="star7"></div>
-    <div class="star" id="star8"></div>
-</div>
-
-<script src="script.js"></script> <!-- Link to JS file -->
+    <h2 class="reveal">Craftsmanship & Innovation</h2>
+    <p class="reveal">
+      Every piece is meticulously crafted by skilled artisans, combining traditional techniques with contemporary design elements. Our commitment to excellence is evident in every stitch and detail, creating a legacy that is both timeless and progressive.
+    </p>
+  </section>
+  
+  <button id="scrollTopBtn">Top</button>
+  
+  <script>
+    // Scroll Progress Bar
+    window.addEventListener('scroll', function() {
+      var scrollProgress = document.getElementById('scroll-progress');
+      var totalHeight = document.body.scrollHeight - window.innerHeight;
+      var progress = (window.pageYOffset / totalHeight) * 100;
+      scrollProgress.style.width = progress + '%';
+    });
+    
+    // Intersection Observer for Reveal Animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    revealElements.forEach(el => observer.observe(el));
+    
+    // Toggle More Content
+    const toggleButton = document.getElementById('toggleJourney');
+    const toggleContent = document.getElementById('moreJourney');
+    toggleButton.addEventListener('click', function() {
+      toggleContent.classList.toggle('open');
+      toggleButton.textContent = toggleContent.classList.contains('open') ? 'Read Less' : 'Read More';
+    });
+    
+    // Scroll to Top Button
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', function() {
+      scrollTopBtn.style.display = window.pageYOffset > 300 ? 'block' : 'none';
+    });
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Particle System for Hero Canvas
+    const canvas = document.getElementById('heroCanvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    let canvasWidth, canvasHeight;
+    
+    function initCanvas() {
+      canvasWidth = canvas.width = window.innerWidth;
+      canvasHeight = canvas.height = window.innerHeight;
+      particlesArray = [];
+      // Create initial set of floating particles
+      for(let i = 0; i < 200; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+    
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+        // CHANGED COLOR TO YELLOW
+        this.color = 'rgba(255,255,0,0.5)';
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        // Wrap around edges
+        if (this.x < 0) this.x = canvasWidth;
+        if (this.x > canvasWidth) this.x = 0;
+        if (this.y < 0) this.y = canvasHeight;
+        if (this.y > canvasHeight) this.y = 0;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    
+    class ParticleExplosion {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 4 + 2;
+        this.speedX = (Math.random() - 0.5) * 10;
+        this.speedY = (Math.random() - 0.5) * 10;
+        this.life = 100;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.life--;
+      }
+      draw() {
+        // CHANGED COLOR TO YELLOW
+        ctx.fillStyle = 'rgba(255,255,0,' + this.life / 100 + ')';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      particlesArray = particlesArray.filter(p => {
+        p.update();
+        p.draw();
+        return p.life === undefined || p.life > 0;
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    
+    initCanvas();
+    animateParticles();
+    window.addEventListener('resize', initCanvas);
+    
+    // Hero Mouse Interaction: Slight repulsion for particles
+    window.addEventListener('mousemove', function(e) {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      particlesArray.forEach(p => {
+        const dx = p.x - mouseX;
+        const dy = p.y - mouseY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 100) {
+          p.x += dx * 0.05;
+          p.y += dy * 0.05;
+        }
+      });
+    });
+    
+    // Particle Explosion on Click
+    window.addEventListener('click', function(e) {
+      const clickX = e.clientX;
+      const clickY = e.clientY;
+      for (let i = 0; i < 30; i++) {
+        particlesArray.push(new ParticleExplosion(clickX, clickY));
+      }
+    });
+  </script>
 </body>
 </html>
