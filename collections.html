@@ -64,7 +64,6 @@
     .nav-link:hover::after {
       width: 100%;
     }
-    /* Mark collections page active (optional) */
     .nav-link[href="collections.html"] {
       font-weight: 400;
     }
@@ -84,7 +83,7 @@
       position: relative;
       overflow: hidden;
     }
-    /* Use a landscape aspect ratio instead of portrait */
+    /* Landscape aspect ratio */
     .product-image {
       width: 100%;
       height: auto;
@@ -112,7 +111,6 @@
     .product-card:hover .product-image {
       transform: scale(1.03);
     }
-    /* Optionally remove the "sold-out" text for collections */
     .sold-out {
       display: none;
     }
@@ -140,10 +138,22 @@
       margin-bottom: 0.5rem;
       color: #ffffff;
     }
-    /* The product-price class remains in case you want to add more info later */
     .product-price {
       font-weight: 300;
       color: #ffffff;
+    }
+    /* Full-screen overlay effect for BONES COLLECTION */
+    #bones-effect {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      background: url('images/bones_effect.png') center center / cover no-repeat;
+      opacity: 0;
+      z-index: 90;
+      transform: scale(1);
     }
   </style>
 </head>
@@ -161,15 +171,18 @@
       </div>
     </nav>
   </header>
+  
+  <!-- Full-screen overlay for BONES COLLECTION immersive effect -->
+  <div id="bones-effect"></div>
 
   <main class="products-grid">
     <!-- Bones Collection Card -->
-    <div class="product-card">
+    <div class="product-card" id="bones-collection-card">
       <div class="product-image">
         <div class="product-overlay">
           <button class="view-details">VIEW COLLECTION</button>
         </div>
-        <img src="images/bones collection.png" alt="BONES COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/bones_collection.png" alt="BONES COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="product-info">
         <h2 class="product-title">BONES COLLECTION</h2>
@@ -181,7 +194,7 @@
         <div class="product-overlay">
           <button class="view-details">VIEW COLLECTION</button>
         </div>
-        <img src="images/27 club collection.png" alt="27 CLUB COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/27club_collection.png" alt="27 CLUB COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="product-info">
         <h2 class="product-title">27 CLUB COLLECTION</h2>
@@ -193,12 +206,27 @@
         <div class="product-overlay">
           <button class="view-details">VIEW COLLECTION</button>
         </div>
-        <img src="images/abstract collection.png" alt="ABSTRACT COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/abstract_collection.png" alt="ABSTRACT COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="product-info">
         <h2 class="product-title">ABSTRACT COLLECTION</h2>
       </div>
     </div>
   </main>
+  
+  <!-- GSAP library for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    const bonesCard = document.getElementById('bones-collection-card');
+    const bonesEffect = document.getElementById('bones-effect');
+
+    bonesCard.addEventListener('mouseenter', () => {
+      gsap.to(bonesEffect, {duration: 0.8, opacity: 1, scale: 1.05, rotation: 2, ease: "power3.out"});
+    });
+
+    bonesCard.addEventListener('mouseleave', () => {
+      gsap.to(bonesEffect, {duration: 0.8, opacity: 0, scale: 1, rotation: 0, ease: "power3.out"});
+    });
+  </script>
 </body>
 </html>
