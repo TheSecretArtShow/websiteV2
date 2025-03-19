@@ -114,7 +114,9 @@
     .sold-out {
       display: none;
     }
+    /* Button and Video Styles */
     .view-details {
+      position: relative; /* Enable positioning for child elements */
       background: transparent;
       border: 1px solid white;
       color: white;
@@ -124,9 +126,21 @@
       letter-spacing: 2px;
       transform: translateY(20px);
       transition: all 0.6s ease;
+      overflow: hidden; /* Hide video overflow */
     }
     .product-card:hover .view-details {
       transform: translateY(0);
+    }
+    /* Video placed inside the button */
+    .view-details video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none; /* Allow button clicks to pass through */
+      display: none;
     }
     .product-info {
       padding: 1.5rem 0;
@@ -141,19 +155,6 @@
     .product-price {
       font-weight: 300;
       color: #ffffff;
-    }
-    /* Full-screen overlay effect for BONES COLLECTION */
-    #bones-effect {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      background: url('20250318_1821_Bones Collection Unleashed_simple_compose_01jpnzth30f45v0xk3hrebx911.mp4') center center / cover no-repeat;
-      opacity: 0;
-      z-index: 90;
-      transform: scale(1);
     }
   </style>
 </head>
@@ -171,16 +172,19 @@
       </div>
     </nav>
   </header>
-  
-  <!-- Full-screen overlay for BONES COLLECTION immersive effect -->
-  <div id="bones-effect"></div>
 
   <main class="products-grid">
-    <!-- Bones Collection Card -->
+    <!-- Bones Collection Card with Video in the Button -->
     <div class="product-card" id="bones-collection-card">
       <div class="product-image">
         <div class="product-overlay">
-          <button class="view-details">VIEW COLLECTION</button>
+          <button class="view-details" id="bones-button">
+            VIEW COLLECTION
+            <video id="bones-video" muted loop playsinline>
+              <source src="20250318_1821_Bones Collection Unleashed_simple_compose_01jpnzth30f45v0xk3hrebx911.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </button>
         </div>
         <img src="images/bones collection.png" alt="BONES COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
       </div>
@@ -213,19 +217,20 @@
       </div>
     </div>
   </main>
-  
-  <!-- GSAP library for animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script>
-    const bonesCard = document.getElementById('bones-collection-card');
-    const bonesEffect = document.getElementById('bones-effect');
 
-    bonesCard.addEventListener('mouseenter', () => {
-      gsap.to(bonesEffect, {duration: 0.8, opacity: 1, scale: 1.05, rotation: 2, ease: "power3.out"});
+  <script>
+    const bonesButton = document.getElementById('bones-button');
+    const bonesVideo = document.getElementById('bones-video');
+
+    bonesButton.addEventListener('mouseenter', () => {
+      bonesVideo.style.display = 'block';
+      bonesVideo.play();
     });
 
-    bonesCard.addEventListener('mouseleave', () => {
-      gsap.to(bonesEffect, {duration: 0.8, opacity: 0, scale: 1, rotation: 0, ease: "power3.out"});
+    bonesButton.addEventListener('mouseleave', () => {
+      bonesVideo.pause();
+      bonesVideo.currentTime = 0;
+      bonesVideo.style.display = 'none';
     });
   </script>
 </body>
