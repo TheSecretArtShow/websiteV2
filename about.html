@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ARTSHOW | About</title>
-  <!-- GSAP for animations -->
+  <!-- External Library: GSAP for smooth animations (if needed) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
   <style>
-    /* Reset and Base Styles */
+    /* Reset & Base Styles */
     * {
       margin: 0;
       padding: 0;
@@ -15,8 +15,8 @@
       font-family: 'Helvetica Neue', sans-serif;
     }
     body {
-      background: #111111;
-      color: #ffffff;
+      background: #111;
+      color: #fff;
       overflow-x: hidden;
       position: relative;
     }
@@ -28,18 +28,18 @@
       height: 4px;
       background: #fff;
       width: 0;
-      z-index: 200;
+      z-index: 300;
       transition: width 0.1s ease-out;
     }
     /* Header Styles */
     .header {
-      padding: 1rem 5%;
+      padding: 1.8rem 5%;
       border-bottom: 1px solid #3a3a3a;
       position: fixed;
       width: 100%;
       background: rgba(45, 45, 45, 0.97);
       backdrop-filter: blur(8px);
-      z-index: 100;
+      z-index: 200;
     }
     .header-nav {
       display: flex;
@@ -83,35 +83,48 @@
     .nav-link:hover::after {
       width: 100%;
     }
-    /* Active link for ABOUT page */
+    /* Active Link for ABOUT page */
     .nav-link[href="about.html"] {
       font-weight: 400;
     }
     .nav-link[href="about.html"]::after {
       width: 100%;
     }
-    /* Hero Section with Canvas Background */
+    /* Hero Section */
     .hero {
       position: relative;
       min-height: 100vh;
       padding-top: 100px; /* space for fixed header */
       overflow: hidden;
     }
+    /* Hero Video - cropped bottom 15px and shifted left */
+    #heroVideo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      clip-path: inset(0 0 15px 0); /* crop bottom 15px */
+      transform: translateX(-20px); /* shift left by 20px (adjust as needed) */
+    }
+    /* Canvas for Particles */
     #heroCanvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;
+      z-index: 1;
+      pointer-events: none;
     }
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       text-align: center;
       padding: 2rem;
     }
-    /* Removed glitch styling — now it's just a normal heading */
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
@@ -123,7 +136,7 @@
       line-height: 1.6;
       margin: 1rem auto 2rem;
     }
-    /* Content Section with Reveal Animation */
+    /* Content Section */
     .content {
       max-width: 1200px;
       margin: 0 auto;
@@ -158,7 +171,7 @@
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 2px;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background 0.3s, color 0.3s;
       margin: 2rem 0;
     }
     .toggle-button:hover {
@@ -194,7 +207,9 @@
   </style>
 </head>
 <body>
+  <!-- Scroll Progress Bar -->
   <div id="scroll-progress"></div>
+
   <header class="header">
     <nav class="header-nav">
       <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
@@ -202,26 +217,38 @@
         <a href="index.html" class="nav-link">HOME</a>
         <a href="about.html" class="nav-link">ABOUT</a>
         <a href="shop.html" class="nav-link">SHOP</a>
-        <a href="InnerCircle.html" class="nav-link">THE INNER CIRCLE</a>
+        <a href="inner-circle.html" class="nav-link">THE INNER CIRCLE</a>
         <a href="contact.html" class="nav-link">CONTACT</a>
       </div>
     </nav>
   </header>
-  
+
   <main class="hero">
+    <!-- Hero Video -->
+    <video 
+      id="heroVideo"
+      src="OoO.mp4"
+      type="video/mp4"
+      muted
+      autoplay
+      playsinline
+    ></video>
+    
+    <!-- Canvas for Particles -->
     <canvas id="heroCanvas"></canvas>
+    
     <div class="hero-content">
-      <h1>MISSION</h1>
+      <h1>About ARTSHOW</h1>
       <p>
-        At The Art Show, art and fashion collide in an explosion of creativity and luxury. Brace yourself for an experience that defies expectations.
+        At ARTSHOW, art and fashion collide in an explosion of creativity and luxury. Brace yourself for an experience that defies expectations.
       </p>
     </div>
   </main>
-  
+
   <section class="content">
     <h2 class="reveal">Our Journey</h2>
     <p class="reveal">
-      Founded on the belief that art is an expression of individuality, The Art Show emerged as a sanctuary for creative souls. Our collections reflect a harmonious fusion of classic design and modern innovation.
+      Founded on the belief that art is an expression of individuality, ARTSHOW emerged as a sanctuary for creative souls. Our collections reflect a harmonious fusion of classic design and modern innovation.
     </p>
     <button class="toggle-button" id="toggleJourney">Read More</button>
     <div class="toggle-content" id="moreJourney">
@@ -234,40 +261,39 @@
       Every piece is meticulously crafted by skilled artisans, combining traditional techniques with contemporary design elements. Our commitment to excellence is evident in every stitch and detail, creating a legacy that is both timeless and progressive.
     </p>
   </section>
-  
+
   <button id="scrollTopBtn">Top</button>
-  
+
   <script>
     // Scroll Progress Bar
     window.addEventListener('scroll', function() {
-      var scrollProgress = document.getElementById('scroll-progress');
-      var totalHeight = document.body.scrollHeight - window.innerHeight;
-      var progress = (window.pageYOffset / totalHeight) * 100;
-      scrollProgress.style.width = progress + '%';
+      const progressBar = document.getElementById('scroll-progress');
+      const totalHeight = document.body.scrollHeight - window.innerHeight;
+      const progress = (window.pageYOffset / totalHeight) * 100;
+      progressBar.style.width = progress + '%';
     });
     
-    // Intersection Observer for Reveal Animations
+    // Reveal on Scroll
     const revealElements = document.querySelectorAll('.reveal');
-    const observerOptions = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries, observer) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if(entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, observerOptions);
-    revealElements.forEach(el => observer.observe(el));
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => revealObserver.observe(el));
     
     // Toggle More Content
-    const toggleButton = document.getElementById('toggleJourney');
+    const toggleBtn = document.getElementById('toggleJourney');
     const toggleContent = document.getElementById('moreJourney');
-    toggleButton.addEventListener('click', function() {
+    toggleBtn.addEventListener('click', function() {
       toggleContent.classList.toggle('open');
-      toggleButton.textContent = toggleContent.classList.contains('open') ? 'Read Less' : 'Read More';
+      toggleBtn.textContent = toggleContent.classList.contains('open') ? 'Read Less' : 'Read More';
     });
     
-    // Scroll to Top Button
+    // Scroll-to-Top Button
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', function() {
       scrollTopBtn.style.display = window.pageYOffset > 300 ? 'block' : 'none';
@@ -275,10 +301,12 @@
     scrollTopBtn.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    
-    // Particle System for Hero Canvas
-    const canvas = document.getElementById('heroCanvas');
-    const ctx = canvas.getContext('2d');
+
+    /* HERO VIDEO TIMING & EXPLOSION */
+    const heroVideo = document.getElementById('heroVideo');
+    let explosionTriggered = false;
+    let canvas = document.getElementById('heroCanvas');
+    let ctx = canvas.getContext('2d');
     let particlesArray = [];
     let canvasWidth, canvasHeight;
     
@@ -286,7 +314,7 @@
       canvasWidth = canvas.width = window.innerWidth;
       canvasHeight = canvas.height = window.innerHeight;
       particlesArray = [];
-      // Create initial set of floating particles
+      // Create initial floating particles
       for(let i = 0; i < 200; i++) {
         particlesArray.push(new Particle());
       }
@@ -299,13 +327,11 @@
         this.size = Math.random() * 3 + 1;
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
-        // CHANGED COLOR TO YELLOW
-        this.color = 'rgba(255,255,0,0.5)';
+        this.color = 'rgba(255,255,0,0.5)'; // yellow
       }
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        // Wrap around edges
         if (this.x < 0) this.x = canvasWidth;
         if (this.x > canvasWidth) this.x = 0;
         if (this.y < 0) this.y = canvasHeight;
@@ -334,7 +360,6 @@
         this.life--;
       }
       draw() {
-        // CHANGED COLOR TO YELLOW
         ctx.fillStyle = 'rgba(255,255,0,' + this.life / 100 + ')';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -356,7 +381,7 @@
     animateParticles();
     window.addEventListener('resize', initCanvas);
     
-    // Hero Mouse Interaction: Slight repulsion for particles
+    // Slight repulsion on mouse move
     window.addEventListener('mousemove', function(e) {
       const mouseX = e.clientX;
       const mouseY = e.clientY;
@@ -371,12 +396,28 @@
       });
     });
     
-    // Particle Explosion on Click
+    // Additional explosion on click
     window.addEventListener('click', function(e) {
       const clickX = e.clientX;
       const clickY = e.clientY;
       for (let i = 0; i < 30; i++) {
         particlesArray.push(new ParticleExplosion(clickX, clickY));
+      }
+    });
+    
+    /* HERO VIDEO TIMING */
+    heroVideo.addEventListener('timeupdate', () => {
+      // Trigger explosion at 0.5 seconds
+      if (!explosionTriggered && heroVideo.currentTime >= 0.5) {
+        explosionTriggered = true;
+        for (let i = 0; i < 100; i++) {
+          particlesArray.push(new ParticleExplosion(canvasWidth / 2, canvasHeight / 2));
+        }
+      }
+      // Pause video at 4.95 seconds, leaving it static
+      if (heroVideo.currentTime >= 4.95) {
+        heroVideo.pause();
+        heroVideo.currentTime = 4.95;
       }
     });
   </script>
