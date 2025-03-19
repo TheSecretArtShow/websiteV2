@@ -36,6 +36,8 @@
       padding: 1.8rem 5%;
       border-bottom: 1px solid #3a3a3a;
       position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       background: rgba(45, 45, 45, 0.97);
       backdrop-filter: blur(8px);
@@ -93,18 +95,17 @@
 
     /*
       VIDEO CONTAINER
-      - Sits below the fixed navbar
-      - Holds the video and the particle canvas
+      - Placed just below the fixed navbar
     */
     .video-container {
-      margin-top: 90px; /* Push below the fixed navbar; adjust as needed */
+      margin-top: 90px; /* Adjust as needed to sit below the navbar */
       position: relative;
       width: 100%;
-      height: calc(100vh - 90px); /* Fill most of the viewport minus the navbar height */
+      height: calc(100vh - 90px); /* Fill the remaining viewport */
       overflow: hidden;
     }
 
-    /* Hero Video: Crops bottom 15px, shifts left, fills .video-container */
+    /* Hero Video: Crop bottom 15px, shift left, fill container */
     #heroVideo {
       position: absolute;
       top: 0;
@@ -116,7 +117,7 @@
       transform: translateX(-20px); /* Shift left; adjust as needed */
     }
 
-    /* Canvas for Particles, layered above the video */
+    /* Canvas for Particles, above the video */
     #heroCanvas {
       position: absolute;
       top: 0;
@@ -229,7 +230,7 @@
         <a href="index.html" class="nav-link">HOME</a>
         <a href="about.html" class="nav-link">ABOUT</a>
         <a href="shop.html" class="nav-link">SHOP</a>
-        <a href="InnerCircle.html" class="nav-link">THE INNER CIRCLE</a>
+        <a href="inner-circle.html" class="nav-link">THE INNER CIRCLE</a>
         <a href="contact.html" class="nav-link">CONTACT</a>
       </div>
     </nav>
@@ -330,8 +331,10 @@
     let canvasWidth, canvasHeight;
 
     function initCanvas() {
-      canvasWidth = canvas.width = canvas.parentElement.clientWidth;
-      canvasHeight = canvas.height = canvas.parentElement.clientHeight;
+      // Make the canvas match the size of .video-container
+      const container = canvas.parentElement;
+      canvasWidth = canvas.width = container.clientWidth;
+      canvasHeight = canvas.height = container.clientHeight;
       particlesArray = [];
       // Create an initial set of floating particles
       for(let i = 0; i < 200; i++) {
@@ -419,9 +422,13 @@
 
     // Additional explosion on click
     window.addEventListener('click', function(e) {
+      // Only explode if the click is inside the video container
       const rect = canvas.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const clickY = e.clientY - rect.top;
+      // If user clicked outside the container, no effect
+      if (clickX < 0 || clickX > rect.width || clickY < 0 || clickY > rect.height) return;
+
       for (let i = 0; i < 30; i++) {
         particlesArray.push(new ParticleExplosion(clickX, clickY));
       }
