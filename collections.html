@@ -116,7 +116,7 @@
     }
     /* Button and Video Styles */
     .view-details {
-      position: relative; /* Enable positioning for child elements */
+      position: relative; /* For positioning child video */
       background: transparent;
       border: 1px solid white;
       color: white;
@@ -131,7 +131,6 @@
     .product-card:hover .view-details {
       transform: translateY(0);
     }
-    /* Video placed inside the button */
     .view-details video {
       position: absolute;
       top: 0;
@@ -174,7 +173,7 @@
   </header>
 
   <main class="products-grid">
-    <!-- Bones Collection Card with Video in the Button -->
+    <!-- Bones Collection Card -->
     <div class="product-card" id="bones-collection-card">
       <div class="product-image">
         <div class="product-overlay">
@@ -193,10 +192,16 @@
       </div>
     </div>
     <!-- 27 Club Collection Card -->
-    <div class="product-card">
+    <div class="product-card" id="club-collection-card">
       <div class="product-image">
         <div class="product-overlay">
-          <button class="view-details">VIEW COLLECTION</button>
+          <button class="view-details" id="club-button">
+            VIEW COLLECTION
+            <video id="club-video" muted loop playsinline>
+              <source src="20250318_1851_Urban Streetwear Showcase_simple_compose_01jpp1hnyffcxa7qez04ka8jyn.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </button>
         </div>
         <img src="images/27 club collection.png" alt="27 CLUB COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
       </div>
@@ -205,10 +210,16 @@
       </div>
     </div>
     <!-- Abstract Collection Card -->
-    <div class="product-card">
+    <div class="product-card" id="abstract-collection-card">
       <div class="product-image">
         <div class="product-overlay">
-          <button class="view-details">VIEW COLLECTION</button>
+          <button class="view-details" id="abstract-button">
+            VIEW COLLECTION
+            <video id="abstract-video" muted loop playsinline>
+              <source src="20250318_1903_Abstract Fashion Street Style_simple_compose_01jpp28e59f1bszxdhd2ct3h6z.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </button>
         </div>
         <img src="images/abstract collection.png" alt="ABSTRACT COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
       </div>
@@ -219,18 +230,43 @@
   </main>
 
   <script>
+    // Bones Collection Video Hover
     const bonesButton = document.getElementById('bones-button');
     const bonesVideo = document.getElementById('bones-video');
-
     bonesButton.addEventListener('mouseenter', () => {
       bonesVideo.style.display = 'block';
       bonesVideo.play();
     });
-
     bonesButton.addEventListener('mouseleave', () => {
       bonesVideo.pause();
       bonesVideo.currentTime = 0;
       bonesVideo.style.display = 'none';
+    });
+
+    // 27 Club Collection Video Hover
+    const clubButton = document.getElementById('club-button');
+    const clubVideo = document.getElementById('club-video');
+    clubButton.addEventListener('mouseenter', () => {
+      clubVideo.style.display = 'block';
+      clubVideo.play();
+    });
+    clubButton.addEventListener('mouseleave', () => {
+      clubVideo.pause();
+      clubVideo.currentTime = 0;
+      clubVideo.style.display = 'none';
+    });
+
+    // Abstract Collection Video Hover
+    const abstractButton = document.getElementById('abstract-button');
+    const abstractVideo = document.getElementById('abstract-video');
+    abstractButton.addEventListener('mouseenter', () => {
+      abstractVideo.style.display = 'block';
+      abstractVideo.play();
+    });
+    abstractButton.addEventListener('mouseleave', () => {
+      abstractVideo.pause();
+      abstractVideo.currentTime = 0;
+      abstractVideo.style.display = 'none';
     });
   </script>
 </body>
