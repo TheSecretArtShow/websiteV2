@@ -200,48 +200,46 @@
       </div>
   </div>
   
-  <script>
-    // Contact form submission logic adapted from the InnerCircle email signup
-    document.getElementById('contact-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const email = document.getElementById('contact-email').value;
-        const name = document.getElementById('contact-name').value;
-        const message = document.getElementById('contact-message').value;
-    
-        if (email && name && message) {
-            fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                // Payload: "Support" in column A, email in column B, name in column C, message in column D
-                body: JSON.stringify({ 
-                    listType: 'Support', 
-                    email: email, 
-                    name: name, 
-                    message: message 
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Show popup modal on success
-                document.getElementById('email-popup').style.display = 'flex';
-                // Optionally reset the form
-                document.getElementById('contact-form').reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
-        } else {
-            alert('Please fill out all fields.');
-        }
-    });
-    
-    // Close popup modal when the resume button is clicked
-    document.getElementById('resume-button').addEventListener('click', function () {
-        document.getElementById('email-popup').style.display = 'none';
-    });
-  </script>
-</body>
-</html>
+ <script>
+  // Contact form submission logic with combined name and message in one field (for column C)
+  document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('contact-email').value;
+      const name = document.getElementById('contact-name').value;
+      const message = document.getElementById('contact-message').value;
+  
+      if (email && name && message) {
+          fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              // Payload now sends "Support" in column A, email in column B,
+              // and the combined name and message in column C.
+              body: JSON.stringify({ 
+                  listType: 'Support', 
+                  email: email, 
+                  name: name + ': ' + message 
+              })
+          })
+          .then(response => response.json())
+          .then(data => {
+              // Show popup modal on success
+              document.getElementById('email-popup').style.display = 'flex';
+              // Optionally reset the form
+              document.getElementById('contact-form').reset();
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again.');
+          });
+      } else {
+          alert('Please fill out all fields.');
+      }
+  });
+  
+  // Close popup modal when the resume button is clicked
+  document.getElementById('resume-button').addEventListener('click', function () {
+      document.getElementById('email-popup').style.display = 'none';
+  });
+</script>
