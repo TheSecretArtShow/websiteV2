@@ -1,240 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collections - The Art Show</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
-    <style>
-        /* General Styling */
-        body {
-            background-color: #121212;
-            color: #f5f5f5;
-            line-height: 1.6;
-            font-family: 'Arial', sans-serif;
-        }
-
-        h1, h2 {
-            color: #ffffff;
-        }
-
-        a {
-            color: #ff6b6b;
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: #ff3b3b;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .collections {
-            padding: 50px 0;
-            text-align: center;
-        }
-
-        .collections h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .collections p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-        }
-
-        .collection-item {
-            display: inline-block;
-            margin: 0 10px;
-            position: relative;
-            width: 300px;
-            height: 200px;
-            background-color: #333; /* Placeholder background color */
-            color: #f5f5f5;
-            border-radius: 8px;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .collection-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.7; /* Slight opacity for the image */
-        }
-
-        .collection-item h3 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            margin: 0;
-            font-size: 1.5rem;
-            color: #f5f5f5;
-            text-transform: uppercase;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-
-        .coming-soon-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(255, 255, 255, 0.3));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            transform: scale(1.2);
-        }
-
-        .collection-item:hover .coming-soon-overlay {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .collection-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .collection-item .view-details {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ff6b6b;
-            color: #f5f5f5;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            transform: translateY(20px);
-        }
-
-        .collection-item:hover .view-details {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        footer {
-            background-color: #1f1f1f;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 50px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARTSHOW | Collections</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+    body {
+      background: #111111;
+      color: #ffffff;
+    }
+    /* Header Styles */
+    .header {
+      padding: 1.8rem 5%;
+      border-bottom: 1px solid #3a3a3a;
+      position: fixed;
+      width: 100%;
+      background: rgba(45, 45, 45, 0.97) !important;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .logo {
+      width: 180px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.8rem;
+    }
+    .nav-link {
+      color: rgba(255, 255, 255, 0.9) !important;
+      text-decoration: none;
+      font-weight: 300;
+      letter-spacing: 2.5px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 3px;
+      transition: opacity 0.4s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0.5px;
+      background: rgba(255, 255, 255, 0.9);
+      transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    /* Mark collections page active (optional) */
+    .nav-link[href="collections.html"] {
+      font-weight: 400;
+    }
+    .nav-link[href="collections.html"]::after {
+      width: 100%;
+    }
+    /* Product Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      padding: 10rem 5% 5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .product-card {
+      position: relative;
+      overflow: hidden;
+    }
+    /* Use a landscape aspect ratio instead of portrait */
+    .product-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      background: #fff;
+      transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+    .product-card:hover .product-image {
+      transform: scale(1.03);
+    }
+    /* Optionally remove the "sold-out" text for collections */
+    .sold-out {
+      display: none;
+    }
+    .view-details {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 0.8rem 2rem;
+      cursor: pointer;
+      font-weight: 300;
+      letter-spacing: 2px;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .product-card:hover .view-details {
+      transform: translateY(0);
+    }
+    .product-info {
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+    .product-title {
+      font-weight: 300;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+    /* The product-price class remains in case you want to add more info later */
+    .product-price {
+      font-weight: 300;
+      color: #ffffff;
+    }
+  </style>
 </head>
 <body>
+  <header class="header">
+    <nav class="header-nav">
+      <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="about.html" class="nav-link">ABOUT</a>
+        <a href="shop.html" class="nav-link">SHOP</a>
+        <a href="inner-circle.html" class="nav-link">THE INNER CIRCLE</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+        <a href="collections.html" class="nav-link">COLLECTIONS</a>
+      </div>
+    </nav>
+  </header>
 
-<header>
-    <div class="container">
-        <h1 style="text-align: center;">
-            <img src="Screenshot 2024-08-25 114142.png" alt="The Art Show" style="max-width: 100%; height: auto;">
-        </h1>
-        <nav>
-            <ul style="display: flex; justify-content: center; list-style: none; padding: 0;">
-                <li style="margin: 0 15px;"><a href="index.html">Home</a></li>
-                <li style="margin: 0 15px;"><a href="about.html">About</a></li>
-                <li style="margin: 0 15px; position: relative;">
-                    <a href="shop.html">Shop</a>
-                    <ul class="dropdown">
-                        <li><a href="shop.html">All pieces</a></li>
-                        <li><a href="collections.html">Collections</a></li>
-                    </ul>
-                </li>
-                <li style="margin: 0 15px;"><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<main>
-    <section class="collections">
-        <div class="container">
-            <h2>Our Collections</h2>
-            <p>Explore our exclusive collections...</p>
-            <div class="collection-container">
-                <div class="collection-item">
-                    <img src="images/bones collection.png" alt="Collection 1"> <!-- Replace with your image -->
-                    <h3>Bones</h3>
-                    <div class="coming-soon-overlay">Coming Soon</div>
-                    <button class="view-details">View Details</button>
-                </div>
-                <div class="collection-item">
-                    <img src="images/27 club collection.png" alt="Collection 2"> <!-- Replace with your image -->
-                    <h3>27 Club</h3>
-                    <div class="coming-soon-overlay">Coming Soon</div>
-                    <button class="view-details">View Details</button>
-                </div>
-                <div class="collection-item">
-                    <img src="images/abstract collection.png" alt="Collection 3"> <!-- Replace with your image -->
-                    <h3>Abstract</h3>
-                    <div class="coming-soon-overlay">Coming Soon</div>
-                    <button class="view-details">View Details</button>
-                </div>
-            </div>
+  <main class="products-grid">
+    <!-- Bones Collection Card -->
+    <div class="product-card">
+      <div class="product-image">
+        <div class="product-overlay">
+          <button class="view-details">VIEW COLLECTION</button>
         </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2024 The Art Show. All rights reserved.</p>
+        <img src="images/bones collection.jpg" alt="BONES COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="product-info">
+        <h2 class="product-title">BONES COLLECTION</h2>
+      </div>
     </div>
-</footer>
-
-<!-- Star container for the cursor effect -->
-<div class="star-container">
-    <div class="star" id="star1"></div>
-    <div class="star" id="star2"></div>
-    <div class="star" id="star3"></div>
-    <div class="star" id="star4"></div>
-    <div class="star" id="star5"></div>
-    <div class="star" id="star6"></div>
-    <div class="star" id="star7"></div>
-    <div class="star" id="star8"></div>
-</div>
-
-<!-- Email Signup Popup Modal -->
-<div class="email-popup-overlay" id="email-popup">
-    <div class="email-popup-content">
-        <h2>Join Our Community</h2>
-        <p>Enter your email to sign up for exclusive access to our collections.</p>
-
-        <div class="signup-option" id="waitlist-option">
-            <button id="waitlist-button">Waitlist</button>
-            <input type="email" id="waitlist-email" placeholder="Enter your email" class="email-input" style="display:none;">
-            <button id="submit-waitlist" class="submit-button" style="display:none;">Submit</button>
+    <!-- 27 Club Collection Card -->
+    <div class="product-card">
+      <div class="product-image">
+        <div class="product-overlay">
+          <button class="view-details">VIEW COLLECTION</button>
         </div>
-
-        <div class="signup-option" id="insider-option">
-            <button id="insider-button">Insider alerts</button>
-            <input type="email" id="insider-email" placeholder="Enter your email" class="email-input" style="display:none;">
-            <button id="submit-insider" class="submit-button" style="display:none;">Submit</button>
-        </div>
-
-        <button id="resume-browsing-button" class="resume-button">Resume browsing</button>
-        <input type="hidden" id="selected-product" name="selected-product">
+        <img src="images/27 club collection.jpg" alt="27 CLUB COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="product-info">
+        <h2 class="product-title">27 CLUB COLLECTION</h2>
+      </div>
     </div>
-</div>
-
-<script src="script.js"></script>
+    <!-- Abstract Collection Card -->
+    <div class="product-card">
+      <div class="product-image">
+        <div class="product-overlay">
+          <button class="view-details">VIEW COLLECTION</button>
+        </div>
+        <img src="images/abstract collection.jpg" alt="ABSTRACT COLLECTION Image" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="product-info">
+        <h2 class="product-title">ABSTRACT COLLECTION</h2>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
