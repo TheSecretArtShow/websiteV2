@@ -26,7 +26,8 @@
     }
 
     /* ----------------------------------------------------------------
-       HEADER & NAV (Ensures it's flush with the top)
+       HEADER & NAV
+       Fixed at the very top, flush with the page edge
     ---------------------------------------------------------------- */
     .header {
       position: fixed;
@@ -39,7 +40,6 @@
       backdrop-filter: blur(8px);
       z-index: 100;
     }
-
     .header-nav {
       display: flex;
       justify-content: space-between;
@@ -47,16 +47,13 @@
       max-width: 1400px;
       margin: 0 auto;
     }
-
     .logo {
       width: 180px;
     }
-
     .nav-links {
       display: flex;
       gap: 2.8rem;
     }
-
     .nav-link {
       color: rgba(255, 255, 255, 0.9) !important;
       text-decoration: none;
@@ -67,7 +64,6 @@
       padding-bottom: 3px;
       transition: opacity 0.4s ease;
     }
-
     .nav-link::after {
       content: '';
       position: absolute;
@@ -78,55 +74,72 @@
       background: rgba(255, 255, 255, 0.9);
       transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
-
     .nav-link:hover::after {
       width: 100%;
     }
-
     .nav-link[href="contact.html"] {
       font-weight: 400; /* highlight CONTACT page */
     }
-
     .nav-link[href="contact.html"]::after {
       width: 100%;
     }
 
     /* ----------------------------------------------------------------
-       HERO SECTION
+       HERO SECTION WITH VIDEO BACKGROUND
     ---------------------------------------------------------------- */
     .hero {
       position: relative;
-      min-height: 40vh;
-      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      margin-top: 70px; /* So hero is fully visible below the fixed header */
+      min-height: 70vh; /* Ensures a nice tall section */
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 2rem 5%;
-      margin-top: 0; /* No gap above hero */
+      overflow: hidden;
     }
 
-    /* Extra top padding so hero doesn't get hidden behind fixed header */
+    /* Video behind everything else */
+    .hero-video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .hero-video-background video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Dark overlay to make text more readable */
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(17, 17, 17, 0.4); /* Slight dark overlay */
+      z-index: 0;
+    }
+
     .hero-content {
-      margin-top: 6rem;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+      position: relative; /* Above the overlay and video */
+      z-index: 1;
+      text-align: center;
       animation: fadeInUp 1.2s forwards ease-in-out;
       opacity: 0;
       transform: translateY(20px);
     }
 
-    /* Hero Heading with "SOLD OUT" styling */
-    .hero h1 {
-      letter-spacing: 3px;    /* same spacing as "SOLD OUT" */
+    /* Hero heading matches "SOLD OUT" style */
+    .hero-content h1 {
+      letter-spacing: 3px; /* same spacing as "SOLD OUT" */
       font-size: 2.5rem;
       text-transform: uppercase;
       margin-bottom: 1rem;
       color: #d4af37; /* Gold accent */
     }
-
-    .hero p {
+    .hero-content p {
       font-size: 1.2rem;
       color: #f5f5f5;
       margin-bottom: 0;
@@ -172,7 +185,6 @@
       gap: 1.5rem;
       margin-top: 2rem;
     }
-
     .contact-form input,
     .contact-form textarea {
       width: 100%;
@@ -184,13 +196,11 @@
       font-size: 1rem;
       transition: border-color 0.3s ease;
     }
-
     .contact-form input:focus,
     .contact-form textarea:focus {
       border-color: #d4af37; /* Gold highlight on focus */
       outline: none;
     }
-
     .contact-form button {
       padding: 0.9rem;
       background: #d4af37; /* Gold button */
@@ -204,14 +214,13 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-
     .contact-form button:hover {
       background: #c19e3b;
       transform: scale(1.05);
     }
 
     /* ----------------------------------------------------------------
-       POPUP MODAL (Reused from your existing approach)
+       POPUP MODAL (confirmation)
     ---------------------------------------------------------------- */
     .email-popup-overlay {
       position: fixed;
@@ -225,7 +234,6 @@
       align-items: center;
       z-index: 1000;
     }
-
     .email-popup-content {
       background: linear-gradient(135deg, #282828, #1f1f1f);
       padding: 40px;
@@ -238,7 +246,6 @@
       opacity: 0;
       transform: translateY(20px);
     }
-
     .email-popup-content h2 {
       font-size: 1.8rem;
       margin-bottom: 20px;
@@ -247,13 +254,11 @@
       letter-spacing: 3px; /* match "SOLD OUT" spacing */
       font-weight: 300;
     }
-
     .email-popup-content p {
       font-size: 1.1rem;
       margin-bottom: 20px;
       color: #f5f5f5;
     }
-
     .email-popup-content button {
       padding: 10px 20px;
       background: #d4af37;
@@ -267,7 +272,6 @@
       letter-spacing: 1px;
       font-weight: 600;
     }
-
     .email-popup-content button:hover {
       background: #c19e3b;
       transform: scale(1.05);
@@ -289,8 +293,14 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with Video Background -->
   <section class="hero">
+    <div class="hero-video-background">
+      <video autoplay loop muted playsinline>
+        <source src="vid1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
     <div class="hero-content">
       <h1>Contact Support</h1>
       <p>Need assistance? We’re here to help. Let us know how we can make your experience even better.</p>
