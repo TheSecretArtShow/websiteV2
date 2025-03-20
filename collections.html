@@ -455,23 +455,23 @@
                   })
                   .then(response => response.json())
                   .then(data => {
-                    // Replace the entire notify field with a golden button
-                    const notifyField = document.getElementById('notify-field');
-                    notifyField.innerHTML = `
-                      <button 
-                        style="
-                          background-color: #d4af37; 
-                          color: #111; 
-                          border:none; 
-                          padding:0.8rem 1.2rem; 
-                          border-radius:4px; 
-                          cursor:pointer; 
-                          text-transform:uppercase; 
-                          letter-spacing:2px;
-                        ">
-                        WE'LL BE IN TOUCH
-                      </button>
-                    `;
+                    // Replace only the LET ME KNOW WHEN IT DROPS button with a golden button
+                    const notifyBtn = document.getElementById('notify-button');
+                    const goldenBtn = document.createElement('button');
+                    goldenBtn.textContent = "WE'LL BE IN TOUCH";
+                    // Use the same styling as overlay buttons but with gold color
+                    goldenBtn.style.margin = "5px";
+                    goldenBtn.style.padding = "0.8rem 1.2rem";
+                    goldenBtn.style.background = "transparent";
+                    goldenBtn.style.border = "1px solid #d4af37";
+                    goldenBtn.style.color = "#d4af37";
+                    goldenBtn.style.textTransform = "uppercase";
+                    goldenBtn.style.letterSpacing = "2px";
+                    goldenBtn.style.cursor = "default"; // Decorative only
+                    // Replace the existing button
+                    notifyBtn.parentNode.replaceChild(goldenBtn, notifyBtn);
+                    // Optionally hide the email input field and its submit button
+                    document.getElementById('notify-field').style.display = 'none';
                   })
                   .catch(error => {
                     console.error('Error:', error);
