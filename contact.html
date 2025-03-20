@@ -276,22 +276,65 @@
       background: #c19e3b;
       transform: scale(1.05);
     }
+    /* Dropdown Menu Styles */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(45, 45, 45, 0.97);
+  border: 1px solid #3a3a3a;
+  padding: 0.5rem 0;
+  min-width: 150px;
+  z-index: 101;
+  border-radius: 4px;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  transition: background 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-container:hover .dropdown {
+  display: block;
+}
   </style>
 </head>
 <body>
   <!-- Header & Navigation -->
   <header class="header">
-    <nav class="header-nav">
-      <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
-      <div class="nav-links">
-        <a href="index.html" class="nav-link">HOME</a>
-        <a href="about.html" class="nav-link">ABOUT</a>
+  <nav class="header-nav">
+    <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">HOME</a>
+      <a href="about.html" class="nav-link">ABOUT</a>
+      <div class="dropdown-container">
         <a href="shop.html" class="nav-link">SHOP</a>
-        <a href="InnerCircle.html" class="nav-link">THE INNER CIRCLE</a>
-        <a href="contact.html" class="nav-link">CONTACT</a>
+        <div class="dropdown">
+          <a href="shop.html" class="dropdown-item">ALL PIECES</a>
+          <a href="collections.html" class="dropdown-item">COLLECTIONS</a>
+        </div>
       </div>
-    </nav>
-  </header>
+      <a href="InnerCircle.html" class="nav-link">THE INNER CIRCLE</a>
+      <a href="contact.html" class="nav-link">CONTACT</a>
+    </div>
+  </nav>
+</header>
 
   <!-- Hero Section with Video Background -->
   <section class="hero">
