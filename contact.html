@@ -292,36 +292,49 @@
 }
 
 /* The dropdown sublinks remain hidden until hover. */
+/* Dropdown Container for SHOP */
+.dropdown-container {
+  position: relative;
+  display: inline-block; /* Keep SHOP and dropdown inline in the nav */
+}
+
+/* Make the nav-link an inline-block so it can shift on hover */
+.dropdown-container .nav-link {
+  display: inline-block;
+  transition: transform 0.3s ease; /* Smooth shift animation */
+}
+
+/* SHIFT "SHOP" up on hover to create space */
+.dropdown-container:hover > .nav-link {
+  transform: translateY(-5px);
+}
+
+/* The dropdown sublinks remain hidden until hover */
 .dropdown {
   display: none;
   position: absolute;
   left: 0;
-  top: 100%; 
-  /* Shift the dropdown upward slightly so it tucks under the SHOP text. */
-  transform: translateY(-5px);
-
-  /* Create a transparent 'bounding box' so you can move the mouse 
-     from SHOP down to sublinks without losing hover. */
+  top: 100%;
+  transform: translateY(3px); /* Slight offset so sublinks appear just below SHOP */
+  
+  /* Transparent bounding box so you can hover between SHOP and sublinks */
   background: transparent; 
-  pointer-events: none; /* Initially disabled pointer events */
-  padding: 6px 0;       /* Some vertical padding so there's no gap */
+  pointer-events: none;
+  
+  /* A little vertical padding so there's no gap the mouse can "fall through" */
+  padding: 6px 0;
 }
 
-/* Show the dropdown and enable pointer events on hover */
+/* Show the dropdown & enable pointer events on container hover */
 .dropdown-container:hover .dropdown {
   display: block;
   pointer-events: auto;
 }
 
-/* Sublink styling:
-   - 1pt (or ~0.1rem) smaller than before, 
-   - slight letter spacing, 
-   - uppercase, 
-   - no bounding box
-*/
+/* Sublink styling: small text, uppercase, minimal spacing */
 .dropdown-item {
   display: block;
-  font-size: 0.7rem;      /* Smaller text */
+  font-size: 0.7rem;      /* 1pt smaller than before (adjust as you like) */
   letter-spacing: 2px;    /* Slightly less than main nav’s 3px */
   text-transform: uppercase;
   text-decoration: none;
