@@ -121,7 +121,7 @@
       display: none;
     }
     /* =============================
-       Button and Video Styles
+       Button & Video Styles
     ============================= */
     .view-details {
       position: relative;
@@ -164,7 +164,8 @@
       color: #ffffff;
     }
     /* =============================
-       Collection Overlay Styles
+       Full-Screen Overlay
+       Initially transparent so user sees page behind the expanding video.
     ============================= */
     #collection-overlay {
       position: fixed;
@@ -172,7 +173,8 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: #000;
+      background: rgba(0,0,0,0); /* Start fully transparent */
+      transition: background 0.5s ease; /* Fade to black */
       z-index: 200;
       display: none;
       overflow: hidden;
@@ -309,57 +311,66 @@
     </div>
   </main>
 
-  <!-- Collection Overlay (hidden by default) -->
+  <!-- Full-Screen Overlay (transparent initially) -->
   <div id="collection-overlay">
     <div class="overlay-video-container"></div>
     <div class="overlay-content"></div>
   </div>
 
   <script>
-    // Function to animate video expansion on click
+    // Expand to full screen with a smooth transition
     document.querySelectorAll('.view-details').forEach(button => {
       button.addEventListener('click', function(e) {
         e.preventDefault();
-        // Get the video inside the clicked button
+
         const video = button.querySelector('video');
-        // Get its position and size relative to viewport
         const rect = video.getBoundingClientRect();
-        // Clone the video element
+
+        // Clone the video element so we can animate it
         const clonedVideo = video.cloneNode(true);
-        // Set initial style to match the original video
         clonedVideo.style.position = 'absolute';
         clonedVideo.style.top = rect.top + 'px';
         clonedVideo.style.left = rect.left + 'px';
         clonedVideo.style.width = rect.width + 'px';
         clonedVideo.style.height = rect.height + 'px';
         clonedVideo.style.objectFit = 'cover';
-        
-        // Get the overlay container and its child containers
+
+        // Overlay references
         const overlay = document.getElementById('collection-overlay');
         const videoContainer = overlay.querySelector('.overlay-video-container');
         const overlayContent = overlay.querySelector('.overlay-content');
+
         // Clear any previous content
         videoContainer.innerHTML = '';
         overlayContent.innerHTML = '';
-        // Append the cloned video
+        // Add the cloned video to the overlay
         videoContainer.appendChild(clonedVideo);
-        
-        // Display the overlay
+
+        // Show the overlay (still transparent)
         overlay.style.display = 'block';
-        // Force reflow so that initial styles are applied
+        overlay.style.background = 'rgba(0,0,0,0)';
+
+        // Force reflow so initial styles are applied
         void clonedVideo.offsetWidth;
-        // Animate video to full screen
+
+        // Animate the video to full screen
+        clonedVideo.play();
         clonedVideo.style.top = '0px';
         clonedVideo.style.left = '0px';
         clonedVideo.style.width = '100%';
         clonedVideo.style.height = '100%';
-        clonedVideo.play();
-        
-        // After 0.8 seconds, show overlay content ("COMING SOON")
+
+        // Fade the overlay background to black after a brief delay
+        setTimeout(() => {
+          overlay.style.background = 'rgba(0,0,0,1)';
+        }, 100); // Adjust delay as desired
+
+        // Once the video finishes expanding (~0.8s), show "COMING SOON"
         setTimeout(() => {
           overlayContent.style.opacity = '1';
           overlayContent.innerHTML = '<div class="coming-soon">COMING SOON</div>';
-          // After an additional 1 second, replace with the minimalistic form
+
+          // After another second, replace with minimalistic form
           setTimeout(() => {
             overlayContent.innerHTML = `
               <div class="overlay-form">
@@ -370,36 +381,43 @@
                   <button id="notify-submit">Submit</button>
                 </div>
               </div>`;
-            // Add event listener for Resume Browsing button
+            // Fade content in again
+            overlayContent.style.opacity = '1';
+
+            // Resume Browsing button
             document.getElementById('resume-button').addEventListener('click', () => {
+              // Fade out the overlay content
+              overlayContent.style.opacity = '0';
+              // Fade overlay background back to transparent
+              overlay.style.background = 'rgba(0,0,0,0)';
+
               // Animate cloned video back to original position
               clonedVideo.style.top = rect.top + 'px';
               clonedVideo.style.left = rect.left + 'px';
               clonedVideo.style.width = rect.width + 'px';
               clonedVideo.style.height = rect.height + 'px';
-              overlayContent.style.opacity = '0';
-              // After animation, hide overlay
+
+              // Once the video has shrunk back (~0.8s), hide the overlay
               setTimeout(() => {
                 overlay.style.display = 'none';
               }, 800);
             });
-            // Add event listener for LET ME KNOW WHEN IT DROPS button
+
+            // LET ME KNOW WHEN IT DROPS button
             document.getElementById('notify-button').addEventListener('click', () => {
               const notifyField = document.getElementById('notify-field');
-              // Toggle display of email input field
-              if (notifyField.style.display === 'none') {
-                notifyField.style.display = 'block';
-              } else {
-                notifyField.style.display = 'none';
-              }
+              notifyField.style.display = 
+                (notifyField.style.display === 'none') ? 'block' : 'none';
             });
           }, 1000);
         }, 800);
       });
     });
-    
-    // (Optional) Retain existing hover video play/pause behavior on buttons
-    // Bones Collection Video Hover
+
+    // =====================
+    // Hover Video Behavior
+    // =====================
+    // Bones
     const bonesButton = document.getElementById('bones-button');
     const bonesVideo = document.getElementById('bones-video');
     bonesButton.addEventListener('mouseenter', () => {
@@ -411,7 +429,8 @@
       bonesVideo.currentTime = 0;
       bonesVideo.style.display = 'none';
     });
-    // 27 Club Collection Video Hover
+
+    // 27 Club
     const clubButton = document.getElementById('club-button');
     const clubVideo = document.getElementById('club-video');
     clubButton.addEventListener('mouseenter', () => {
@@ -423,7 +442,8 @@
       clubVideo.currentTime = 0;
       clubVideo.style.display = 'none';
     });
-    // Abstract Collection Video Hover
+
+    // Abstract
     const abstractButton = document.getElementById('abstract-button');
     const abstractVideo = document.getElementById('abstract-video');
     abstractButton.addEventListener('mouseenter', () => {
