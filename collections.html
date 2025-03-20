@@ -91,6 +91,7 @@
       position: relative;
       overflow: hidden;
     }
+    /* Landscape aspect ratio */
     .product-image {
       width: 100%;
       height: auto;
@@ -136,12 +137,11 @@
       letter-spacing: 2px;
       transform: translateY(20px);
       transition: all 0.6s ease;
-      overflow: hidden; /* Ensures video is clipped within button */
+      overflow: hidden;
     }
     .product-card:hover .view-details {
       transform: translateY(0);
     }
-    /* 1) SMALL BUTTON VIDEO (when hovering on the button) */
     .view-details video {
       position: absolute;
       top: 0;
@@ -149,13 +149,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      clip-path: inset(0 0 15px 0); /* Crop bottom 15px */
-      -webkit-clip-path: inset(0 0 15px 0);
       pointer-events: none;
       display: none;
     }
-
     .product-info {
       padding: 1.5rem 0;
       text-align: center;
@@ -164,10 +160,6 @@
       font-weight: 300;
       letter-spacing: 1px;
       margin-bottom: 0.5rem;
-      color: #ffffff;
-    }
-    .product-price {
-      font-weight: 300;
       color: #ffffff;
     }
 
@@ -194,20 +186,16 @@
       width: 100%;
       height: 100%;
     }
-    /* 2) EXPANDED OVERLAY VIDEO */
     .overlay-video-container video {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
       object-fit: cover;
-      object-position: center;
-      clip-path: inset(0 0 15px 0); /* Crop bottom 15px here as well */
-      -webkit-clip-path: inset(0 0 15px 0);
+      object-position: center; /* center the video within the container */
       transition: all 0.8s ease-in-out;
+      /*
+        We'll expand the video to 100% + 15px in height,
+        then clip the bottom 15px to "crop" it.
+      */
     }
-
     .overlay-content {
       position: absolute;
       top: 50%;
@@ -269,22 +257,6 @@
       color: #000;
       cursor: pointer;
       border-radius: 4px;
-    }
-
-    /* Golden button styling */
-    .gold-button {
-      background: #d4af37; /* A luxurious gold color */
-      color: #111;
-      border: none;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      padding: 0.8rem 1.2rem;
-      margin: 5px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .gold-button:hover {
-      transform: scale(1.05);
     }
   </style>
 </head>
@@ -367,7 +339,7 @@
   </div>
 
   <script>
-    // Expand to full screen with a smooth transition
+    // Expand to full screen with bottom 15px cropped
     document.querySelectorAll('.view-details').forEach(button => {
       button.addEventListener('click', function(e) {
         e.preventDefault();
@@ -383,6 +355,7 @@
         clonedVideo.style.width = rect.width + 'px';
         clonedVideo.style.height = rect.height + 'px';
         clonedVideo.style.objectFit = 'cover';
+        clonedVideo.style.objectPosition = 'center';
 
         // Overlay references
         const overlay = document.getElementById('collection-overlay');
@@ -403,12 +376,14 @@
         // Force reflow so initial styles are applied
         void clonedVideo.offsetWidth;
 
-        // Animate the video to full screen
+        // Animate the video to full screen with bottom 15px cropped
         clonedVideo.play();
         clonedVideo.style.top = '0px';
         clonedVideo.style.left = '0px';
         clonedVideo.style.width = '100%';
-        clonedVideo.style.height = '100%';
+        // Increase the height to 100% + 15px, then clip the bottom 15px
+        clonedVideo.style.height = 'calc(100% + 15px)';
+        clonedVideo.style.clipPath = 'inset(0px 0px 15px 0px)';
 
         // Fade the overlay background to black after a brief delay
         setTimeout(() => {
@@ -446,11 +421,14 @@
                 // Fade overlay background back to transparent
                 overlay.style.background = 'rgba(0,0,0,0)';
 
+                // Remove the clip path & revert height so it can shrink properly
+                clonedVideo.style.clipPath = '';
+                clonedVideo.style.height = rect.height + 'px';
+
                 // Animate cloned video back to original position
                 clonedVideo.style.top = rect.top + 'px';
                 clonedVideo.style.left = rect.left + 'px';
                 clonedVideo.style.width = rect.width + 'px';
-                clonedVideo.style.height = rect.height + 'px';
 
                 // Once the video has shrunk back (~0.8s), hide the overlay
                 setTimeout(() => {
@@ -459,47 +437,49 @@
               });
 
               // LET ME KNOW WHEN IT DROPS button
-              const notifyButton = document.getElementById('notify-button');
-              const notifyField = document.getElementById('notify-field');
-              const notifyEmail = document.getElementById('notify-email');
-              const notifySubmit = document.getElementById('notify-submit');
-
-              // Toggle the email input field
-              notifyButton.addEventListener('click', () => {
+              document.getElementById('notify-button').addEventListener('click', () => {
+                const notifyField = document.getElementById('notify-field');
+                // Toggle the .active class for a smooth fade/slide in
                 notifyField.classList.toggle('active');
               });
 
-              // Submit email to Google Sheets
-              notifySubmit.addEventListener('click', (ev) => {
-                ev.preventDefault();
-                const emailValue = notifyEmail.value.trim();
-                if (!emailValue) {
-                  alert("Please enter a valid email.");
-                  return;
-                }
-                // Send to the same endpoint used for contact.html & InnerCircle.html
-                fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    listType: 'Collections',
-                    email: emailValue,
-                    name: '' /* We only have the user's email here */
+              // Handle Submit -> send email to Google Sheets
+              document.getElementById('notify-submit').addEventListener('click', () => {
+                const userEmail = document.getElementById('notify-email').value.trim();
+                if (userEmail) {
+                  fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    // We'll store it under a "Collection" listType
+                    body: JSON.stringify({ listType: 'Collection', email: userEmail })
                   })
-                })
-                .then(response => response.json())
-                .then(data => {
-                  // On success, replace the notify-button with a golden "WE'LL BE IN TOUCH" button
-                  notifyButton.outerHTML = `<button class="gold-button">WE'LL BE IN TOUCH</button>`;
-                  // Optionally hide or disable the input field
-                  notifyField.classList.remove('active');
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                  alert('An error occurred. Please try again.');
-                });
+                  .then(response => response.json())
+                  .then(data => {
+                    // Replace the entire notify field with a golden button
+                    const notifyField = document.getElementById('notify-field');
+                    notifyField.innerHTML = `
+                      <button 
+                        style="
+                          background-color: #d4af37; 
+                          color: #111; 
+                          border:none; 
+                          padding:0.8rem 1.2rem; 
+                          border-radius:4px; 
+                          cursor:pointer; 
+                          text-transform:uppercase; 
+                          letter-spacing:2px;
+                        ">
+                        WE'LL BE IN TOUCH
+                      </button>
+                    `;
+                  })
+                  .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                  });
+                } else {
+                  alert('Please enter a valid email address.');
+                }
               });
             }, 500); // 0.5s fade-out for "COMING SOON"
           }, 1500); // 1.5s display time for "COMING SOON"
