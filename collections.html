@@ -18,6 +18,7 @@
       background: #111111;
       color: #ffffff;
     }
+
     /* =============================
        Header Styles
     ============================= */
@@ -74,6 +75,7 @@
     .nav-link[href="collections.html"]::after {
       width: 100%;
     }
+
     /* =============================
        Product Grid
     ============================= */
@@ -120,6 +122,7 @@
     .sold-out {
       display: none;
     }
+
     /* =============================
        Button & Video Styles
     ============================= */
@@ -163,9 +166,10 @@
       font-weight: 300;
       color: #ffffff;
     }
+
     /* =============================
        Full-Screen Overlay
-       Initially transparent so user sees page behind the expanding video.
+       Starts transparent so user sees the page behind the expanding video.
     ============================= */
     #collection-overlay {
       position: fixed;
@@ -199,13 +203,15 @@
       color: #fff;
       text-align: center;
       opacity: 0;
-      transition: opacity 0.5s ease-in-out;
+      transition: opacity 0.5s ease-in-out; /* Fade in/out of content */
     }
     .coming-soon {
       font-size: 3rem;
       font-weight: 300;
       letter-spacing: 2px;
     }
+
+    /* Minimalistic form container */
     .overlay-form {
       margin-top: 20px;
     }
@@ -222,6 +228,20 @@
     }
     .overlay-form button:hover {
       transform: scale(1.05);
+    }
+
+    /* Smooth email field appearance */
+    #notify-field {
+      margin-top: 15px;
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    #notify-field.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
     #notify-field input {
       padding: 0.5rem;
@@ -343,6 +363,7 @@
         // Clear any previous content
         videoContainer.innerHTML = '';
         overlayContent.innerHTML = '';
+
         // Add the cloned video to the overlay
         videoContainer.appendChild(clonedVideo);
 
@@ -365,51 +386,60 @@
           overlay.style.background = 'rgba(0,0,0,1)';
         }, 100); // Adjust delay as desired
 
-        // Once the video finishes expanding (~0.8s), show "COMING SOON"
+        // Once the video finishes expanding (~0.8s), fade in "COMING SOON"
         setTimeout(() => {
-          overlayContent.style.opacity = '1';
           overlayContent.innerHTML = '<div class="coming-soon">COMING SOON</div>';
+          overlayContent.style.opacity = '1';
 
-          // After another second, replace with minimalistic form
+          // Keep "COMING SOON" for 1.5s
           setTimeout(() => {
-            overlayContent.innerHTML = `
-              <div class="overlay-form">
-                <button id="resume-button">RESUME BROWSING</button>
-                <button id="notify-button">LET ME KNOW WHEN IT DROPS</button>
-                <div id="notify-field" style="display: none;">
-                  <input type="email" placeholder="Enter your email" id="notify-email">
-                  <button id="notify-submit">Submit</button>
-                </div>
-              </div>`;
-            // Fade content in again
-            overlayContent.style.opacity = '1';
+            // Fade out "COMING SOON"
+            overlayContent.style.opacity = '0';
 
-            // Resume Browsing button
-            document.getElementById('resume-button').addEventListener('click', () => {
-              // Fade out the overlay content
-              overlayContent.style.opacity = '0';
-              // Fade overlay background back to transparent
-              overlay.style.background = 'rgba(0,0,0,0)';
+            // After 0.5s (the fade-out duration), replace with minimalistic form
+            setTimeout(() => {
+              overlayContent.innerHTML = `
+                <div class="overlay-form">
+                  <button id="resume-button">RESUME BROWSING</button>
+                  <button id="notify-button">LET ME KNOW WHEN IT DROPS</button>
+                  <div id="notify-field">
+                    <input type="email" placeholder="Enter your email" id="notify-email">
+                    <button id="notify-submit">Submit</button>
+                  </div>
+                </div>`;
+              // Fade in the new content
+              overlayContent.style.opacity = '1';
 
-              // Animate cloned video back to original position
-              clonedVideo.style.top = rect.top + 'px';
-              clonedVideo.style.left = rect.left + 'px';
-              clonedVideo.style.width = rect.width + 'px';
-              clonedVideo.style.height = rect.height + 'px';
+              // By default, #notify-field is hidden (opacity=0, pointer-events=none)
+              // So it won't appear until we toggle the .active class.
 
-              // Once the video has shrunk back (~0.8s), hide the overlay
-              setTimeout(() => {
-                overlay.style.display = 'none';
-              }, 800);
-            });
+              // Resume Browsing button
+              document.getElementById('resume-button').addEventListener('click', () => {
+                // Fade out the overlay content
+                overlayContent.style.opacity = '0';
+                // Fade overlay background back to transparent
+                overlay.style.background = 'rgba(0,0,0,0)';
 
-            // LET ME KNOW WHEN IT DROPS button
-            document.getElementById('notify-button').addEventListener('click', () => {
-              const notifyField = document.getElementById('notify-field');
-              notifyField.style.display = 
-                (notifyField.style.display === 'none') ? 'block' : 'none';
-            });
-          }, 1000);
+                // Animate cloned video back to original position
+                clonedVideo.style.top = rect.top + 'px';
+                clonedVideo.style.left = rect.left + 'px';
+                clonedVideo.style.width = rect.width + 'px';
+                clonedVideo.style.height = rect.height + 'px';
+
+                // Once the video has shrunk back (~0.8s), hide the overlay
+                setTimeout(() => {
+                  overlay.style.display = 'none';
+                }, 800);
+              });
+
+              // LET ME KNOW WHEN IT DROPS button
+              document.getElementById('notify-button').addEventListener('click', () => {
+                const notifyField = document.getElementById('notify-field');
+                // Toggle the .active class for a smooth fade/slide in
+                notifyField.classList.toggle('active');
+              });
+            }, 500); // 0.5s fade-out for "COMING SOON"
+          }, 1500); // 1.5s display time for "COMING SOON"
         }, 800);
       });
     });
