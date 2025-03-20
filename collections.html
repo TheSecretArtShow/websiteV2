@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ARTSHOW | Collections</title>
   <style>
-    /* Reset and Base Styles */
+    /* =============================
+       Reset & Base Styles
+    ============================= */
     * {
       margin: 0;
       padding: 0;
@@ -16,7 +18,9 @@
       background: #111111;
       color: #ffffff;
     }
-    /* Header Styles */
+    /* =============================
+       Header Styles
+    ============================= */
     .header {
       padding: 1rem 5%;
       border-bottom: 1px solid #3a3a3a;
@@ -70,7 +74,9 @@
     .nav-link[href="collections.html"]::after {
       width: 100%;
     }
-    /* Product Grid */
+    /* =============================
+       Product Grid
+    ============================= */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -114,9 +120,11 @@
     .sold-out {
       display: none;
     }
-    /* Button and Video Styles */
+    /* =============================
+       Button and Video Styles
+    ============================= */
     .view-details {
-      position: relative; /* For positioning child video */
+      position: relative;
       background: transparent;
       border: 1px solid white;
       color: white;
@@ -126,7 +134,7 @@
       letter-spacing: 2px;
       transform: translateY(20px);
       transition: all 0.6s ease;
-      overflow: hidden; /* Hide video overflow */
+      overflow: hidden;
     }
     .product-card:hover .view-details {
       transform: translateY(0);
@@ -138,7 +146,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      pointer-events: none; /* Allow button clicks to pass through */
+      pointer-events: none;
       display: none;
     }
     .product-info {
@@ -154,6 +162,78 @@
     .product-price {
       font-weight: 300;
       color: #ffffff;
+    }
+    /* =============================
+       Collection Overlay Styles
+    ============================= */
+    #collection-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      z-index: 200;
+      display: none;
+      overflow: hidden;
+    }
+    .overlay-video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .overlay-video-container video {
+      position: absolute;
+      object-fit: cover;
+      transition: all 0.8s ease-in-out;
+    }
+    .overlay-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .coming-soon {
+      font-size: 3rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+    .overlay-form {
+      margin-top: 20px;
+    }
+    .overlay-form button {
+      margin: 5px;
+      padding: 0.8rem 1.2rem;
+      background: transparent;
+      border: 1px solid #fff;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .overlay-form button:hover {
+      transform: scale(1.05);
+    }
+    #notify-field input {
+      padding: 0.5rem;
+      margin-right: 5px;
+      border: none;
+      border-radius: 4px;
+    }
+    #notify-field button {
+      padding: 0.5rem 1rem;
+      background: #fff;
+      border: none;
+      color: #000;
+      cursor: pointer;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -229,7 +309,96 @@
     </div>
   </main>
 
+  <!-- Collection Overlay (hidden by default) -->
+  <div id="collection-overlay">
+    <div class="overlay-video-container"></div>
+    <div class="overlay-content"></div>
+  </div>
+
   <script>
+    // Function to animate video expansion on click
+    document.querySelectorAll('.view-details').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Get the video inside the clicked button
+        const video = button.querySelector('video');
+        // Get its position and size relative to viewport
+        const rect = video.getBoundingClientRect();
+        // Clone the video element
+        const clonedVideo = video.cloneNode(true);
+        // Set initial style to match the original video
+        clonedVideo.style.position = 'absolute';
+        clonedVideo.style.top = rect.top + 'px';
+        clonedVideo.style.left = rect.left + 'px';
+        clonedVideo.style.width = rect.width + 'px';
+        clonedVideo.style.height = rect.height + 'px';
+        clonedVideo.style.objectFit = 'cover';
+        
+        // Get the overlay container and its child containers
+        const overlay = document.getElementById('collection-overlay');
+        const videoContainer = overlay.querySelector('.overlay-video-container');
+        const overlayContent = overlay.querySelector('.overlay-content');
+        // Clear any previous content
+        videoContainer.innerHTML = '';
+        overlayContent.innerHTML = '';
+        // Append the cloned video
+        videoContainer.appendChild(clonedVideo);
+        
+        // Display the overlay
+        overlay.style.display = 'block';
+        // Force reflow so that initial styles are applied
+        void clonedVideo.offsetWidth;
+        // Animate video to full screen
+        clonedVideo.style.top = '0px';
+        clonedVideo.style.left = '0px';
+        clonedVideo.style.width = '100%';
+        clonedVideo.style.height = '100%';
+        clonedVideo.play();
+        
+        // After 0.8 seconds, show overlay content ("COMING SOON")
+        setTimeout(() => {
+          overlayContent.style.opacity = '1';
+          overlayContent.innerHTML = '<div class="coming-soon">COMING SOON</div>';
+          // After an additional 1 second, replace with the minimalistic form
+          setTimeout(() => {
+            overlayContent.innerHTML = `
+              <div class="overlay-form">
+                <button id="resume-button">RESUME BROWSING</button>
+                <button id="notify-button">LET ME KNOW WHEN IT DROPS</button>
+                <div id="notify-field" style="display: none;">
+                  <input type="email" placeholder="Enter your email" id="notify-email">
+                  <button id="notify-submit">Submit</button>
+                </div>
+              </div>`;
+            // Add event listener for Resume Browsing button
+            document.getElementById('resume-button').addEventListener('click', () => {
+              // Animate cloned video back to original position
+              clonedVideo.style.top = rect.top + 'px';
+              clonedVideo.style.left = rect.left + 'px';
+              clonedVideo.style.width = rect.width + 'px';
+              clonedVideo.style.height = rect.height + 'px';
+              overlayContent.style.opacity = '0';
+              // After animation, hide overlay
+              setTimeout(() => {
+                overlay.style.display = 'none';
+              }, 800);
+            });
+            // Add event listener for LET ME KNOW WHEN IT DROPS button
+            document.getElementById('notify-button').addEventListener('click', () => {
+              const notifyField = document.getElementById('notify-field');
+              // Toggle display of email input field
+              if (notifyField.style.display === 'none') {
+                notifyField.style.display = 'block';
+              } else {
+                notifyField.style.display = 'none';
+              }
+            });
+          }, 1000);
+        }, 800);
+      });
+    });
+    
+    // (Optional) Retain existing hover video play/pause behavior on buttons
     // Bones Collection Video Hover
     const bonesButton = document.getElementById('bones-button');
     const bonesVideo = document.getElementById('bones-video');
@@ -242,7 +411,6 @@
       bonesVideo.currentTime = 0;
       bonesVideo.style.display = 'none';
     });
-
     // 27 Club Collection Video Hover
     const clubButton = document.getElementById('club-button');
     const clubVideo = document.getElementById('club-video');
@@ -255,7 +423,6 @@
       clubVideo.currentTime = 0;
       clubVideo.style.display = 'none';
     });
-
     // Abstract Collection Video Hover
     const abstractButton = document.getElementById('abstract-button');
     const abstractVideo = document.getElementById('abstract-video');
