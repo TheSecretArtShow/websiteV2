@@ -1,245 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>THE ART SHOW | Contact Support</title>
+  <meta charset="UTF-8" />
+  <title>The Art Show - Contact Support</title>
+  <!-- Google Fonts: Playfair Display for headings, Lato for body -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Embedded CSS -->
   <style>
-    /* Reused styles from shop.html for header and background */
+    /* General Reset / Box Sizing */
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    /* Body Styling */
     body {
-        background: #111111;
-        color: #ffffff;
+      font-family: 'Lato', sans-serif;
+      color: #fff;
+      background-color: #000; /* Rich black background */
+      overflow-x: hidden;
     }
-    .header {
-        padding: 1rem 5%;
-        border-bottom: 1px solid #3a3a3a;
-        position: fixed;
-        width: 100%;
-        background: rgba(45, 45, 45, 0.97) !important;
-        backdrop-filter: blur(8px);
-        z-index: 100;
+
+    /* NAVIGATION BAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background-color: rgba(0, 0, 0, 0.7); /* Slight transparency */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .header-nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1400px;
-        margin: 0 auto;
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #d4af37; /* gold accent */
+      letter-spacing: 1px;
+      cursor: default;
     }
-    .logo {
-        width: 180px;
-    }
+
     .nav-links {
-        display: flex;
-        gap: 2.8rem;
+      list-style: none;
+      display: flex;
+      gap: 2rem;
     }
-    .nav-link {
-        color: rgba(255, 255, 255, 0.9) !important;
-        text-decoration: none;
-        font-weight: 300;
-        letter-spacing: 2.5px;
-        font-size: 0.95rem;
-        text-transform: uppercase;
-        position: relative;
-        padding-bottom: 3px;
-        transition: opacity 0.4s ease;
+
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 300;
+      transition: color 0.3s ease;
     }
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 0.5px;
-        background: rgba(255, 255, 255, 0.9);
-        transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+
+    .nav-links a:hover {
+      color: #d4af37; /* gold accent on hover */
     }
-    .nav-link:hover::after {
-        width: 100%;
+
+    /* HERO SECTION (Optional) */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 50vh; /* Adjust as needed */
+      background: url('https://picsum.photos/1600/900?grayscale') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .nav-link[href="contact.html"] {
-        font-weight: 400;
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
     }
-    .nav-link[href="contact.html"]::after {
-        width: 100%;
+
+    .hero-title {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #d4af37;
+      text-align: center;
+      letter-spacing: 2px;
+      z-index: 1;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
     }
-    
-    /* Contact form container */
+
+    /* CONTACT SECTION */
     .contact-container {
-        padding: 150px 5% 50px; /* Extra top padding to account for the fixed header */
-        max-width: 600px;
-        margin: 0 auto;
+      max-width: 600px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      text-align: center;
     }
+
     .contact-container h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-family: 'Garamond', serif;
-        font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #d4af37;
     }
-    
-    /* Contact form styling (adapted from the InnerCircle email form) */
+
     .contact-form {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: left;
     }
+
+    .contact-form label {
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      color: #ccc;
+    }
+
     .contact-form input,
     .contact-form textarea {
-        width: 100%;
-        padding: 12px;
-        border-radius: 8px;
-        border: 1px solid #444;
-        background-color: #1f1f1f;
-        color: #f5f5f5;
-        font-size: 1rem;
+      width: 100%;
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 4px;
+      color: #fff;
+      padding: 0.8rem;
+      font-size: 0.95rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-family: inherit;
     }
+
     .contact-form input:focus,
     .contact-form textarea:focus {
-        border-color: #ff6b6b;
-        outline: none;
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 5px rgba(212,175,55, 0.5);
     }
-    .contact-form button {
-        padding: 12px;
-        background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
-        border: none;
-        color: #f5f5f5;
-        cursor: pointer;
-        font-size: 1rem;
-        border-radius: 8px;
-        transition: background 0.3s ease, transform 0.3s ease;
+
+    .contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
     }
-    .contact-form button:hover {
-        background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
-        transform: scale(1.05);
+
+    /* SEND BUTTON */
+    .send-btn {
+      align-self: flex-start;
+      background: #d4af37;
+      border: none;
+      color: #000;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
-    
-    /* Popup modal styling (adapted from InnerCircle) */
-    .email-popup-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
+
+    .send-btn:hover {
+      background: #c39b30;
+      transform: translateY(-1px);
     }
-    .email-popup-content {
-        background: linear-gradient(135deg, #282828, #1f1f1f);
-        padding: 40px;
-        text-align: center;
-        border-radius: 16px;
-        max-width: 400px;
-        width: 90%;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      background-color: #111;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
-    .email-popup-content h2 {
+
+    .footer p {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .hero-title {
         font-size: 2rem;
-        margin-bottom: 20px;
-    }
-    .email-popup-content p {
-        font-size: 1.1rem;
-        margin-bottom: 20px;
-    }
-    .email-popup-content button {
-        padding: 10px 20px;
-        background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
-        border: none;
-        color: #f5f5f5;
-        cursor: pointer;
-        font-size: 1rem;
-        border-radius: 8px;
-        transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .email-popup-content button:hover {
-        background: linear-gradient(135deg, #ff3b3b, #ff1a1a);
-        transform: scale(1.05);
+      }
+      .contact-container {
+        margin: 2rem auto;
+      }
     }
   </style>
 </head>
+
 <body>
-  <!-- Header & Navigation (reused from shop.html) -->
-  <header class="header">
-      <nav class="header-nav">
-          <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
-          <div class="nav-links">
-              <a href="index.html" class="nav-link">HOME</a>
-              <a href="about.html" class="nav-link">ABOUT</a>
-              <a href="shop.html" class="nav-link">SHOP</a>
-              <a href="InnerCircle.html" class="nav-link">THE INNER CIRCLE</a>
-              <a href="contact.html" class="nav-link">CONTACT</a>
-          </div>
-      </nav>
-  </header>
-  
-  <!-- Contact Form Section -->
-  <div class="contact-container">
-      <h2>Contact Support</h2>
-      <form id="contact-form" class="contact-form">
-          <input type="email" id="contact-email" placeholder="Enter your email" required>
-          <input type="text" id="contact-name" placeholder="Enter your name" required>
-          <textarea id="contact-message" placeholder="Enter your message" rows="5" required></textarea>
-          <button type="submit">Send Message</button>
-      </form>
-  </div>
-  
-  <!-- Popup Modal -->
-  <div class="email-popup-overlay" id="email-popup">
-      <div class="email-popup-content">
-          <h2>Thank You for Contacting Support!</h2>
-          <p>We will get back to you shortly.</p>
-          <button id="resume-button">Resume Browsing</button>
-      </div>
-  </div>
-  
- <script>
-  // Contact form submission logic with combined name and message in one field (for column C)
-  document.getElementById('contact-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const email = document.getElementById('contact-email').value;
-      const name = document.getElementById('contact-name').value;
-      const message = document.getElementById('contact-message').value;
-  
-      if (email && name && message) {
-          fetch('https://art-show-signup-rh2gqoobqa-uw.a.run.app/submit-email', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              // Payload now sends "Support" in column A, email in column B,
-              // and the combined name and message in column C.
-              body: JSON.stringify({ 
-                  listType: 'Support', 
-                  email: email, 
-                  name: name + ': ' + message 
-              })
-          })
-          .then(response => response.json())
-          .then(data => {
-              // Show popup modal on success
-              document.getElementById('email-popup').style.display = 'flex';
-              // Optionally reset the form
-              document.getElementById('contact-form').reset();
-          })
-          .catch(error => {
-              console.error('Error:', error);
-              alert('An error occurred. Please try again.');
-          });
-      } else {
-          alert('Please fill out all fields.');
-      }
-  });
-  
-  // Close popup modal when the resume button is clicked
-  document.getElementById('resume-button').addEventListener('click', function () {
-      document.getElementById('email-popup').style.display = 'none';
-  });
-</script>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-logo">The Art Show</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">The Inner Circle</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero or Banner Section (Optional) -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <h1 class="hero-title">Elevate Your Experience</h1>
+  </section>
+
+  <!-- Contact Support Section -->
+  <section class="contact-container">
+    <h2>Contact Support</h2>
+    <form class="contact-form">
+      <label for="email">Enter your email</label>
+      <input type="email" id="email" placeholder="Enter your email" required />
+
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required />
+
+      <label for="message">Your Message</label>
+      <textarea id="message" placeholder="Enter your message" required></textarea>
+
+      <button type="submit" class="send-btn">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer (Optional) -->
+  <footer class="footer">
+    <p>&copy; 2023 The Art Show. All rights reserved.</p>
+  </footer>
+</body>
+</html>
