@@ -277,53 +277,64 @@
       transform: scale(1.05);
     }
     /* Dropdown Menu Styles */
+/* -----------------------------
+   DROPDOWN FOR SHOP LINK
+----------------------------- */
 .dropdown-container {
   position: relative;
-  display: inline-block;
+  display: inline-block; /* Keeps SHOP and dropdown inline in the nav */
 }
 
-/* Keep the underline animation on the SHOP link, 
-   but shift it up slightly on hover to create space. */
-.dropdown-container .nav-link {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
+/* Keep the underline animation from .nav-link::after.
+   Shift SHOP up slightly on hover to create space for sublinks. */
 .dropdown-container:hover > .nav-link {
-  transform: translateY(-5px); /* Shift SHOP upward */
+  transform: translateY(-5px);
 }
 
-/* Hide the dropdown sublinks by default */
+/* The dropdown sublinks remain hidden until hover. */
 .dropdown {
   display: none;
   position: absolute;
   left: 0;
-  margin-top: 1.5rem; /* Space between SHOP and sublinks */
-  /* No background or border to keep it minimal */
-  background: transparent;
-  padding: 0;
+  top: 100%; 
+  /* Shift the dropdown upward slightly so it tucks under the SHOP text. */
+  transform: translateY(-5px);
+
+  /* Create a transparent 'bounding box' so you can move the mouse 
+     from SHOP down to sublinks without losing hover. */
+  background: transparent; 
+  pointer-events: none; /* Initially disabled pointer events */
+  padding: 6px 0;       /* Some vertical padding so there's no gap */
 }
 
-/* Show the sublinks on hover */
+/* Show the dropdown and enable pointer events on hover */
 .dropdown-container:hover .dropdown {
   display: block;
+  pointer-events: auto;
 }
 
-/* Sublink styles: smaller text, no bounding box */
+/* Sublink styling:
+   - 1pt (or ~0.1rem) smaller than before, 
+   - slight letter spacing, 
+   - uppercase, 
+   - no bounding box
+*/
 .dropdown-item {
   display: block;
-  font-size: 0.8rem;         /* Smaller text */
-  letter-spacing: 2px;       /* Slightly less spacing than main nav */
-  text-transform: uppercase; 
+  font-size: 0.7rem;      /* Smaller text */
+  letter-spacing: 2px;    /* Slightly less than main nav’s 3px */
+  text-transform: uppercase;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.9);
-  margin: 0.2rem 0;          /* Spacing between items */
+  margin: 0.15rem 0;      /* Vertical spacing between items */
   transition: color 0.3s ease;
 }
 
-/* Hover effect on the sublinks */
+/* Hover effect on sublinks */
 .dropdown-item:hover {
   color: rgba(255, 255, 255, 1);
 }
+
   </style>
 </head>
 <body>
@@ -337,12 +348,13 @@
 
       <!-- Dropdown Container for SHOP -->
       <div class="dropdown-container">
-        <a href="shop.html" class="nav-link">SHOP</a>
-        <div class="dropdown">
-          <a href="shop.html" class="dropdown-item">ALL PIECES</a>
-          <a href="collections.html" class="dropdown-item">COLLECTIONS</a>
-        </div>
-      </div>
+  <a href="shop.html" class="nav-link">SHOP</a>
+  <div class="dropdown">
+    <a href="shop.html" class="dropdown-item">ALL PIECES</a>
+    <a href="collections.html" class="dropdown-item">COLLECTIONS</a>
+  </div>
+</div>
+
 
       <a href="InnerCircle.html" class="nav-link">THE INNER CIRCLE</a>
       <a href="contact.html" class="nav-link">CONTACT</a>
