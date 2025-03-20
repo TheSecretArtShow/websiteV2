@@ -8,11 +8,15 @@
     /* ----------------------------------------------------------------
        RESET & BASE STYLES
     ---------------------------------------------------------------- */
-    * {
+    html, body {
       margin: 0;
       padding: 0;
+    }
+    * {
       box-sizing: border-box;
+      /* Use the same font as "SOLD OUT" in shop.html */
       font-family: 'Helvetica Neue', sans-serif;
+      font-weight: 300; /* Matches the "SOLD OUT" style */
     }
 
     body {
@@ -22,13 +26,15 @@
     }
 
     /* ----------------------------------------------------------------
-       HEADER & NAV (Reused from shop.html)
+       HEADER & NAV (Ensures it's flush with the top)
     ---------------------------------------------------------------- */
     .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
       padding: 1rem 5%;
       border-bottom: 1px solid #3a3a3a;
-      position: fixed;
-      width: 100%;
       background: rgba(45, 45, 45, 0.97) !important;
       backdrop-filter: blur(8px);
       z-index: 100;
@@ -54,8 +60,7 @@
     .nav-link {
       color: rgba(255, 255, 255, 0.9) !important;
       text-decoration: none;
-      font-weight: 300;
-      letter-spacing: 2.5px;
+      letter-spacing: 3px; /* Matches "SOLD OUT" letter-spacing */
       font-size: 0.95rem;
       text-transform: uppercase;
       position: relative;
@@ -79,7 +84,7 @@
     }
 
     .nav-link[href="contact.html"] {
-      font-weight: 400;
+      font-weight: 400; /* highlight CONTACT page */
     }
 
     .nav-link[href="contact.html"]::after {
@@ -88,36 +93,37 @@
 
     /* ----------------------------------------------------------------
        HERO SECTION
-       Subtle gradient background with gold accent text for a luxury feel
     ---------------------------------------------------------------- */
     .hero {
       position: relative;
-      min-height: 40vh; /* Enough space to feel 'heroic' */
+      min-height: 40vh;
       background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 2rem 5%;
-      margin-top: 70px; /* Ensures hero is below the fixed header */
+      margin-top: 0; /* No gap above hero */
     }
 
+    /* Extra top padding so hero doesn't get hidden behind fixed header */
     .hero-content {
+      margin-top: 6rem;
       max-width: 800px;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
       animation: fadeInUp 1.2s forwards ease-in-out;
       opacity: 0;
       transform: translateY(20px);
     }
 
+    /* Hero Heading with "SOLD OUT" styling */
     .hero h1 {
-      font-family: 'Garamond', serif;
-      font-weight: 700;
-      font-size: 3rem;
-      letter-spacing: 2px;
+      letter-spacing: 3px;    /* same spacing as "SOLD OUT" */
+      font-size: 2.5rem;
+      text-transform: uppercase;
       margin-bottom: 1rem;
       color: #d4af37; /* Gold accent */
-      text-transform: uppercase;
     }
 
     .hero p {
@@ -128,7 +134,6 @@
       line-height: 1.6;
     }
 
-    /* Keyframes for a subtle fade-in-up effect */
     @keyframes fadeInUp {
       to {
         opacity: 1;
@@ -154,13 +159,11 @@
     }
 
     .contact-container h2 {
-      font-family: 'Garamond', serif;
-      font-weight: 700;
-      color: #ffffff;
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      letter-spacing: 3px; /* Matches "SOLD OUT" spacing */
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
     }
 
     .contact-form {
@@ -203,7 +206,7 @@
     }
 
     .contact-form button:hover {
-      background: #c19e3b; /* Slightly darker gold on hover */
+      background: #c19e3b;
       transform: scale(1.05);
     }
 
@@ -240,9 +243,9 @@
       font-size: 1.8rem;
       margin-bottom: 20px;
       color: #ffffff;
-      font-family: 'Garamond', serif;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 3px; /* match "SOLD OUT" spacing */
+      font-weight: 300;
     }
 
     .email-popup-content p {
@@ -272,7 +275,7 @@
   </style>
 </head>
 <body>
-  <!-- Header & Navigation (reused from shop.html) -->
+  <!-- Header & Navigation -->
   <header class="header">
     <nav class="header-nav">
       <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
@@ -286,7 +289,7 @@
     </nav>
   </header>
 
-  <!-- Hero Section for a Luxurious Introduction -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
       <h1>Contact Support</h1>
@@ -296,7 +299,7 @@
 
   <!-- Contact Form Container -->
   <div class="contact-container">
-    <h2>Reach Out to Us</h2>
+    <h2>Reach Out To Us</h2>
     <form id="contact-form" class="contact-form">
       <input type="email" id="contact-email" placeholder="Enter your email" required>
       <input type="text" id="contact-name" placeholder="Enter your name" required>
@@ -308,13 +311,13 @@
   <!-- Popup Modal (confirmation) -->
   <div class="email-popup-overlay" id="email-popup">
     <div class="email-popup-content">
-      <h2>Thank You for Contacting Support!</h2>
+      <h2>Thank You!</h2>
       <p>We will get back to you shortly.</p>
       <button id="resume-button">Resume Browsing</button>
     </div>
   </div>
 
-  <!-- Contact Form Submission Logic (Combining name + message in Column C) -->
+  <!-- Contact Form Submission Logic -->
   <script>
     document.getElementById('contact-form').addEventListener('submit', function (e) {
       e.preventDefault();
