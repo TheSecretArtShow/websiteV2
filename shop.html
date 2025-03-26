@@ -1,237 +1,230 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARTSHOW | Shop</title>
-    <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Helvetica Neue', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARTSHOW | Shop</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+    body {
+      background: #111111;
+      color: #ffffff;
+    }
 
-        body {
-            background: #111111;
-            color: #ffffff;
-        }
+    /* Header Styles */
+    .header {
+      padding: 1rem 5%;
+      border-bottom: 1px solid #3a3a3a;
+      position: fixed;
+      width: 100%;
+      background: rgba(45, 45, 45, 0.97) !important;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .logo {
+      width: 180px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.8rem;
+    }
+    .nav-link {
+      color: rgba(255, 255, 255, 0.9) !important;
+      text-decoration: none;
+      font-weight: 300;
+      letter-spacing: 2.5px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 3px;
+      transition: opacity 0.4s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0.5px;
+      background: rgba(255, 255, 255, 0.9);
+      transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .nav-link[href="shop.html"] {
+      font-weight: 400;
+    }
+    .nav-link[href="shop.html"]::after {
+      width: 100%;
+    }
 
-        /* Header Styles */
-        .header {
-            padding: 1rem 5%;
-            border-bottom: 1px solid #3a3a3a;
-            position: fixed;
-            width: 100%;
-            background: rgba(45, 45, 45, 0.97) !important;
-            backdrop-filter: blur(8px);
-            z-index: 100;
-        }
+    /* Product Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      padding: 10rem 5% 5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .product-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .product-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3/4;
+      background: #fff;
+      transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+    .product-card:hover .product-image {
+      transform: scale(1.03);
+    }
+    .sold-out {
+      color: white;
+      font-weight: 300;
+      letter-spacing: 3px;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      transform: translateY(20px);
+      transition: transform 0.6s ease;
+    }
+    .view-details {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 0.8rem 2rem;
+      cursor: pointer;
+      font-weight: 300;
+      letter-spacing: 2px;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .product-card:hover .sold-out,
+    .product-card:hover .view-details {
+      transform: translateY(0);
+    }
+    .product-info {
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+    .product-title {
+      font-weight: 300;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+    .product-price {
+      font-weight: 300;
+      color: #ffffff;
+    }
 
-        .header-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            width: 180px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.8rem;
-        }
-
-        .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important;
-            text-decoration: none;
-            font-weight: 300;
-            letter-spacing: 2.5px;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            position: relative;
-            padding-bottom: 3px;
-            transition: opacity 0.4s ease;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 0.5px;
-            background: rgba(255, 255, 255, 0.9);
-            transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .nav-link[href="shop.html"] {
-            font-weight: 400;
-        }
-
-        .nav-link[href="shop.html"]::after {
-            width: 100%;
-        }
-
-        /* Product Grid */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 4rem;
-            padding: 10rem 5% 5rem;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        .product-card {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-image {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 3/4;
-            background: #fff;
-            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .product-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .product-card:hover .product-overlay {
-            opacity: 1;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.03);
-        }
-
-        .sold-out {
-            color: white;
-            font-weight: 300;
-            letter-spacing: 3px;
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            transform: translateY(20px);
-            transition: transform 0.6s ease;
-        }
-
-        .view-details {
-            background: transparent;
-            border: 1px solid white;
-            color: white;
-            padding: 0.8rem 2rem;
-            cursor: pointer;
-            font-weight: 300;
-            letter-spacing: 2px;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-
-        .product-card:hover .sold-out,
-        .product-card:hover .view-details {
-            transform: translateY(0);
-        }
-
-        .product-info {
-            padding: 1.5rem 0;
-            text-align: center;
-        }
-
-        .product-title {
-            font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-        }
-
-        .product-price {
-            font-weight: 300;
-            color: #ffffff;
-        }
-
-        /* Full-Screen Popup Overlay */
-        #shop-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0);
-            transition: background 0.5s ease;
-            z-index: 300;
-            display: none;
-            overflow: hidden;
-        }
-
-        .overlay-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .overlay-form {
-            margin-top: 20px;
-        }
-
-        .overlay-form button {
-            margin: 5px;
-            padding: 0.8rem 1.2rem;
-            background: transparent;
-            border: 1px solid #fff;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .overlay-form button:hover {
-            transform: scale(1.05);
-        }
-    </style>
+    /* Popup Overlay for Expanded Image */
+    #shop-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      pointer-events: none; /* Disabled until we show it */
+      z-index: 999;
+    }
+    /* Container to hold the cloned image */
+    .expanded-image-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    /* Popup content (text + buttons) */
+    .popup-content {
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: auto; /* So the buttons are clickable */
+    }
+    .sold-message {
+      color: #d4af37; /* Gold-ish color for a luxurious feel */
+      font-size: 1.1rem;
+      font-weight: 300;
+      max-width: 80vw;
+      margin: 0 auto 1.2rem auto;
+      line-height: 1.4;
+    }
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .button-group button {
+      padding: 0.8rem 1.5rem;
+      border: 1px solid #fff;
+      background: transparent;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .button-group button:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="header-nav">
-            <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">HOME</a>
-                <a href="about.html" class="nav-link">ABOUT</a>
-                <a href="shop.html" class="nav-link">SHOP</a>
-                <a href="InnerCircle.html" class="nav-link">THE INNER CIRCLE</a>
-                <a href="contact.html" class="nav-link">CONTACT</a>
-            </div>
-        </nav>
-    </header>
+  <header class="header">
+    <nav class="header-nav">
+      <img src="TAS Logo Vector IC.svg" alt="TAS Logo" class="logo">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="about.html" class="nav-link">ABOUT</a>
+        <a href="shop.html" class="nav-link">SHOP</a>
+        <a href="InnerCircle.html" class="nav-link">THE INNER CIRCLE</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+      </div>
+    </nav>
+  </header>
 
-    <main class="products-grid">
+  <main class="products-grid">
         <div class="product-card">
             <div class="product-image">
                 <div class="product-overlay">
@@ -351,51 +344,116 @@
         </div>
     </main>
 
-    <!-- Popup Overlay -->
-    <div id="shop-overlay">
-        <div class="overlay-content">
-            <div class="overlay-form">
-                <button id="inner-circle-button">THE INNER CIRCLE</button>
-                <button id="resume-button">RESUME BROWSING</button>
-            </div>
-        </div>
+  <!-- Popup Overlay for Expanded Image -->
+  <div id="shop-overlay">
+    <!-- Holds the cloned product image -->
+    <div class="expanded-image-container"></div>
+
+    <!-- Popup text & buttons -->
+    <div class="popup-content">
+      <p class="sold-message">
+        This piece has been sold. Join The Inner Circle for exclusive access to limited-edition drops, early releases, and insider perks
+      </p>
+      <div class="button-group">
+        <button id="inner-circle-button">THE INNER CIRCLE</button>
+        <button id="resume-button">RESUME BROWSING</button>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // Get the overlay and its content container
-        const shopOverlay = document.getElementById('shop-overlay');
-        const overlayContent = shopOverlay.querySelector('.overlay-content');
+  <script>
+    // Grab the overlay and its sub-elements
+    const shopOverlay = document.getElementById('shop-overlay');
+    const expandedContainer = shopOverlay.querySelector('.expanded-image-container');
+    const popupContent = shopOverlay.querySelector('.popup-content');
+    const innerCircleBtn = document.getElementById('inner-circle-button');
+    const resumeBtn = document.getElementById('resume-button');
 
-        // Attach click event to each "VIEW DETAILS" button
-        document.querySelectorAll('.view-details').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Display the overlay
-                shopOverlay.style.display = 'block';
-                // Fade in the background
-                setTimeout(() => {
-                    shopOverlay.style.background = 'rgba(0,0,0,0.9)';
-                }, 10);
-                // Fade in the overlay content
-                setTimeout(() => {
-                    overlayContent.style.opacity = '1';
-                }, 500);
-            });
-        });
+    // For each "VIEW DETAILS" button, animate the associated product image
+    document.querySelectorAll('.view-details').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
 
-        // "THE INNER CIRCLE" button redirects to InnerCircle.html
-        document.getElementById('inner-circle-button').addEventListener('click', () => {
-            window.location.href = 'InnerCircle.html';
-        });
+        // Identify the clicked product card & image
+        const productCard = button.closest('.product-card');
+        const originalImg = productCard.querySelector('img');
+        const rect = originalImg.getBoundingClientRect();
 
-        // "RESUME BROWSING" button closes the overlay
-        document.getElementById('resume-button').addEventListener('click', () => {
-            overlayContent.style.opacity = '0';
-            shopOverlay.style.background = 'rgba(0,0,0,0)';
-            setTimeout(() => {
-                shopOverlay.style.display = 'none';
-            }, 500);
-        });
-    </script>
+        // Clone the image
+        const clonedImg = originalImg.cloneNode(true);
+        clonedImg.style.position = 'absolute';
+        clonedImg.style.top = rect.top + 'px';
+        clonedImg.style.left = rect.left + 'px';
+        clonedImg.style.width = rect.width + 'px';
+        clonedImg.style.height = rect.height + 'px';
+        clonedImg.style.objectFit = 'cover';
+        clonedImg.style.transition = 'all 0.8s ease-in-out';
+        clonedImg.style.zIndex = '1000';
+
+        // Clear any previous image in container, then add the new clone
+        expandedContainer.innerHTML = '';
+        expandedContainer.appendChild(clonedImg);
+
+        // Display the overlay (still no background)
+        shopOverlay.style.display = 'block';
+        shopOverlay.style.pointerEvents = 'auto'; // Now clickable
+
+        // Force reflow so initial positions are applied
+        void clonedImg.offsetWidth;
+
+        // Compute final size & position (centered, somewhat larger)
+        const finalWidth = Math.min(window.innerWidth * 0.4, 600); // 40% of viewport or max 600px
+        const aspectRatio = rect.height / rect.width;
+        const finalHeight = finalWidth * aspectRatio;
+        const finalTop = (window.innerHeight - finalHeight) / 2;
+        const finalLeft = (window.innerWidth - finalWidth) / 2;
+
+        // Animate to center
+        clonedImg.style.top = finalTop + 'px';
+        clonedImg.style.left = finalLeft + 'px';
+        clonedImg.style.width = finalWidth + 'px';
+        clonedImg.style.height = finalHeight + 'px';
+
+        // Fade in the popup content after the image finishes expanding
+        setTimeout(() => {
+          popupContent.style.opacity = '1';
+        }, 800);
+      });
+    });
+
+    // THE INNER CIRCLE button
+    innerCircleBtn.addEventListener('click', () => {
+      window.location.href = 'InnerCircle.html';
+    });
+
+    // RESUME BROWSING button (close & reverse animation)
+    resumeBtn.addEventListener('click', () => {
+      // Fade out the popup text
+      popupContent.style.opacity = '0';
+
+      // Animate the cloned image back to its original position
+      const clonedImg = expandedContainer.querySelector('img');
+      if (!clonedImg) return;
+
+      // Attempt to find the original image in the document (by matching src)
+      const originalImg = [...document.querySelectorAll('.product-card img')]
+        .find(img => img.src === clonedImg.src);
+
+      if (originalImg) {
+        const rect = originalImg.getBoundingClientRect();
+        clonedImg.style.top = rect.top + 'px';
+        clonedImg.style.left = rect.left + 'px';
+        clonedImg.style.width = rect.width + 'px';
+        clonedImg.style.height = rect.height + 'px';
+      }
+
+      // After the shrink animation completes, hide overlay
+      setTimeout(() => {
+        shopOverlay.style.display = 'none';
+        shopOverlay.style.pointerEvents = 'none';
+        expandedContainer.innerHTML = ''; // Clear the cloned image
+      }, 800);
+    });
+  </script>
 </body>
 </html>
