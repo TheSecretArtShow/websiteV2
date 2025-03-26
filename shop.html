@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ARTSHOW | Shop</title>
   <style>
     /* Reset and Base Styles */
@@ -151,44 +151,54 @@
       color: #ffffff;
     }
 
-    /* Popup Overlay for Expanded Image */
+    /* Dimmed Overlay & Expanded Image */
     #shop-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
+      background: rgba(0,0,0,0); /* Start transparent */
+      transition: background 0.5s ease;
+      z-index: 999;
       display: none;
       pointer-events: none; /* Disabled until we show it */
-      z-index: 999;
     }
-    /* Container to hold the cloned image */
     .expanded-image-container {
       position: absolute;
       top: 0;
       left: 0;
+      z-index: 2; /* Above the dimmed background */
       width: 100%;
       height: 100%;
       pointer-events: none;
     }
-    /* Popup content (text + buttons) */
+
+    /* Popup content (text + buttons) on the bottom portion of the expanded image */
     .popup-content {
       position: absolute;
-      top: 65%;
+      z-index: 3; /* Above the expanded image */
       left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 600px; /* Match typical max expanded width */
+      pointer-events: auto;
       opacity: 0;
       transition: opacity 0.5s ease;
-      pointer-events: auto; /* So the buttons are clickable */
+    }
+    /* We'll position it near the bottom third of the final image */
+    .popup-content .info-background {
+      background: rgba(0,0,0,0.6); /* Subtle translucent black */
+      padding: 1rem;
+      border-radius: 4px;
     }
     .sold-message {
-      color: #d4af37; /* Gold-ish color for a luxurious feel */
-      font-size: 1.1rem;
+      color: #ffffff;
+      font-size: 1rem;
       font-weight: 300;
-      max-width: 80vw;
-      margin: 0 auto 1.2rem auto;
       line-height: 1.4;
+      margin-bottom: 1rem;
+      text-align: center;
     }
     .button-group {
       display: flex;
@@ -344,25 +354,26 @@
         </div>
     </main>
 
-  <!-- Popup Overlay for Expanded Image -->
+  <!-- Dimmed Overlay & Expanded Image -->
   <div id="shop-overlay">
-    <!-- Holds the cloned product image -->
     <div class="expanded-image-container"></div>
 
-    <!-- Popup text & buttons -->
+    <!-- Popup content with slight translucent background -->
     <div class="popup-content">
-      <p class="sold-message">
-        This piece has been sold. Join The Inner Circle for exclusive access to limited-edition drops, early releases, and insider perks
-      </p>
-      <div class="button-group">
-        <button id="inner-circle-button">THE INNER CIRCLE</button>
-        <button id="resume-button">RESUME BROWSING</button>
+      <div class="info-background">
+        <p class="sold-message">
+          This piece has been sold. Join The Inner Circle for exclusive access to limited-edition drops, early releases, and insider perks
+        </p>
+        <div class="button-group">
+          <button id="inner-circle-button">THE INNER CIRCLE</button>
+          <button id="resume-button">RESUME BROWSING</button>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Grab the overlay and its sub-elements
+    // Overlay + sub-elements
     const shopOverlay = document.getElementById('shop-overlay');
     const expandedContainer = shopOverlay.querySelector('.expanded-image-container');
     const popupContent = shopOverlay.querySelector('.popup-content');
@@ -394,28 +405,36 @@
         expandedContainer.innerHTML = '';
         expandedContainer.appendChild(clonedImg);
 
-        // Display the overlay (still no background)
+        // Display the overlay (still transparent)
         shopOverlay.style.display = 'block';
         shopOverlay.style.pointerEvents = 'auto'; // Now clickable
 
         // Force reflow so initial positions are applied
         void clonedImg.offsetWidth;
 
-        // Compute final size & position (centered, somewhat larger)
-        const finalWidth = Math.min(window.innerWidth * 0.4, 600); // 40% of viewport or max 600px
+        // Compute final size & position (centered, up to ~40% viewport width)
+        const finalWidth = Math.min(window.innerWidth * 0.4, 600);
         const aspectRatio = rect.height / rect.width;
         const finalHeight = finalWidth * aspectRatio;
         const finalTop = (window.innerHeight - finalHeight) / 2;
         const finalLeft = (window.innerWidth - finalWidth) / 2;
 
-        // Animate to center
+        // Animate the background to dim
+        setTimeout(() => {
+          shopOverlay.style.background = 'rgba(0,0,0,0.8)';
+        }, 10);
+
+        // Animate the cloned image to center
         clonedImg.style.top = finalTop + 'px';
         clonedImg.style.left = finalLeft + 'px';
         clonedImg.style.width = finalWidth + 'px';
         clonedImg.style.height = finalHeight + 'px';
 
-        // Fade in the popup content after the image finishes expanding
+        // Position the popup-content near the bottom third of the image
+        // We'll do this after the image is expanded (0.8s)
         setTimeout(() => {
+          const contentTop = finalTop + finalHeight * 0.7; // ~bottom third
+          popupContent.style.top = contentTop + 'px';
           popupContent.style.opacity = '1';
         }, 800);
       });
@@ -430,12 +449,13 @@
     resumeBtn.addEventListener('click', () => {
       // Fade out the popup text
       popupContent.style.opacity = '0';
+      shopOverlay.style.background = 'rgba(0,0,0,0)';
 
       // Animate the cloned image back to its original position
       const clonedImg = expandedContainer.querySelector('img');
       if (!clonedImg) return;
 
-      // Attempt to find the original image in the document (by matching src)
+      // Find the original image in the document (by matching src)
       const originalImg = [...document.querySelectorAll('.product-card img')]
         .find(img => img.src === clonedImg.src);
 
