@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
         /* Header Styles */
         .header {
             padding: 1rem 5%;
-            border-bottom: 1px solid #3a3a3a; /* Subtle border */
+            border-bottom: 1px solid #3a3a3a;
             position: fixed;
             width: 100%;
             background: rgba(45, 45, 45, 0.97) !important;
@@ -47,7 +47,7 @@
         }
 
         .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important; /* Crisp white links */
+            color: rgba(255, 255, 255, 0.9) !important;
             text-decoration: none;
             font-weight: 300;
             letter-spacing: 2.5px;
@@ -65,7 +65,7 @@
             left: 0;
             width: 0;
             height: 0.5px;
-            background: rgba(255, 255, 255, 0.9); /* Underline color now applied as background */
+            background: rgba(255, 255, 255, 0.9);
             transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
@@ -170,6 +170,51 @@
             font-weight: 300;
             color: #ffffff;
         }
+
+        /* Full-Screen Popup Overlay */
+        #shop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0);
+            transition: background 0.5s ease;
+            z-index: 300;
+            display: none;
+            overflow: hidden;
+        }
+
+        .overlay-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .overlay-form {
+            margin-top: 20px;
+        }
+
+        .overlay-form button {
+            margin: 5px;
+            padding: 0.8rem 1.2rem;
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .overlay-form button:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -232,7 +277,7 @@
                     <span class="sold-out">SOLD OUT</span>
                     <button class="view-details">VIEW DETAILS</button>
                 </div>
-                <img src="images2/pumpkin.png" alt="RIBS Product Image" style="width:100%; height:100%; object-fit:cover;">
+                <img src="images2/pumpkin.png" alt="pumpkin Product Image" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div class="product-info">
                 <h2 class="product-title">pumpkin</h2>
@@ -245,7 +290,7 @@
                     <span class="sold-out">SOLD OUT</span>
                     <button class="view-details">VIEW DETAILS</button>
                 </div>
-                <img src="images2/basquiat.PNG" alt="RIBS Product Image" style="width:100%; height:100%; object-fit:cover;">
+                <img src="images2/basquiat.PNG" alt="BASQUIAT Product Image" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div class="product-info">
                 <h2 class="product-title">BASQUIAT</h2>
@@ -258,7 +303,7 @@
                     <span class="sold-out">SOLD OUT</span>
                     <button class="view-details">VIEW DETAILS</button>
                 </div>
-                <img src="images2/ribs2.png" alt="RIBS Product Image" style="width:100%; height:100%; object-fit:cover;">
+                <img src="images2/ribs2.png" alt="IM FINE Product Image" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div class="product-info">
                 <h2 class="product-title">IM FINE</h2>
@@ -271,7 +316,7 @@
                     <span class="sold-out">SOLD OUT</span>
                     <button class="view-details">VIEW DETAILS</button>
                 </div>
-                <img src="images2/bird.png" alt="RIBS Product Image" style="width:100%; height:100%; object-fit:cover;">
+                <img src="images2/bird.png" alt="FALCON Product Image" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div class="product-info">
                 <h2 class="product-title">FALCON</h2>
@@ -284,7 +329,7 @@
                     <span class="sold-out">SOLD OUT</span>
                     <button class="view-details">VIEW DETAILS</button>
                 </div>
-                <img src="images2/bleach.png" alt="RIBS Product Image" style="width:100%; height:100%; object-fit:cover;">
+                <img src="images2/bleach.png" alt="BLEACH Product Image" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div class="product-info">
                 <h2 class="product-title">BLEACH</h2>
@@ -297,14 +342,60 @@
                     <span class="sold-out">SOLD OUT</span>
                     <button class="view-details">VIEW DETAILS</button>
                 </div>
-                <img src="images2/ninja.png" alt="RIBS Product Image" style="width:100%; height:100%; object-fit:cover;">
+                <img src="images2/ninja.png" alt="COLD Product Image" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div class="product-info">
                 <h2 class="product-title">COLD</h2>
                 <p class="product-price">$275</p>
             </div>
         </div>
-            
     </main>
+
+    <!-- Popup Overlay -->
+    <div id="shop-overlay">
+        <div class="overlay-content">
+            <div class="overlay-form">
+                <button id="inner-circle-button">THE INNER CIRCLE</button>
+                <button id="resume-button">RESUME BROWSING</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the overlay and its content container
+        const shopOverlay = document.getElementById('shop-overlay');
+        const overlayContent = shopOverlay.querySelector('.overlay-content');
+
+        // Attach click event to each "VIEW DETAILS" button
+        document.querySelectorAll('.view-details').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Display the overlay
+                shopOverlay.style.display = 'block';
+                // Fade in the background
+                setTimeout(() => {
+                    shopOverlay.style.background = 'rgba(0,0,0,0.9)';
+                }, 10);
+                // Fade in the overlay content
+                setTimeout(() => {
+                    overlayContent.style.opacity = '1';
+                }, 500);
+            });
+        });
+
+        // "THE INNER CIRCLE" button redirects to InnerCircle.html
+        document.getElementById('inner-circle-button').addEventListener('click', () => {
+            window.location.href = 'InnerCircle.html';
+        });
+
+        // "RESUME BROWSING" button closes the overlay
+        document.getElementById('resume-button').addEventListener('click', () => {
+            overlayContent.style.opacity = '0';
+            shopOverlay.style.background = 'rgba(0,0,0,0)';
+            setTimeout(() => {
+                shopOverlay.style.display = 'none';
+            }, 500);
+        });
+    </script>
 </body>
 </html>
