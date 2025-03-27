@@ -192,13 +192,20 @@
       padding: 1rem;
       border-radius: 4px;
     }
+    .sold-header {
+      text-align: center;
+      font-size: 1.25rem; /* ~4pt bigger than 1rem */
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+    
     .sold-message {
-      color: #ffffff;
-      font-size: 1rem;
+      text-align: center;
+      font-size: 1rem; /* Keep or match your existing size */
       font-weight: 300;
       line-height: 1.4;
       margin-bottom: 1rem;
-      text-align: center;
+      color: #ffffff; /* Matches your site aesthetic */
     }
     .button-group {
       display: flex;
@@ -361,9 +368,15 @@
     <!-- Popup content with slight translucent background -->
     <div class="popup-content">
       <div class="info-background">
-        <p class="sold-message">
-          This piece has been sold. Join The Inner Circle for exclusive access to limited-edition drops, early releases, and insider perks
+        <!-- Larger headline line -->
+        <p class="sold-message sold-header">This piece has been sold</p>
+        
+        <!-- Standard-size text -->
+        <p class="sold-message sold-details">
+          Join The Inner Circle for exclusive access to limited-edition drops,
+          early releases, and insider perks
         </p>
+        
         <div class="button-group">
           <button id="inner-circle-button">THE INNER CIRCLE</button>
           <button id="resume-button">RESUME BROWSING</button>
