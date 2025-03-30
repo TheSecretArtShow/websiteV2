@@ -12,16 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const glitchDuration = 1; // Duration of the glitch effect in seconds
 
     // Function to generate random paint texture URL
-   function getRandomPaintTexture() {
-    const randomNum = Math.floor(Math.random() * 8) + 2; // Generates 2-9
-    return `url('paint-texture ${randomNum}.svg')`;
-}
+    function getRandomPaintTexture() {
+        const randomNum = Math.floor(Math.random() * 8) + 2; // Generates 2-9
+        return `url('paint-texture ${randomNum}.svg')`;
+    }
 
-    // Add hover event listeners to buttons
-    // Modify the hover event listener
+    // Add hover event listeners to buttons (desktop hover effects)
     buttons.forEach(button => {
         button.addEventListener('mouseenter', function() {
-        // Check if it's the Inner Circle button
+            // Check if it's the Inner Circle button
             if (this.textContent.trim() === "The Inner Circle") {
                 this.style.setProperty('--random-paint', 'url("paint-texture-wide.svg")');
             } else {
@@ -30,49 +29,82 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    window.addEventListener('wheel', function (event) {
-        // Check if scrolling down (deltaY positive) or up (deltaY negative)
-        if (event.deltaY > 0 && !isLogoSmall) {
-            // Shrink and move the hero logo to the top
+    // Functions to show and hide navigation elements
+    function showNav() {
+        if (!isLogoSmall) {
             logoHero.classList.add('small');
-            isLogoSmall = true;
-
-            // Slide the navigation buttons into view
             navButtons.classList.add('visible');
+            isLogoSmall = true;
             isNavVisible = true;
-        } else if (event.deltaY < 0 && isLogoSmall) {
-            // Restore the hero logo to its original position
-            logoHero.classList.remove('small');
-            isLogoSmall = false;
+        }
+    }
 
-            // Slide the navigation buttons out of view
+    function hideNav() {
+        if (isLogoSmall) {
+            logoHero.classList.remove('small');
             navButtons.classList.remove('visible');
+            isLogoSmall = false;
             isNavVisible = false;
         }
+    }
+
+    // Desktop: Use wheel event (only when viewport width is larger)
+    window.addEventListener('wheel', function (event) {
+        if (window.innerWidth > 768) {
+            if (event.deltaY > 0) {
+                showNav();
+            } else if (event.deltaY < 0) {
+                hideNav();
+            }
+        }
     });
+
+    // Mobile: Use scroll event to trigger navigation changes
+    window.addEventListener('scroll', function () {
+        if (window.innerWidth <= 768) {
+            if (window.scrollY > 10) {
+                showNav();
+            } else {
+                hideNav();
+            }
+        }
+    });
+
+    // Mobile: Toggle dropdown menu on tap for navigation containers
+    if (window.innerWidth <= 768) {
+        const navButtonContainers = document.querySelectorAll('.nav-button-container');
+        navButtonContainers.forEach(container => {
+            container.addEventListener('click', function(e) {
+                // Prevent default link behavior
+                e.preventDefault();
+                const dropdown = container.querySelector('.dropdown');
+                if (dropdown) {
+                    // Toggle the dropdown's display style
+                    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+        });
+    }
 
     // Sync glitch effects with video timestamps
     heroVideo.addEventListener('timeupdate', function () {
         const currentTime = heroVideo.currentTime;
-
-        // Check if the current time is within any glitch timestamp range
         let isGlitchActive = false;
+
         glitchTimestamps.forEach((timestamp) => {
             if (currentTime >= timestamp && currentTime < timestamp + glitchDuration) {
                 isGlitchActive = true;
             }
         });
 
-        // Add or remove glitch effect based on the current time
-        if (isGlitchActive) {
-            buttons.forEach((button) => {
+        // Toggle glitch effect on each button
+        buttons.forEach((button) => {
+            if (isGlitchActive) {
                 button.classList.add('glitch-effect');
-                button.setAttribute('data-text', button.textContent); // Add data-text for pseudo-elements
-            });
-        } else {
-            buttons.forEach((button) => {
+                button.setAttribute('data-text', button.textContent);
+            } else {
                 button.classList.remove('glitch-effect');
-            });
-        }
+            }
+        });
     });
 });
